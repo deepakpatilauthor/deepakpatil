@@ -1,0 +1,29 @@
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://deepakpatil.dev/sitemap.xml
+
+# Crawl-delay for respectful crawling
+Crawl-delay: 1
+
+# Disallow admin or private areas (if any)
+Disallow: /admin/
+Disallow: /private/
+Disallow: /*.json$
+
+# Allow important pages
+Allow: /index.html
+Allow: /about.html
+Allow: /work.html
+Allow: /blog.html
+Allow: /contact.html
+Allow: /blog/
+Allow: /images/
+Allow: /event-driven-serverless-pipeline.html
+Allow: /privacy-policy.html
+Allow: /terms-conditions.html
+Allow: /404.html
+
+# Host directive
+Host: https://deepakpatil.dev

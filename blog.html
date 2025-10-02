@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+    <link rel="manifest" href="site.webmanifest">
+    
+    <!-- Primary Meta Tags -->
+    <title>Tech Blog - Deepak Patil | DevOps, Cloud Architecture & Engineering Insights</title>
+    <meta name="title" content="Tech Blog - Deepak Patil | DevOps, Cloud Architecture & Engineering Insights">
+    <meta name="description" content="Read Deepak Patil's technical blog covering DevOps, cloud architecture, Terraform, CI/CD pipelines, Git, and modern engineering practices. Expert insights on AWS, infrastructure as code, and software development.">
+    <meta name="keywords" content="Tech Blog, DevOps Blog, Cloud Architecture Blog, Terraform Tutorial, CI/CD Guide, Git Tutorial, AWS Blog, Infrastructure as Code, Software Engineering Blog, Technical Writing, Engineering Insights">
+    <meta name="author" content="Deepak Patil">
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+    <meta name="googlebot" content="index, follow">
+    <meta name="bingbot" content="index, follow">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://deepakpatil.dev/blog.html">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://deepakpatil.dev/blog.html">
+    <meta property="og:title" content="Tech Blog - Deepak Patil | DevOps, Cloud Architecture & Engineering Insights">
+    <meta property="og:description" content="Read Deepak Patil's technical blog covering DevOps, cloud architecture, Terraform, CI/CD pipelines, Git, and modern engineering practices.">
+    <meta property="og:image" content="https://deepakpatil.dev/images/blog-og-image.jpg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="Deepak Patil Tech Blog">
+    <meta property="og:site_name" content="Deepak Patil Portfolio">
+    <meta property="og:locale" content="en_US">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://deepakpatil.dev/blog.html">
+    <meta property="twitter:title" content="Tech Blog - Deepak Patil | DevOps, Cloud Architecture & Engineering Insights">
+    <meta property="twitter:description" content="Read Deepak Patil's technical blog covering DevOps, cloud architecture, Terraform, CI/CD pipelines, Git, and modern engineering practices.">
+    <meta property="twitter:image" content="https://deepakpatil.dev/images/blog-twitter-image.jpg">
+    <meta property="twitter:creator" content="@deepakpatil">
+    <meta property="twitter:site" content="@deepakpatil">
+    
+    <!-- Additional SEO Meta Tags -->
+    <meta name="theme-color" content="#000000">
+    <meta name="msapplication-TileColor" content="#000000">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Deepak Patil Blog">
+    
+    <!-- Preconnect for Performance -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="dns-prefetch" href="https://cdn.tailwindcss.com">
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Manrope:wght@300;400;500;600;700&family=Josefin+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles/main.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'apple': ['Inter', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'Helvetica Neue', 'sans-serif'],
+                        'apple-display': ['Manrope', 'Inter', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'Helvetica Neue', 'sans-serif'],
+                        'logo': ['Josefin Sans', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'Helvetica Neue', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <!-- Structured Data (JSON-LD) -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Blog",
+        "name": "Deepak Patil Tech Blog",
+        "description": "Technical blog covering DevOps, cloud architecture, Terraform, CI/CD pipelines, Git, and modern engineering practices.",
+        "url": "https://deepakpatil.dev/blog.html",
+        "author": {
+            "@type": "Person",
+            "name": "Deepak Patil",
+            "url": "https://deepakpatil.dev"
+        },
+        "publisher": {
+            "@type": "Person",
+            "name": "Deepak Patil",
+            "url": "https://deepakpatil.dev"
+        },
+        "blogPost": [
+            {
+                "@type": "BlogPosting",
+                "headline": "Terraform: Mastering Infrastructure as Code",
+                "description": "Learn how to manage cloud infrastructure with Terraform. From basic concepts to advanced patterns, discover how Infrastructure as Code can transform your DevOps workflow.",
+                "url": "https://deepakpatil.dev/blog/terraform-mastering-infrastructure-as-code.html",
+                "datePublished": "2024-12-22",
+                "dateModified": "2024-12-22",
+                "author": {
+                    "@type": "Person",
+                    "name": "Deepak Patil"
+                },
+                "publisher": {
+                    "@type": "Person",
+                    "name": "Deepak Patil"
+                },
+                "keywords": ["Terraform", "Infrastructure as Code", "DevOps", "AWS", "Cloud Architecture"],
+                "wordCount": "3000",
+                "timeRequired": "PT15M"
+            },
+            {
+                "@type": "BlogPosting",
+                "headline": "CI/CD Pipelines: The Complete Guide to Modern DevOps",
+                "description": "Master Continuous Integration and Continuous Deployment with this comprehensive guide. Learn how to build robust, automated pipelines.",
+                "url": "https://deepakpatil.dev/blog/cicd-pipelines-complete-guide.html",
+                "datePublished": "2024-12-23",
+                "dateModified": "2024-12-23",
+                "author": {
+                    "@type": "Person",
+                    "name": "Deepak Patil"
+                },
+                "publisher": {
+                    "@type": "Person",
+                    "name": "Deepak Patil"
+                },
+                "keywords": ["CI/CD", "DevOps", "Continuous Integration", "Continuous Deployment", "Automation"],
+                "wordCount": "3000",
+                "timeRequired": "PT18M"
+            },
+            {
+                "@type": "BlogPosting",
+                "headline": "Git: The Complete Guide to Version Control Mastery",
+                "description": "Master Git from the ground up with this comprehensive guide. Learn essential commands, branching strategies, and collaboration workflows.",
+                "url": "https://deepakpatil.dev/blog/git-complete-guide.html",
+                "datePublished": "2024-12-24",
+                "dateModified": "2024-12-24",
+                "author": {
+                    "@type": "Person",
+                    "name": "Deepak Patil"
+                },
+                "publisher": {
+                    "@type": "Person",
+                    "name": "Deepak Patil"
+                },
+                "keywords": ["Git", "Version Control", "Development", "Collaboration", "Software Engineering"],
+                "wordCount": "3000",
+                "timeRequired": "PT20M"
+            }
+        ],
+        "breadcrumb": {
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+                {
+                    "@type": "ListItem",
+                    "position": 1,
+                    "name": "Home",
+                    "item": "https://deepakpatil.dev/"
+                },
+                {
+                    "@type": "ListItem",
+                    "position": 2,
+                    "name": "Blog",
+                    "item": "https://deepakpatil.dev/blog.html"
+                }
+            ]
+        }
+    }
+    </script>
+</head>
+<body class="font-apple bg-white text-black antialiased">
+    <!-- Complete Responsive Navigation Bar -->
+    <nav class="bg-white shadow-sm border-b border-gray-200 fixed top-0 left-0 right-0 z-50" role="navigation" aria-label="Main navigation">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <!-- Brand/Logo -->
+                <div class="flex-shrink-0">
+                    <a href="index.html" class="text-xl font-bold text-black hover:text-gray-700 transition-colors duration-200" aria-label="Deepak Patil - Home">
+                        DEEPAK PATIL
+                    </a>
+                </div>
+
+                <!-- Desktop Navigation -->
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-8" id="desktop-menu">
+                        <a href="index.html" class="text-gray-600 hover:text-black px-3 py-2 text-sm font-medium transition-colors duration-200">Home</a>
+                        <a href="about.html" class="text-gray-600 hover:text-black px-3 py-2 text-sm font-medium transition-colors duration-200">About</a>
+                        <a href="work.html" class="text-gray-600 hover:text-black px-3 py-2 text-sm font-medium transition-colors duration-200">Work</a>
+                        <a href="blog.html" class="text-black font-semibold px-3 py-2 text-sm font-medium transition-colors duration-200">Blog</a>
+                        <a href="contact.html" class="text-gray-600 hover:text-black px-3 py-2 text-sm font-medium transition-colors duration-200">Contact</a>
+                    </div>
+                </div>
+
+                <!-- Mobile menu button -->
+                <div class="md:hidden">
+                    <button 
+                        id="mobile-menu-button" 
+                        type="button" 
+                        class="inline-flex items-center justify-center p-2 rounded-md text-gray-600 hover:text-black hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-black transition-colors duration-200"
+                        aria-controls="mobile-menu" 
+                        aria-expanded="false"
+                        aria-label="Toggle navigation menu"
+                    >
+                        <span class="sr-only">Open main menu</span>
+                        <!-- Hamburger icon -->
+                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile menu -->
+        <div id="mobile-menu" class="hidden md:hidden" role="menu" aria-labelledby="mobile-menu-button">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-white border-t border-gray-200 shadow-lg">
+                <!-- Close button -->
+                <div class="flex justify-end mb-2">
+                    <button 
+                        id="mobile-menu-close" 
+                        type="button" 
+                        class="inline-flex items-center justify-center p-2 rounded-md text-gray-600 hover:text-black hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-black transition-colors duration-200"
+                        aria-label="Close navigation menu"
+                    >
+                        <span class="sr-only">Close menu</span>
+                        <!-- Close icon -->
+                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                    </button>
+                </div>
+                
+                <!-- Mobile navigation links -->
+                <a href="index.html" class="text-gray-600 hover:text-black hover:bg-gray-100 block px-3 py-2 text-base font-medium rounded-md transition-colors duration-200" role="menuitem">Home</a>
+                <a href="about.html" class="text-gray-600 hover:text-black hover:bg-gray-100 block px-3 py-2 text-base font-medium rounded-md transition-colors duration-200" role="menuitem">About</a>
+                <a href="work.html" class="text-gray-600 hover:text-black hover:bg-gray-100 block px-3 py-2 text-base font-medium rounded-md transition-colors duration-200" role="menuitem">Work</a>
+                <a href="blog.html" class="bg-gray-100 text-black font-semibold block px-3 py-2 text-base font-medium rounded-md transition-colors duration-200" role="menuitem">Blog</a>
+                <a href="contact.html" class="text-gray-600 hover:text-black hover:bg-gray-100 block px-3 py-2 text-base font-medium rounded-md transition-colors duration-200" role="menuitem">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+
+    <!-- Main Content -->
+    <main class="min-h-screen bg-white">
+        <!-- Hero Section -->
+        <section class="py-32 px-6 pt-20">
+            <div class="max-w-4xl mx-auto text-center">
+                <h1 class="text-5xl md:text-6xl font-bold tracking-tight mb-8 text-gray-900">Blog</h1>
+                <p class="text-xl text-gray-600 max-w-2xl mx-auto leading-relaxed">
+                    Insights on engineering, data, and cloud technologies. Simple, reliable, effective.
+                </p>
+            </div>
+        </section>
+
+        <!-- Featured Article -->
+        <section class="pb-20 px-6">
+            <div class="max-w-4xl mx-auto">
+                <div class="bg-gray-50 rounded-lg overflow-hidden">
+                    <div class="grid lg:grid-cols-2 gap-0">
+                        <div class="aspect-square lg:aspect-square">
+                            <img src="images/Kubernatics-guide.png" 
+                                 alt="Kubernetes: The Ultimate Guide to Container Orchestration" 
+                                 class="w-full h-full object-cover"
+                                 style="width: 100%; height: 100%; object-fit: cover;">
+                        </div>
+                        <div class="p-8 lg:p-12 flex flex-col justify-center">
+                            <div class="flex items-center gap-4 mb-6">
+                                <span class="bg-gray-900 text-white px-4 py-2 rounded-full text-sm font-medium">Featured</span>
+                                <span class="text-gray-500 text-sm font-medium">DevOps & Cloud</span>
+                            </div>
+                            <h2 class="text-3xl lg:text-4xl font-bold tracking-tight mb-6 leading-tight text-gray-900">
+                                Kubernetes: The Ultimate Guide to Container Orchestration
+                            </h2>
+                            <p class="text-lg text-gray-600 leading-relaxed mb-8">Master Kubernetes from the ground up with this comprehensive guide. Learn container orchestration, deployment strategies, and production best practices that will transform your DevOps workflow.</p>
+                            <div class="flex items-center justify-between mb-8">
+                                <div class="flex items-center gap-6 text-gray-500">
+                                    <div class="flex items-center gap-2">
+                                        <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                                        </svg>
+                                        <span class="text-sm font-medium">October 1, 2025</span>
+                                    </div>
+                                    <div class="flex items-center gap-2">
+                                        <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                        </svg>
+                                        <span class="text-sm font-medium">12 min read</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <a href="blog/kubernetes-ultimate-guide.html" class="bg-gray-900 text-white hover:bg-gray-800 rounded-lg px-8 py-4 text-base font-medium w-fit inline-flex items-center justify-center transition-colors">
+                                Read Article
+                                <svg class="ml-2 h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Category Filter -->
+        <section class="pb-12 px-6">
+            <div class="max-w-7xl mx-auto">
+                <div class="flex flex-wrap gap-3 justify-center">
+                    <button class="category-btn px-6 py-3 rounded-full text-sm font-medium transition-all duration-300 bg-black text-white" data-category="All">
+                        All
+                    </button>
+                    <button class="category-btn px-6 py-3 rounded-full text-sm font-medium transition-all duration-300 bg-gray-100 text-gray-700 hover:bg-gray-200" data-category="DevOps & Cloud">
+                        DevOps & Cloud
+                    </button>
+                    <button class="category-btn px-6 py-3 rounded-full text-sm font-medium transition-all duration-300 bg-gray-100 text-gray-700 hover:bg-gray-200" data-category="User Experience">
+                        User Experience
+                    </button>
+                    <button class="category-btn px-6 py-3 rounded-full text-sm font-medium transition-all duration-300 bg-gray-100 text-gray-700 hover:bg-gray-200" data-category="Development">
+                        Development
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Blog Posts Grid -->
+        <section class="pb-32 px-6">
+            <div class="max-w-6xl mx-auto">
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- Blog Post 1: Terraform Guide -->
+                    <article class="blog-post group cursor-pointer" data-category="DevOps & Cloud" onclick="window.location.href='blog/terraform-mastering-infrastructure-as-code.html'">
+                        <div class="bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300 group-hover:-translate-y-1">
+                            <div class="aspect-square overflow-hidden">
+                                <img src="images/terraform-guide.png" 
+                                     alt="Terraform: Mastering Infrastructure as Code" 
+                                     class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+                            </div>
+                            <div class="p-6">
+                                <div class="flex items-center gap-3 mb-4">
+                                    <span class="bg-gray-100 text-gray-700 px-3 py-1 rounded-full text-sm font-medium">
+                                        DevOps & Cloud
+                                    </span>
+                                </div>
+                                <h3 class="text-xl font-bold mb-4 group-hover:text-blue-600 transition-colors leading-tight text-gray-900">
+                                    Terraform: Mastering Infrastructure as Code
+                                </h3>
+                                <p class="text-gray-600 leading-relaxed mb-6">Learn how to manage cloud infrastructure with Terraform. From basic concepts to advanced patterns, discover how Infrastructure as Code can transform your DevOps workflow and make your infrastructure reliable, repeatable, and scalable.</p>
+                                <div class="flex items-center gap-4 text-sm text-gray-500">
+                                    <div class="flex items-center gap-1">
+                                        <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                                        </svg>
+                                        <span>October 1, 2025</span>
+                                    </div>
+                                    <div class="flex items-center gap-1">
+                                        <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                        </svg>
+                                        <span>15 min read</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- Blog Post 2: CI/CD Pipelines -->
+                    <article class="blog-post group cursor-pointer" data-category="DevOps & Cloud" onclick="window.location.href='blog/cicd-pipelines-complete-guide.html'">
+                        <div class="bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300 group-hover:-translate-y-1">
+                            <div class="aspect-square overflow-hidden">
+                                <img src="images/cicid-guide.png" 
+                                     alt="CI/CD Pipelines: The Complete Guide to Modern DevOps" 
+                                     class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+                            </div>
+                            <div class="p-6">
+                                <div class="flex items-center gap-3 mb-4">
+                                    <span class="bg-gray-100 text-gray-700 px-3 py-1 rounded-full text-sm font-medium">
+                                        DevOps & Cloud
+                                    </span>
+                                </div>
+                                <h3 class="text-xl font-bold mb-4 group-hover:text-blue-600 transition-colors leading-tight text-gray-900">
+                                    CI/CD Pipelines: The Complete Guide to Modern DevOps
+                                </h3>
+                                <p class="text-gray-600 leading-relaxed mb-6">Master Continuous Integration and Continuous Deployment with this comprehensive guide. Learn how to build robust, automated pipelines that accelerate development, improve quality, and reduce deployment risks in modern software development.</p>
+                                <div class="flex items-center gap-4 text-sm text-gray-500">
+                                    <div class="flex items-center gap-1">
+                                        <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                                        </svg>
+                                        <span>October 1, 2025</span>
+                                    </div>
+                                    <div class="flex items-center gap-1">
+                                        <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                        </svg>
+                                        <span>18 min read</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- Blog Post 3: Git Guide -->
+                    <article class="blog-post group cursor-pointer" data-category="Development" onclick="window.location.href='blog/git-complete-guide.html'">
+                        <div class="bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300 group-hover:-translate-y-1">
+                            <div class="aspect-square overflow-hidden">
+                                <img src="images/git-complete-guide.png" 
+                                     alt="Git: The Complete Guide to Version Control Mastery" 
+                                     class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+                            </div>
+                            <div class="p-6">
+                                <div class="flex items-center gap-3 mb-4">
+                                    <span class="bg-gray-100 text-gray-700 px-3 py-1 rounded-full text-sm font-medium">
+                                        Development
+                                    </span>
+                                </div>
+                                <h3 class="text-xl font-bold mb-4 group-hover:text-blue-600 transition-colors leading-tight text-gray-900">
+                                    Git: The Complete Guide to Version Control Mastery
+                                </h3>
+                                <p class="text-gray-600 leading-relaxed mb-6">Master Git from the ground up with this comprehensive guide. Learn essential commands, branching strategies, collaboration workflows, and advanced techniques that will transform how you manage code and collaborate with teams.</p>
+                                <div class="flex items-center gap-4 text-sm text-gray-500">
+                                    <div class="flex items-center gap-1">
+                                        <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                                        </svg>
+                                        <span>October 1, 2025</span>
+                                    </div>
+                                    <div class="flex items-center gap-1">
+                                        <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                        </svg>
+                                        <span>20 min read</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- Newsletter Section -->
+        <section class="py-32 px-6 bg-gray-50">
+            <div class="max-w-4xl mx-auto text-center">
+                <h2 class="text-4xl md:text-5xl font-bold tracking-tight mb-8 text-gray-900">Stay Updated</h2>
+                <p class="text-xl text-gray-600 mb-12 max-w-2xl mx-auto">
+                    Get notified when I publish new articles about engineering, data, and cloud technologies.
+                </p>
+                <div class="max-w-md mx-auto">
+                    <form class="newsletter-form flex gap-4">
+                        <input
+                            type="email"
+                            placeholder="Enter your email"
+                            class="flex-1 px-6 py-4 rounded-lg border border-gray-300 focus:outline-none focus:border-gray-900 transition-colors"
+                            required
+                        />
+                        <button type="submit" class="btn btn-primary bg-gray-900 text-white hover:bg-gray-800 rounded-lg px-8 py-4">
+                            Subscribe
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-50 border-t border-gray-200">
+        <div class="max-w-7xl mx-auto px-6 py-6">
+            <div class="flex flex-col md:flex-row justify-between items-center space-y-3 md:space-y-0">
+                <p class="text-gray-600 text-sm">© 2025 Deepak Patil. All rights reserved.</p>
+                <div class="flex space-x-6 text-sm">
+                    <a href="privacy-policy.html" class="text-gray-600 hover:text-gray-900 transition-colors">Privacy Policy</a>
+                    <a href="terms-conditions.html" class="text-gray-600 hover:text-gray-900 transition-colors">Terms & Conditions</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+    <script src="js/navbar.js"></script>
+    
+    <!-- Navigation Styles -->
+    <style>
+        /* Body padding to account for fixed navbar */
+        body {
+            padding-top: 4rem; /* 64px for h-16 navbar */
+        }
+
+        /* Hamburger animation */
+        #mobile-menu-button.active svg {
+            transform: rotate(90deg);
+            transition: transform 0.3s ease;
+        }
+
+        /* Mobile menu animation */
+        #mobile-menu {
+            transition: all 0.3s ease;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            z-index: 50;
+        }
+
+        #mobile-menu:not(.hidden) {
+            animation: slideDown 0.3s ease;
+            display: block !important;
+            opacity: 1 !important;
+            visibility: visible !important;
+            transform: translateY(0) !important;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Ensure mobile menu is properly positioned on mobile */
+        @media (max-width: 767px) {
+            #mobile-menu {
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                z-index: 50;
+            }
+        }
+
+        /* Force mobile menu visibility when not hidden */
+        #mobile-menu:not(.hidden) {
+            display: block !important;
+            opacity: 1 !important;
+            visibility: visible !important;
+            transform: translateY(0) !important;
+        }
+    </style>
+    <style>
+        /* Mobile responsiveness improvements for blog page */
+        @media (max-width: 768px) {
+            /* Hero section mobile optimization */
+            .hero-title {
+                font-size: clamp(2.5rem, 8vw, 4rem);
+                line-height: 1.1;
+            }
+            
+            .hero-subtitle {
+                font-size: clamp(1.125rem, 4vw, 1.5rem);
+                line-height: 1.5;
+            }
+            
+            /* Blog grid mobile optimization */
+            .blog-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+            
+            /* Featured article mobile layout */
+            .featured-article .grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .featured-article .aspect-\[4\/3\] {
+                aspect-ratio: 16/9;
+            }
+            
+            /* Category buttons mobile layout */
+            .category-buttons {
+                flex-wrap: wrap;
+                gap: 0.75rem;
+                justify-content: center;
+            }
+            
+            .category-btn {
+                padding: 0.75rem 1.5rem;
+                font-size: 0.875rem;
+            }
+            
+            /* Newsletter form mobile optimization */
+            .newsletter-form {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .newsletter-form input {
+                width: 100%;
+            }
+            
+            .newsletter-form button {
+                width: 100%;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            /* Extra small screens */
+            .hero-title {
+                font-size: clamp(2rem, 7vw, 3rem);
+            }
+            
+            .hero-subtitle {
+                font-size: clamp(1rem, 4vw, 1.25rem);
+            }
+            
+            /* Reduce padding on very small screens */
+            .px-6 {
+                padding-left: 1rem;
+                padding-right: 1rem;
+            }
+            
+            .py-32 {
+                padding-top: 4rem;
+                padding-bottom: 4rem;
+            }
+            
+            /* Blog post cards mobile optimization */
+            .blog-post {
+                margin-bottom: 1.5rem;
+            }
+            
+            .blog-post .p-6 {
+                padding: 1rem;
+            }
+            
+            /* Category buttons on very small screens */
+            .category-btn {
+                padding: 0.5rem 1rem;
+                font-size: 0.8rem;
+            }
+        }
+        
+        
+        /* Touch improvements for mobile */
+        @media (hover: none) and (pointer: coarse) {
+            .hover\:bg-gray-100:hover {
+                background-color: transparent;
+            }
+            
+            .hover\:bg-gray-100:active {
+                background-color: rgb(243 244 246);
+            }
+            
+            .hover\:scale-105:hover {
+                transform: none;
+            }
+            
+            .hover\:scale-105:active {
+                transform: scale(1.02);
+            }
+        }
+        
+        
+        /* Prevent horizontal scroll */
+        html, body {
+            overflow-x: hidden;
+            max-width: 100%;
+        }
+        
+        /* Ensure all containers respect viewport width */
+        * {
+            max-width: 100%;
+            box-sizing: border-box;
+        }
+        
+        /* Fix for very long words or URLs */
+        p, span, div, h1, h2, h3, h4, h5, h6 {
+            word-break: break-word;
+            hyphens: auto;
+        }
+    </style>
+</body>
+</html>

@@ -1,0 +1,742 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Git: The Complete Guide to Version Control Mastery - Deepak Patil</title>
+    <meta name="description" content="Master Git from the ground up with this comprehensive guide. Learn essential commands, branching strategies, collaboration workflows, and advanced techniques that will transform how you manage code and collaborate with teams.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Manrope:wght@300;400;500;600;700&family=Josefin+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../styles/main.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'apple': ['Inter', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'Helvetica Neue', 'sans-serif'],
+                        'apple-display': ['Manrope', 'Inter', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'Helvetica Neue', 'sans-serif'],
+                        'logo': ['Josefin Sans', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'Helvetica Neue', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="font-apple bg-white text-black antialiased">
+    <!-- Complete Responsive Navigation Bar -->
+    <nav class="bg-white shadow-sm border-b border-gray-200 fixed top-0 left-0 right-0 z-50" role="navigation" aria-label="Main navigation">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <!-- Brand/Logo -->
+                <div class="flex-shrink-0">
+                    <a href="../index.html" class="text-xl font-bold text-black hover:text-gray-700 transition-colors duration-200" aria-label="Deepak Patil - Home">
+                        DEEPAK PATIL
+                    </a>
+                </div>
+
+                <!-- Desktop Navigation -->
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-8" id="desktop-menu">
+                        <a href="../index.html" class="text-gray-600 hover:text-black px-3 py-2 text-sm font-medium transition-colors duration-200">Home</a>
+                        <a href="../about.html" class="text-gray-600 hover:text-black px-3 py-2 text-sm font-medium transition-colors duration-200">About</a>
+                        <a href="../work.html" class="text-gray-600 hover:text-black px-3 py-2 text-sm font-medium transition-colors duration-200">Work</a>
+                        <a href="../blog.html" class="text-black font-semibold px-3 py-2 text-sm font-medium transition-colors duration-200">Blog</a>
+                        <a href="../contact.html" class="text-gray-600 hover:text-black px-3 py-2 text-sm font-medium transition-colors duration-200">Contact</a>
+                    </div>
+                </div>
+
+                <!-- Mobile menu button -->
+                <div class="md:hidden">
+                    <button 
+                        id="mobile-menu-button" 
+                        type="button" 
+                        class="inline-flex items-center justify-center p-2 rounded-md text-gray-600 hover:text-black hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-black transition-colors duration-200"
+                        aria-controls="mobile-menu" 
+                        aria-expanded="false"
+                        aria-label="Toggle navigation menu"
+                    >
+                        <span class="sr-only">Open main menu</span>
+                        <!-- Hamburger icon -->
+                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile menu -->
+        <div id="mobile-menu" class="hidden md:hidden" role="menu" aria-labelledby="mobile-menu-button">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-white border-t border-gray-200 shadow-lg">
+                <!-- Close button -->
+                <div class="flex justify-end mb-2">
+                    <button 
+                        id="mobile-menu-close" 
+                        type="button" 
+                        class="inline-flex items-center justify-center p-2 rounded-md text-gray-600 hover:text-black hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-black transition-colors duration-200"
+                        aria-label="Close navigation menu"
+                    >
+                        <span class="sr-only">Close menu</span>
+                        <!-- Close icon -->
+                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                    </button>
+                </div>
+                
+                <!-- Mobile navigation links -->
+                <a href="../index.html" class="text-gray-600 hover:text-black hover:bg-gray-100 block px-3 py-2 text-base font-medium rounded-md transition-colors duration-200" role="menuitem">Home</a>
+                <a href="../about.html" class="text-gray-600 hover:text-black hover:bg-gray-100 block px-3 py-2 text-base font-medium rounded-md transition-colors duration-200" role="menuitem">About</a>
+                <a href="../work.html" class="text-gray-600 hover:text-black hover:bg-gray-100 block px-3 py-2 text-base font-medium rounded-md transition-colors duration-200" role="menuitem">Work</a>
+                <a href="../blog.html" class="bg-gray-100 text-black font-semibold block px-3 py-2 text-base font-medium rounded-md transition-colors duration-200" role="menuitem">Blog</a>
+                <a href="../contact.html" class="text-gray-600 hover:text-black hover:bg-gray-100 block px-3 py-2 text-base font-medium rounded-md transition-colors duration-200" role="menuitem">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+
+    <!-- Main Content -->
+    <main class="min-h-screen bg-white pt-20">
+        <!-- Article Header -->
+        <article class="max-w-4xl mx-auto px-6 py-16 pt-24">
+            <!-- Breadcrumb - Fixed -->
+            <nav class="mb-8 fixed top-16 left-0 right-0 bg-white/95 backdrop-blur-sm z-50 py-2 px-6 border-b border-gray-100">
+                <div class="flex items-center space-x-2 text-sm text-gray-500">
+                    <a href="../blog.html" class="hover:text-black transition-colors">Blog</a>
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                    </svg>
+                    <span>Git: The Complete Guide to Version Control Mastery</span>
+                </div>
+            </nav>
+
+            <!-- Article Meta -->
+            <div class="mb-12">
+                <div class="flex items-center space-x-4 mb-6">
+                    <span class="bg-purple-100 text-purple-800 px-3 py-1 rounded-full text-sm font-medium">Development</span>
+                    <span class="text-gray-500">October 1, 2025</span>
+                    <span class="text-gray-500">20 min read</span>
+                </div>
+                <h1 class="text-5xl md:text-6xl font-apple-display font-bold tracking-tighter mb-6">Git: The Complete Guide to Version Control Mastery</h1>
+                <p class="text-xl text-gray-600 leading-relaxed mb-8">
+                    Master Git from the ground up with this comprehensive guide. Learn essential commands, branching strategies, collaboration workflows, and advanced techniques that will transform how you manage code and collaborate with teams.
+                </p>
+                
+                <!-- Article Image/Visual -->
+                <div class="aspect-square bg-gradient-to-br from-cyan-100 to-blue-200 rounded-2xl mb-12 overflow-hidden max-w-2xl mx-auto">
+                    <img src="../images/git-complete-guide.png" 
+                         alt="Git: The Complete Guide to Version Control Mastery" 
+                         class="w-full h-full object-cover rounded-2xl"
+                         style="width: 100%; height: 100%; object-fit: cover;">
+                </div>
+            </div>
+
+            <!-- Article Content -->
+            <div class="prose prose-lg max-w-none">
+                <p class="text-lg text-gray-700 leading-relaxed mb-8">
+                    Git has revolutionized how developers manage code, enabling seamless collaboration, version control, and project management. Whether you're a beginner taking your first steps in version control or an experienced developer looking to master advanced Git techniques, this comprehensive guide will equip you with the knowledge and skills needed to become a Git expert.
+                </p>
+
+                <h2 class="text-3xl font-bold mb-6 mt-12">Understanding Git Fundamentals</h2>
+                <p class="text-lg text-gray-700 leading-relaxed mb-6">
+                    Git is a distributed version control system that tracks changes in files and coordinates work among multiple developers. Unlike centralized version control systems, Git allows every developer to have a complete copy of the project history, enabling offline work and flexible collaboration.
+                </p>
+
+                <h3 class="text-2xl font-bold mb-4 mt-8">Key Git Concepts</h3>
+                <div class="grid md:grid-cols-2 gap-6 mb-8">
+                    <div class="bg-white border border-gray-200 rounded-lg p-6">
+                        <h4 class="text-lg font-bold mb-3">Repository</h4>
+                        <p class="text-gray-600 text-sm">A repository (repo) is a collection of files and their complete history. It can be local (on your machine) or remote (on a server like GitHub).</p>
+                    </div>
+                    <div class="bg-white border border-gray-200 rounded-lg p-6">
+                        <h4 class="text-lg font-bold mb-3">Commit</h4>
+                        <p class="text-gray-600 text-sm">A commit is a snapshot of your project at a specific point in time. Each commit has a unique identifier (hash) and includes a message describing the changes.</p>
+                    </div>
+                    <div class="bg-white border border-gray-200 rounded-lg p-6">
+                        <h4 class="text-lg font-bold mb-3">Branch</h4>
+                        <p class="text-gray-600 text-sm">A branch is a parallel version of your code. It allows you to work on features without affecting the main codebase.</p>
+                    </div>
+                    <div class="bg-white border border-gray-200 rounded-lg p-6">
+                        <h4 class="text-lg font-bold mb-3">Merge</h4>
+                        <p class="text-gray-600 text-sm">Merging combines changes from different branches, integrating new features or fixes into the main codebase.</p>
+                    </div>
+                </div>
+
+                <h2 class="text-3xl font-bold mb-6 mt-12">Getting Started with Git</h2>
+                <p class="text-lg text-gray-700 leading-relaxed mb-6">
+                    Before diving into advanced Git techniques, let's cover the essential setup and basic commands that form the foundation of Git usage.
+                </p>
+
+                <h3 class="text-2xl font-bold mb-4 mt-8">Initial Setup</h3>
+                <p class="text-lg text-gray-700 leading-relaxed mb-6">
+                    The first step in using Git is configuring your identity and setting up your environment.
+                </p>
+
+                <div class="bg-gray-900 rounded-lg p-6 mb-8">
+                    <pre class="text-green-400 text-sm overflow-x-auto"><code># Configure your identity
+git config --global user.name "Your Name"
+git config --global user.email "your.email@example.com"
+
+# Set default branch name
+git config --global init.defaultBranch main
+
+# Configure line ending handling
+git config --global core.autocrlf input  # For Mac/Linux
+git config --global core.autocrlf true    # For Windows
+
+# Set up a default editor
+git config --global core.editor "code --wait"  # VS Code
+git config --global core.editor "vim"          # Vim</code></pre>
+                </div>
+
+                <h3 class="text-2xl font-bold mb-4 mt-8">Essential Git Commands</h3>
+                <p class="text-lg text-gray-700 leading-relaxed mb-6">
+                    These fundamental commands form the backbone of Git usage and should be mastered by every developer.
+                </p>
+
+                <div class="space-y-6 mb-8">
+                    <div class="bg-white border border-gray-200 rounded-lg p-6">
+                        <h4 class="text-lg font-bold mb-3">git init</h4>
+                        <p class="text-gray-600 mb-3">Initialize a new Git repository in your current directory.</p>
+                        <div class="bg-gray-900 rounded p-3">
+                            <code class="text-green-400 text-sm">$ git init</code>
+                        </div>
+                    </div>
+                    <div class="bg-white border border-gray-200 rounded-lg p-6">
+                        <h4 class="text-lg font-bold mb-3">git clone</h4>
+                        <p class="text-gray-600 mb-3">Create a local copy of a remote repository.</p>
+                        <div class="bg-gray-900 rounded p-3">
+                            <code class="text-green-400 text-sm">$ git clone https://github.com/user/repo.git</code>
+                        </div>
+                    </div>
+                    <div class="bg-white border border-gray-200 rounded-lg p-6">
+                        <h4 class="text-lg font-bold mb-3">git add</h4>
+                        <p class="text-gray-600 mb-3">Stage changes for the next commit.</p>
+                        <div class="bg-gray-900 rounded p-3">
+                            <code class="text-green-400 text-sm">$ git add .                    # Add all changes
+$ git add filename.txt        # Add specific file
+$ git add -p                  # Interactive staging</code>
+                        </div>
+                    </div>
+                    <div class="bg-white border border-gray-200 rounded-lg p-6">
+                        <h4 class="text-lg font-bold mb-3">git commit</h4>
+                        <p class="text-gray-600 mb-3">Create a snapshot of your staged changes.</p>
+                        <div class="bg-gray-900 rounded p-3">
+                            <code class="text-green-400 text-sm">$ git commit -m "Add new feature"
+$ git commit -am "Quick commit"  # Add and commit in one step</code>
+                        </div>
+                    </div>
+                </div>
+
+                <h2 class="text-3xl font-bold mb-6 mt-12">Branching Strategies</h2>
+                <p class="text-lg text-gray-700 leading-relaxed mb-6">
+                    Effective branching is crucial for team collaboration and project organization. Different strategies suit different team sizes and project requirements.
+                </p>
+
+                <h3 class="text-2xl font-bold mb-4 mt-8">Git Flow</h3>
+                <p class="text-lg text-gray-700 leading-relaxed mb-6">
+                    Git Flow is a branching model that defines a strict branching structure designed around project releases. It's ideal for projects with scheduled releases.
+                </p>
+
+                <div class="bg-blue-50 border-l-4 border-blue-500 p-6 mb-8">
+                    <h4 class="text-lg font-bold mb-3 text-blue-800">Git Flow Branches:</h4>
+                    <ul class="space-y-2 text-blue-700">
+                        <li><strong>main:</strong> Production-ready code</li>
+                        <li><strong>develop:</strong> Integration branch for features</li>
+                        <li><strong>feature/*:</strong> New features</li>
+                        <li><strong>release/*:</strong> Release preparation</li>
+                        <li><strong>hotfix/*:</strong> Critical production fixes</li>
+                    </ul>
+                </div>
+
+                <h3 class="text-2xl font-bold mb-4 mt-8">GitHub Flow</h3>
+                <p class="text-lg text-gray-700 leading-relaxed mb-6">
+                    GitHub Flow is a simpler branching strategy that works well for continuous deployment and smaller teams.
+                </p>
+
+                <div class="bg-gray-900 rounded-lg p-6 mb-8">
+                    <pre class="text-green-400 text-sm overflow-x-auto"><code># GitHub Flow workflow
+# 1. Create feature branch from main
+git checkout -b feature/new-feature
+
+# 2. Make changes and commit
+git add .
+git commit -m "Implement new feature"
+
+# 3. Push branch to remote
+git push origin feature/new-feature
+
+# 4. Create pull request
+# 5. After review, merge to main
+# 6. Delete feature branch</code></pre>
+                </div>
+
+                <h2 class="text-3xl font-bold mb-6 mt-12">Advanced Git Techniques</h2>
+                <p class="text-lg text-gray-700 leading-relaxed mb-6">
+                    Once you've mastered the basics, these advanced techniques will significantly enhance your Git workflow and problem-solving capabilities.
+                </p>
+
+                <h3 class="text-2xl font-bold mb-4 mt-8">Interactive Rebase</h3>
+                <p class="text-lg text-gray-700 leading-relaxed mb-6">
+                    Interactive rebase allows you to modify commit history, combine commits, and clean up your branch before merging.
+                </p>
+
+                <div class="bg-gray-900 rounded-lg p-6 mb-8">
+                    <pre class="text-green-400 text-sm overflow-x-auto"><code># Interactive rebase for last 3 commits
+git rebase -i HEAD~3
+
+# In the editor, you can:
+# pick    - use commit as-is
+# reword  - change commit message
+# edit    - modify commit
+# squash  - combine with previous commit
+# drop    - remove commit
+
+# Example interactive rebase
+pick a1b2c3d Add user authentication
+squash d4e5f6g Fix typo in auth
+reword h7i8j9k Update documentation</code></pre>
+                </div>
+
+                <h3 class="text-2xl font-bold mb-4 mt-8">Cherry Picking</h3>
+                <p class="text-lg text-gray-700 leading-relaxed mb-6">
+                    Cherry picking allows you to apply specific commits from one branch to another, useful for hotfixes and feature backports.
+                </p>
+
+                <div class="bg-gray-900 rounded-lg p-6 mb-8">
+                    <pre class="text-green-400 text-sm overflow-x-auto"><code># Cherry pick a specific commit
+git cherry-pick commit-hash
+
+# Cherry pick multiple commits
+git cherry-pick commit1 commit2 commit3
+
+# Cherry pick a range of commits
+git cherry-pick start-commit^..end-commit
+
+# Cherry pick with conflict resolution
+git cherry-pick -x commit-hash  # Add original commit reference</code></pre>
+                </div>
+
+                <h3 class="text-2xl font-bold mb-4 mt-8">Stashing</h3>
+                <p class="text-lg text-gray-700 leading-relaxed mb-6">
+                    Stashing temporarily saves your uncommitted changes, allowing you to switch branches or pull updates without losing your work.
+                </p>
+
+                <div class="bg-gray-900 rounded-lg p-6 mb-8">
+                    <pre class="text-green-400 text-sm overflow-x-auto"><code># Save current changes to stash
+git stash
+
+# Save with a message
+git stash save "Work in progress on feature X"
+
+# List all stashes
+git stash list
+
+# Apply most recent stash
+git stash pop
+
+# Apply specific stash
+git stash apply stash@{2}
+
+# Create a branch from stash
+git stash branch new-branch-name</code></pre>
+                </div>
+
+                <h2 class="text-3xl font-bold mb-6 mt-12">Collaboration Workflows</h2>
+                <p class="text-lg text-gray-700 leading-relaxed mb-6">
+                    Effective collaboration requires understanding how to work with remote repositories, handle conflicts, and maintain clean project history.
+                </p>
+
+                <h3 class="text-2xl font-bold mb-4 mt-8">Working with Remotes</h3>
+                <p class="text-lg text-gray-700 leading-relaxed mb-6">
+                    Remote repositories enable team collaboration and serve as the central source of truth for your project.
+                </p>
+
+                <div class="bg-gray-900 rounded-lg p-6 mb-8">
+                    <pre class="text-green-400 text-sm overflow-x-auto"><code># Add a remote repository
+git remote add origin https://github.com/user/repo.git
+
+# List all remotes
+git remote -v
+
+# Fetch changes from remote
+git fetch origin
+
+# Pull changes and merge
+git pull origin main
+
+# Push changes to remote
+git push origin feature-branch
+
+# Set upstream branch
+git push -u origin feature-branch</code></pre>
+                </div>
+
+                <h3 class="text-2xl font-bold mb-4 mt-8">Resolving Merge Conflicts</h3>
+                <p class="text-lg text-gray-700 leading-relaxed mb-6">
+                    Merge conflicts occur when Git cannot automatically merge changes. Understanding how to resolve them is essential for smooth collaboration.
+                </p>
+
+                <div class="bg-yellow-50 border-l-4 border-yellow-500 p-6 mb-8">
+                    <h4 class="text-lg font-bold mb-2 text-yellow-800">Conflict Resolution Steps:</h4>
+                    <ol class="space-y-2 text-yellow-700">
+                        <li>1. Identify conflicted files with <code>git status</code></li>
+                        <li>2. Open files and look for conflict markers (<<<<<<<, =======, >>>>>>>)</li>
+                        <li>3. Edit files to resolve conflicts</li>
+                        <li>4. Stage resolved files with <code>git add</code></li>
+                        <li>5. Complete merge with <code>git commit</code></li>
+                    </ol>
+                </div>
+
+                <h2 class="text-3xl font-bold mb-6 mt-12">Git Hooks and Automation</h2>
+                <p class="text-lg text-gray-700 leading-relaxed mb-6">
+                    Git hooks allow you to automate tasks and enforce standards at various points in the Git workflow.
+                </p>
+
+                <h3 class="text-2xl font-bold mb-4 mt-8">Pre-commit Hooks</h3>
+                <p class="text-lg text-gray-700 leading-relaxed mb-6">
+                    Pre-commit hooks run before each commit, allowing you to validate code quality, run tests, or enforce coding standards.
+                </p>
+
+                <div class="bg-gray-900 rounded-lg p-6 mb-8">
+                    <pre class="text-green-400 text-sm overflow-x-auto"><code>#!/bin/sh
+# .git/hooks/pre-commit
+
+# Run linting
+npm run lint
+
+# Run tests
+npm test
+
+# Check for console.log statements
+if grep -r "console.log" src/; then
+    echo "Error: Remove console.log statements before committing"
+    exit 1
+fi
+
+# Check file size
+for file in $(git diff --cached --name-only); do
+    if [ $(stat -f%z "$file") -gt 1048576 ]; then
+        echo "Error: File $file is larger than 1MB"
+        exit 1
+    fi
+done</code></pre>
+                </div>
+
+                <h3 class="text-2xl font-bold mb-4 mt-8">Commit Message Standards</h3>
+                <p class="text-lg text-gray-700 leading-relaxed mb-6">
+                    Consistent commit messages improve project maintainability and make it easier to understand project history.
+                </p>
+
+                <div class="bg-blue-50 border-l-4 border-blue-500 p-6 mb-8">
+                    <h4 class="text-lg font-bold mb-3 text-blue-800">Conventional Commits Format:</h4>
+                    <div class="bg-gray-900 rounded p-3 mb-3">
+                        <code class="text-green-400 text-sm">type(scope): description
+
+feat(auth): add OAuth2 authentication
+fix(api): resolve memory leak in user service
+docs(readme): update installation instructions
+style(ui): format code according to style guide
+refactor(db): optimize database queries
+test(auth): add unit tests for login function</code>
+                    </div>
+                    <p class="text-blue-700 text-sm">Types: feat, fix, docs, style, refactor, test, chore</p>
+                </div>
+
+                <h2 class="text-3xl font-bold mb-6 mt-12">Git Best Practices</h2>
+                <p class="text-lg text-gray-700 leading-relaxed mb-6">
+                    Following established best practices ensures your Git workflow is efficient, maintainable, and team-friendly.
+                </p>
+
+                <h3 class="text-2xl font-bold mb-4 mt-8">Commit Best Practices</h3>
+                <ul class="list-disc pl-6 mb-6 text-lg text-gray-700 space-y-2">
+                    <li><strong>Make atomic commits:</strong> Each commit should represent a single logical change</li>
+                    <li><strong>Write clear commit messages:</strong> Describe what changed and why</li>
+                    <li><strong>Commit often:</strong> Small, frequent commits are easier to review and debug</li>
+                    <li><strong>Test before committing:</strong> Ensure your changes work as expected</li>
+                </ul>
+
+                <h3 class="text-2xl font-bold mb-4 mt-8">Branch Management</h3>
+                <ul class="list-disc pl-6 mb-6 text-lg text-gray-700 space-y-2">
+                    <li><strong>Use descriptive branch names:</strong> feature/user-authentication, bugfix/login-error</li>
+                    <li><strong>Keep branches up to date:</strong> Regularly merge or rebase from main</li>
+                    <li><strong>Delete merged branches:</strong> Clean up after successful merges</li>
+                    <li><strong>Protect main branch:</strong> Require pull requests and reviews</li>
+                </ul>
+
+                <h3 class="text-2xl font-bold mb-4 mt-8">Security Considerations</h3>
+                <ul class="list-disc pl-6 mb-6 text-lg text-gray-700 space-y-2">
+                    <li><strong>Never commit secrets:</strong> Use environment variables and .gitignore</li>
+                    <li><strong>Use SSH keys:</strong> More secure than passwords for authentication</li>
+                    <li><strong>Sign commits:</strong> Verify commit authenticity with GPG signatures</li>
+                    <li><strong>Review changes:</strong> Always review code before merging</li>
+                </ul>
+
+                <h2 class="text-3xl font-bold mb-6 mt-12">Troubleshooting Common Issues</h2>
+                <p class="text-lg text-gray-700 leading-relaxed mb-6">
+                    Even experienced developers encounter Git issues. Understanding common problems and their solutions is essential for maintaining productivity.
+                </p>
+
+                <h3 class="text-2xl font-bold mb-4 mt-8">Accidental Commits</h3>
+                <p class="text-lg text-gray-700 leading-relaxed mb-6">
+                    Sometimes you commit changes you didn't intend to. Git provides several ways to fix this.
+                </p>
+
+                <div class="bg-gray-900 rounded-lg p-6 mb-8">
+                    <pre class="text-green-400 text-sm overflow-x-auto"><code># Undo last commit (keep changes)
+git reset --soft HEAD~1
+
+# Undo last commit (discard changes)
+git reset --hard HEAD~1
+
+# Amend last commit
+git commit --amend -m "New commit message"
+
+# Remove file from last commit
+git reset --soft HEAD~1
+git reset HEAD filename
+git commit -m "Updated commit message"</code></pre>
+                </div>
+
+                <h3 class="text-2xl font-bold mb-4 mt-8">Lost Commits</h3>
+                <p class="text-lg text-gray-700 leading-relaxed mb-6">
+                    Git rarely loses data permanently. The reflog can help you recover "lost" commits.
+                </p>
+
+                <div class="bg-gray-900 rounded-lg p-6 mb-8">
+                    <pre class="text-green-400 text-sm overflow-x-auto"><code># View reflog to find lost commits
+git reflog
+
+# Recover a lost commit
+git checkout commit-hash
+
+# Create a new branch from recovered commit
+git checkout -b recovered-branch commit-hash
+
+# Cherry-pick the commit to your current branch
+git cherry-pick commit-hash</code></pre>
+                </div>
+
+                <h2 class="text-3xl font-bold mb-6 mt-12">Git Tools and Extensions</h2>
+                <p class="text-lg text-gray-700 leading-relaxed mb-6">
+                    While Git's command-line interface is powerful, various tools can enhance your Git experience and productivity.
+                </p>
+
+                <div class="grid md:grid-cols-2 gap-6 mb-8">
+                    <div class="bg-white border border-gray-200 rounded-lg p-6">
+                        <h3 class="text-xl font-bold mb-3">GUI Tools</h3>
+                        <ul class="space-y-2 text-gray-600">
+                            <li><strong>GitHub Desktop:</strong> User-friendly interface for Git operations</li>
+                            <li><strong>Sourcetree:</strong> Atlassian's free Git GUI</li>
+                            <li><strong>GitKraken:</strong> Professional Git client with advanced features</li>
+                            <li><strong>VS Code Git:</strong> Integrated Git support in VS Code</li>
+                        </ul>
+                    </div>
+                    <div class="bg-white border border-gray-200 rounded-lg p-6">
+                        <h3 class="text-xl font-bold mb-3">Command Line Tools</h3>
+                        <ul class="space-y-2 text-gray-600">
+                            <li><strong>tig:</strong> Text-mode interface for Git</li>
+                            <li><strong>lazygit:</strong> Simple terminal UI for Git</li>
+                            <li><strong>git-flow:</strong> Git extensions for Git Flow</li>
+                            <li><strong>hub:</strong> GitHub command-line tool</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <h2 class="text-3xl font-bold mb-6 mt-12">Conclusion</h2>
+                <p class="text-lg text-gray-700 leading-relaxed mb-6">
+                    Mastering Git is a journey that transforms how you work with code and collaborate with teams. From basic version control to advanced techniques like interactive rebasing and conflict resolution, Git provides the tools needed to manage complex software projects effectively.
+                </p>
+
+                <p class="text-lg text-gray-700 leading-relaxed mb-6">
+                    The key to Git mastery lies in understanding its underlying concepts, practicing regularly, and gradually incorporating advanced techniques into your workflow. Start with the fundamentals, experiment with different branching strategies, and don't be afraid to make mistakes—Git's safety net allows you to recover from almost any situation.
+                </p>
+
+                <p class="text-lg text-gray-700 leading-relaxed mb-8">
+                    Remember that Git is not just a tool but a philosophy of how to work with code. Embrace the distributed nature of Git, leverage its powerful branching capabilities, and use it to create a clean, maintainable project history that serves your team and future developers.
+                </p>
+
+                <div class="bg-blue-50 border-l-4 border-blue-500 p-6 mb-8">
+                    <h3 class="text-xl font-bold mb-3 text-blue-800">Next Steps</h3>
+                    <ul class="space-y-2 text-blue-700">
+                        <li>• Practice Git commands daily with real projects</li>
+                        <li>• Experiment with different branching strategies</li>
+                        <li>• Set up Git hooks for code quality</li>
+                        <li>• Learn to resolve merge conflicts confidently</li>
+                        <li>• Explore Git GUI tools that complement your workflow</li>
+                    </ul>
+                </div>
+            </div>
+        </article>
+
+        <!-- Related Articles -->
+        <section class="py-16 px-6 bg-gray-50">
+            <div class="max-w-6xl mx-auto">
+                <h2 class="text-3xl font-bold mb-8 text-center">Related Articles</h2>
+                <div class="grid md:grid-cols-2 gap-8">
+                    <a href="terraform-mastering-infrastructure-as-code.html" class="group">
+                        <div class="bg-white rounded-3xl shadow-lg p-8 hover:shadow-xl transition-shadow">
+                            <div class="flex items-center space-x-4 mb-4">
+                                <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-medium">DevOps & Cloud</span>
+                                <span class="text-gray-500 text-sm">December 22, 2025</span>
+                            </div>
+                            <h3 class="text-xl font-bold mb-3 group-hover:text-blue-600 transition-colors">Terraform: Mastering Infrastructure as Code</h3>
+                            <p class="text-gray-600">Learn how to manage cloud infrastructure with Terraform from basic concepts to advanced patterns.</p>
+                        </div>
+                    </a>
+                    <a href="cicd-pipelines-complete-guide.html" class="group">
+                        <div class="bg-white rounded-3xl shadow-lg p-8 hover:shadow-xl transition-shadow">
+                            <div class="flex items-center space-x-4 mb-4">
+                                <span class="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-medium">CI/CD</span>
+                                <span class="text-gray-500 text-sm">December 23, 2025</span>
+                            </div>
+                            <h3 class="text-xl font-bold mb-3 group-hover:text-blue-600 transition-colors">CI/CD Pipelines: The Complete Guide to Modern DevOps</h3>
+                            <p class="text-gray-600">Master Continuous Integration and Continuous Deployment with this comprehensive guide.</p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-50 border-t border-gray-200">
+        <div class="max-w-7xl mx-auto px-6 py-6">
+            <div class="flex flex-col md:flex-row justify-between items-center space-y-3 md:space-y-0">
+                <p class="text-gray-600 text-sm">© 2025 Deepak Patil. All rights reserved.</p>
+                <div class="flex space-x-6 text-sm">
+                    <a href="../privacy-policy.html" class="text-gray-600 hover:text-gray-900 transition-colors">Privacy Policy</a>
+                    <a href="../terms-conditions.html" class="text-gray-600 hover:text-gray-900 transition-colors">Terms & Conditions</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../js/main.js"></script>
+    <script src="../js/navbar.js"></script>
+    <style>
+        /* Mobile Menu Styles */
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 9999;
+            display: none;
+        }
+        
+        .mobile-menu.active {
+            display: block;
+        }
+        
+        .mobile-menu-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(4px);
+        }
+        
+        .mobile-menu-content {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 320px;
+            max-width: 85vw;
+            height: 100%;
+            background-color: white;
+            box-shadow: -10px 0 30px rgba(0, 0, 0, 0.1);
+            transform: translateX(100%);
+            transition: transform 0.3s ease-in-out;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .mobile-menu.active .mobile-menu-content {
+            transform: translateX(0);
+        }
+        
+        .mobile-menu-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem;
+            border-bottom: 1px solid #e5e7eb;
+        }
+        
+        .mobile-menu-close {
+            padding: 0.5rem;
+            border-radius: 0.5rem;
+            transition: background-color 0.2s;
+            cursor: pointer;
+        }
+        
+        .mobile-menu-close:hover {
+            background-color: #f3f4f6;
+        }
+        
+        .mobile-menu-nav {
+            flex: 1;
+            padding: 2rem 1.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+        
+        .mobile-menu-link {
+            display: block;
+            font-size: 1.125rem;
+            font-weight: 500;
+            color: #6b7280;
+            text-decoration: none;
+            padding: 0.5rem 0;
+            transition: color 0.2s;
+        }
+        
+        .mobile-menu-link:hover,
+        .mobile-menu-link.active {
+            color: #000;
+        }
+        
+        .mobile-menu-footer {
+            padding: 1.5rem;
+            border-top: 1px solid #e5e7eb;
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+        
+        .mobile-menu-footer-link {
+            font-size: 0.875rem;
+            color: #6b7280;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        
+        .mobile-menu-footer-link:hover {
+            color: #000;
+        }
+        
+        /* Hamburger animation */
+        .mobile-menu-open .hamburger-line:nth-child(1) {
+            transform: rotate(45deg) translateY(0);
+        }
+        .mobile-menu-open .hamburger-line:nth-child(2) {
+            opacity: 0;
+        }
+        .mobile-menu-open .hamburger-line:nth-child(3) {
+            transform: rotate(-45deg) translateY(0);
+        }
+        
+        /* Prevent body scroll when mobile menu is open */
+        body.mobile-menu-open {
+            overflow: hidden !important;
+        }
+    </style>
+</body>
+</html>
