@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CI/CD Pipelines: The Complete Guide to Modern DevOps - Deepak Patil</title>
+    <meta name="description" content="Master Continuous Integration and Continuous Deployment with this comprehensive guide. Learn how to build robust, automated pipelines that accelerate development, improve quality, and reduce deployment risks in modern software development.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Manrope:wght@300;400;500;600;700&family=Josefin+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../styles/main.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'apple': ['Inter', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'Helvetica Neue', 'sans-serif'],
+                        'apple-display': ['Manrope', 'Inter', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'Helvetica Neue', 'sans-serif'],
+                        'logo': ['Josefin Sans', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'Helvetica Neue', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="font-apple bg-white text-black antialiased">
+    <!-- Complete Responsive Navigation Bar -->
+    <nav class="bg-white shadow-sm border-b border-gray-200 fixed top-0 left-0 right-0 z-50" role="navigation" aria-label="Main navigation">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <!-- Brand/Logo -->
+                <div class="flex-shrink-0">
+                    <a href="../index.html" class="text-xl font-bold text-black hover:text-gray-700 transition-colors duration-200" aria-label="Deepak Patil - Home">
+                        DEEPAK PATIL
+                    </a>
+                </div>
+
+                <!-- Desktop Navigation -->
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-8" id="desktop-menu">
+                        <a href="../index.html" class="text-gray-600 hover:text-black px-3 py-2 text-sm font-medium transition-colors duration-200">Home</a>
+                        <a href="../about.html" class="text-gray-600 hover:text-black px-3 py-2 text-sm font-medium transition-colors duration-200">About</a>
+                        <a href="../work.html" class="text-gray-600 hover:text-black px-3 py-2 text-sm font-medium transition-colors duration-200">Work</a>
+                        <a href="../blog.html" class="text-black font-semibold px-3 py-2 text-sm font-medium transition-colors duration-200">Blog</a>
+                        <a href="../contact.html" class="text-gray-600 hover:text-black px-3 py-2 text-sm font-medium transition-colors duration-200">Contact</a>
+                    </div>
+                </div>
+
+                <!-- Mobile menu button -->
+                <div class="md:hidden">
+                    <button 
+                        id="mobile-menu-button" 
+                        type="button" 
+                        class="inline-flex items-center justify-center p-2 rounded-md text-gray-600 hover:text-black hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-black transition-colors duration-200"
+                        aria-controls="mobile-menu" 
+                        aria-expanded="false"
+                        aria-label="Toggle navigation menu"
+                    >
+                        <span class="sr-only">Open main menu</span>
+                        <!-- Hamburger icon -->
+                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile menu -->
+        <div id="mobile-menu" class="hidden md:hidden" role="menu" aria-labelledby="mobile-menu-button">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-white border-t border-gray-200 shadow-lg">
+                <!-- Close button -->
+                <div class="flex justify-end mb-2">
+                    <button 
+                        id="mobile-menu-close" 
+                        type="button" 
+                        class="inline-flex items-center justify-center p-2 rounded-md text-gray-600 hover:text-black hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-black transition-colors duration-200"
+                        aria-label="Close navigation menu"
+                    >
+                        <span class="sr-only">Close menu</span>
+                        <!-- Close icon -->
+                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                    </button>
+                </div>
+                
+                <!-- Mobile navigation links -->
+                <a href="../index.html" class="text-gray-600 hover:text-black hover:bg-gray-100 block px-3 py-2 text-base font-medium rounded-md transition-colors duration-200" role="menuitem">Home</a>
+                <a href="../about.html" class="text-gray-600 hover:text-black hover:bg-gray-100 block px-3 py-2 text-base font-medium rounded-md transition-colors duration-200" role="menuitem">About</a>
+                <a href="../work.html" class="text-gray-600 hover:text-black hover:bg-gray-100 block px-3 py-2 text-base font-medium rounded-md transition-colors duration-200" role="menuitem">Work</a>
+                <a href="../blog.html" class="bg-gray-100 text-black font-semibold block px-3 py-2 text-base font-medium rounded-md transition-colors duration-200" role="menuitem">Blog</a>
+                <a href="../contact.html" class="text-gray-600 hover:text-black hover:bg-gray-100 block px-3 py-2 text-base font-medium rounded-md transition-colors duration-200" role="menuitem">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+
+    <!-- Main Content -->
+    <main class="min-h-screen bg-white pt-20">
+        <!-- Article Header -->
+        <article class="max-w-4xl mx-auto px-6 py-16 pt-24">
+            <!-- Breadcrumb - Fixed -->
+            <nav class="mb-8 fixed top-16 left-0 right-0 bg-white/95 backdrop-blur-sm z-50 py-2 px-6 border-b border-gray-100">
+                <div class="flex items-center space-x-2 text-sm text-gray-500">
+                    <a href="../blog.html" class="hover:text-black transition-colors">Blog</a>
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                    </svg>
+                    <span>CI/CD Pipelines: The Complete Guide to Modern DevOps</span>
+                </div>
+            </nav>
+
+            <!-- Article Meta -->
+            <div class="mb-12">
+                <div class="flex items-center space-x-4 mb-6">
+                    <span class="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-medium">CI/CD</span>
+                    <span class="text-gray-500">October 1, 2025</span>
+                    <span class="text-gray-500">18 min read</span>
+                </div>
+                <h1 class="text-5xl md:text-6xl font-apple-display font-bold tracking-tighter mb-6">CI/CD Pipelines: The Complete Guide to Modern DevOps</h1>
+                <p class="text-xl text-gray-600 leading-relaxed mb-8">
+                    Master Continuous Integration and Continuous Deployment with this comprehensive guide. Learn how to build robust, automated pipelines that accelerate development, improve quality, and reduce deployment risks in modern software development.
+                </p>
+                
+                <!-- Article Image/Visual -->
+                <div class="aspect-square bg-gradient-to-br from-orange-100 to-amber-200 rounded-2xl mb-12 overflow-hidden max-w-2xl mx-auto">
+                    <img src="../images/cicid-guide.png" 
+                         alt="CI/CD Pipelines: The Complete Guide to Modern DevOps" 
+                         class="w-full h-full object-cover rounded-2xl"
+                         style="width: 100%; height: 100%; object-fit: cover;">
+                </div>
+            </div>
+
+            <!-- Article Content -->
+            <div class="prose prose-lg max-w-none">
+                <p class="text-lg text-gray-700 leading-relaxed mb-8">
+                    In today's fast-paced software development landscape, the ability to deliver high-quality software quickly and reliably is more important than ever. Continuous Integration and Continuous Deployment (CI/CD) pipelines have become the backbone of modern DevOps practices, enabling teams to automate their software delivery process and achieve unprecedented levels of efficiency and reliability.
+                </p>
+
+                <h2 class="text-3xl font-bold mb-6 mt-12">Understanding CI/CD Fundamentals</h2>
+                <p class="text-lg text-gray-700 leading-relaxed mb-6">
+                    CI/CD represents a set of practices and tools that help development teams deliver code changes more frequently and reliably. Let's break down these concepts:
+                </p>
+
+                <h3 class="text-2xl font-bold mb-4 mt-8">Continuous Integration (CI)</h3>
+                <p class="text-lg text-gray-700 leading-relaxed mb-6">
+                    Continuous Integration is the practice of automatically integrating code changes from multiple developers into a shared repository several times a day. Each integration is verified by an automated build and test process, allowing teams to detect problems early.
+                </p>
+
+                <div class="bg-blue-50 border-l-4 border-blue-500 p-6 mb-8">
+                    <h4 class="text-lg font-bold mb-3 text-blue-800">Key CI Benefits:</h4>
+                    <ul class="space-y-2 text-blue-700">
+                        <li>• Early detection of integration problems</li>
+                        <li>• Reduced integration time and effort</li>
+                        <li>• Improved code quality through automated testing</li>
+                        <li>• Faster feedback loops for developers</li>
+                    </ul>
+                </div>
+
+                <h3 class="text-2xl font-bold mb-4 mt-8">Continuous Deployment (CD)</h3>
+                <p class="text-lg text-gray-700 leading-relaxed mb-6">
+                    Continuous Deployment extends CI by automatically deploying code changes to production environments after passing all tests. This practice ensures that software is always in a deployable state and can be released at any time.
+                </p>
+
+                <h2 class="text-3xl font-bold mb-6 mt-12">Building Your First CI/CD Pipeline</h2>
+                <p class="text-lg text-gray-700 leading-relaxed mb-6">
+                    Let's walk through creating a comprehensive CI/CD pipeline using GitHub Actions, one of the most popular CI/CD platforms.
+                </p>
+
+                <div class="bg-gray-900 rounded-lg p-6 mb-8">
+                    <pre class="text-green-400 text-sm overflow-x-auto"><code># .github/workflows/ci-cd.yml
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Setup Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '18'
+        cache: 'npm'
+    
+    - name: Install dependencies
+      run: npm ci
+    
+    - name: Run tests
+      run: npm test
+    
+    - name: Run linting
+      run: npm run lint
+    
+    - name: Build application
+      run: npm run build
+
+  security-scan:
+    runs-on: ubuntu-latest
+    needs: test
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Run security audit
+      run: npm audit --audit-level moderate
+    
+    - name: Run Snyk security scan
+      uses: snyk/actions/node@master
+      env:
+        SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+
+  deploy-staging:
+    runs-on: ubuntu-latest
+    needs: [test, security-scan]
+    if: github.ref == 'refs/heads/develop'
+    steps:
+    - name: Deploy to staging
+      run: echo "Deploying to staging environment"
+    
+  deploy-production:
+    runs-on: ubuntu-latest
+    needs: [test, security-scan]
+    if: github.ref == 'refs/heads/main'
+    steps:
+    - name: Deploy to production
+      run: echo "Deploying to production environment"</code></pre>
+                </div>
+
+                <h2 class="text-3xl font-bold mb-6 mt-12">Pipeline Stages and Best Practices</h2>
+                <p class="text-lg text-gray-700 leading-relaxed mb-6">
+                    A well-designed CI/CD pipeline consists of several key stages, each serving a specific purpose in the software delivery process.
+                </p>
+
+                <div class="grid md:grid-cols-2 gap-8 mb-8">
+                    <div class="bg-white border border-gray-200 rounded-lg p-6">
+                        <h3 class="text-xl font-bold mb-4">1. Source Stage</h3>
+                        <p class="text-gray-600 mb-4">Trigger pipeline on code changes</p>
+                        <ul class="text-sm text-gray-600 space-y-1">
+                            <li>• Code commit triggers</li>
+                            <li>• Pull request events</li>
+                            <li>• Scheduled builds</li>
+                            <li>• Manual triggers</li>
+                        </ul>
+                    </div>
+                    <div class="bg-white border border-gray-200 rounded-lg p-6">
+                        <h3 class="text-xl font-bold mb-4">2. Build Stage</h3>
+                        <p class="text-gray-600 mb-4">Compile and package application</p>
+                        <ul class="text-sm text-gray-600 space-y-1">
+                            <li>• Dependency installation</li>
+                            <li>• Code compilation</li>
+                            <li>• Asset optimization</li>
+                            <li>• Artifact creation</li>
+                        </ul>
+                    </div>
+                    <div class="bg-white border border-gray-200 rounded-lg p-6">
+                        <h3 class="text-xl font-bold mb-4">3. Test Stage</h3>
+                        <p class="text-gray-600 mb-4">Validate code quality and functionality</p>
+                        <ul class="text-sm text-gray-600 space-y-1">
+                            <li>• Unit tests</li>
+                            <li>• Integration tests</li>
+                            <li>• Code coverage analysis</li>
+                            <li>• Performance tests</li>
+                        </ul>
+                    </div>
+                    <div class="bg-white border border-gray-200 rounded-lg p-6">
+                        <h3 class="text-xl font-bold mb-4">4. Deploy Stage</h3>
+                        <p class="text-gray-600 mb-4">Deploy to target environments</p>
+                        <ul class="text-sm text-gray-600 space-y-1">
+                            <li>• Environment provisioning</li>
+                            <li>• Application deployment</li>
+                            <li>• Configuration management</li>
+                            <li>• Health checks</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <h2 class="text-3xl font-bold mb-6 mt-12">Advanced CI/CD Patterns</h2>
+                <p class="text-lg text-gray-700 leading-relaxed mb-6">
+                    As your applications grow in complexity, you'll need to implement more sophisticated CI/CD patterns to handle various scenarios and requirements.
+                </p>
+
+                <h3 class="text-2xl font-bold mb-4 mt-8">Blue-Green Deployment</h3>
+                <p class="text-lg text-gray-700 leading-relaxed mb-6">
+                    Blue-green deployment is a technique that reduces downtime and risk by running two identical production environments called Blue and Green. At any time, only one of the environments is live, with the other serving as a staging environment.
+                </p>
+
+                <div class="bg-gray-900 rounded-lg p-6 mb-8">
+                    <pre class="text-green-400 text-sm overflow-x-auto"><code># Blue-Green deployment example
+deploy:
+  runs-on: ubuntu-latest
+  steps:
+  - name: Deploy to Green environment
+    run: |
+      # Deploy new version to green environment
+      kubectl apply -f k8s/green/
+      
+  - name: Run smoke tests on Green
+    run: |
+      # Test the green environment
+      npm run test:smoke -- --env=green
+      
+  - name: Switch traffic to Green
+    run: |
+      # Update load balancer to point to green
+      kubectl patch service app-service -p '{"spec":{"selector":{"version":"green"}}}'
+      
+  - name: Monitor for 5 minutes
+    run: |
+      # Monitor application health
+      sleep 300
+      
+  - name: Clean up Blue environment
+    if: success()
+    run: |
+      # Remove old blue environment
+      kubectl delete -f k8s/blue/</code></pre>
+                </div>
+
+                <h3 class="text-2xl font-bold mb-4 mt-8">Canary Deployments</h3>
+                <p class="text-lg text-gray-700 leading-relaxed mb-6">
+                    Canary deployments gradually roll out changes to a small subset of users before making them available to everyone. This approach allows you to validate changes in production with minimal risk.
+                </p>
+
+                <h3 class="text-2xl font-bold mb-4 mt-8">Feature Flags</h3>
+                <p class="text-lg text-gray-700 leading-relaxed mb-6">
+                    Feature flags allow you to enable or disable features in production without deploying new code. This technique enables safer deployments and A/B testing capabilities.
+                </p>
+
+                <h2 class="text-3xl font-bold mb-6 mt-12">Monitoring and Observability</h2>
+                <p class="text-lg text-gray-700 leading-relaxed mb-6">
+                    Effective CI/CD pipelines require comprehensive monitoring and observability to ensure reliability and performance.
+                </p>
+
+                <div class="grid md:grid-cols-3 gap-6 mb-8">
+                    <div class="bg-white border border-gray-200 rounded-lg p-6">
+                        <h3 class="text-xl font-bold mb-3">Pipeline Metrics</h3>
+                        <ul class="text-sm text-gray-600 space-y-1">
+                            <li>• Build success rate</li>
+                            <li>• Deployment frequency</li>
+                            <li>• Lead time for changes</li>
+                            <li>• Mean time to recovery</li>
+                        </ul>
+                    </div>
+                    <div class="bg-white border border-gray-200 rounded-lg p-6">
+                        <h3 class="text-xl font-bold mb-3">Application Metrics</h3>
+                        <ul class="text-sm text-gray-600 space-y-1">
+                            <li>• Response times</li>
+                            <li>• Error rates</li>
+                            <li>• Throughput</li>
+                            <li>• Resource utilization</li>
+                        </ul>
+                    </div>
+                    <div class="bg-white border border-gray-200 rounded-lg p-6">
+                        <h3 class="text-xl font-bold mb-3">Business Metrics</h3>
+                        <ul class="text-sm text-gray-600 space-y-1">
+                            <li>• User satisfaction</li>
+                            <li>• Feature adoption</li>
+                            <li>• Revenue impact</li>
+                            <li>• Customer retention</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <h2 class="text-3xl font-bold mb-6 mt-12">Security in CI/CD</h2>
+                <p class="text-lg text-gray-700 leading-relaxed mb-6">
+                    Security must be integrated throughout the CI/CD pipeline, not just as a final checkpoint. This approach, known as "shift-left security," helps identify and address security issues early in the development process.
+                </p>
+
+                <h3 class="text-2xl font-bold mb-4 mt-8">Security Scanning</h3>
+                <ul class="list-disc pl-6 mb-6 text-lg text-gray-700 space-y-2">
+                    <li><strong>Static Application Security Testing (SAST):</strong> Analyze source code for security vulnerabilities</li>
+                    <li><strong>Dynamic Application Security Testing (DAST):</strong> Test running applications for security issues</li>
+                    <li><strong>Dependency Scanning:</strong> Check for known vulnerabilities in third-party libraries</li>
+                    <li><strong>Container Scanning:</strong> Analyze container images for security issues</li>
+                </ul>
+
+                <h3 class="text-2xl font-bold mb-4 mt-8">Secrets Management</h3>
+                <p class="text-lg text-gray-700 leading-relaxed mb-6">
+                    Proper secrets management is crucial for CI/CD security. Never store secrets in code or configuration files. Use dedicated secrets management solutions.
+                </p>
+
+                <div class="bg-gray-900 rounded-lg p-6 mb-8">
+                    <pre class="text-green-400 text-sm overflow-x-auto"><code># Example: Using GitHub Secrets
+- name: Deploy to AWS
+  env:
+    AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+    AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+    DATABASE_URL: ${{ secrets.DATABASE_URL }}
+  run: |
+    # Deployment commands here</code></pre>
+                </div>
+
+                <h2 class="text-3xl font-bold mb-6 mt-12">CI/CD Tools and Platforms</h2>
+                <p class="text-lg text-gray-700 leading-relaxed mb-6">
+                    The CI/CD landscape offers numerous tools and platforms, each with its own strengths and use cases. Choosing the right tools depends on your specific requirements and constraints.
+                </p>
+
+                <div class="grid md:grid-cols-2 gap-8 mb-8">
+                    <div class="bg-white border border-gray-200 rounded-lg p-6">
+                        <h3 class="text-xl font-bold mb-4">Cloud-Native Solutions</h3>
+                        <ul class="space-y-2 text-gray-600">
+                            <li><strong>GitHub Actions:</strong> Integrated with GitHub, easy to use</li>
+                            <li><strong>GitLab CI/CD:</strong> Comprehensive DevOps platform</li>
+                            <li><strong>Azure DevOps:</strong> Microsoft's integrated solution</li>
+                            <li><strong>Bitbucket Pipelines:</strong> Atlassian's CI/CD solution</li>
+                        </ul>
+                    </div>
+                    <div class="bg-white border border-gray-200 rounded-lg p-6">
+                        <h3 class="text-xl font-bold mb-4">Self-Hosted Solutions</h3>
+                        <ul class="space-y-2 text-gray-600">
+                            <li><strong>Jenkins:</strong> Highly customizable, extensive plugin ecosystem</li>
+                            <li><strong>TeamCity:</strong> JetBrains' powerful CI/CD server</li>
+                            <li><strong>Bamboo:</strong> Atlassian's enterprise CI/CD solution</li>
+                            <li><strong>Buildkite:</strong> Hybrid cloud/self-hosted solution</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <h2 class="text-3xl font-bold mb-6 mt-12">Troubleshooting Common Issues</h2>
+                <p class="text-lg text-gray-700 leading-relaxed mb-6">
+                    Even well-designed CI/CD pipelines can encounter issues. Understanding common problems and their solutions helps maintain pipeline reliability.
+                </p>
+
+                <h3 class="text-2xl font-bold mb-4 mt-8">Flaky Tests</h3>
+                <p class="text-lg text-gray-700 leading-relaxed mb-6">
+                    Flaky tests are tests that sometimes pass and sometimes fail without any code changes. They can significantly impact pipeline reliability.
+                </p>
+
+                <div class="bg-yellow-50 border-l-4 border-yellow-500 p-6 mb-8">
+                    <h4 class="text-lg font-bold mb-2 text-yellow-800">Solutions:</h4>
+                    <ul class="space-y-2 text-yellow-700">
+                        <li>• Identify and fix the root cause of flakiness</li>
+                        <li>• Implement retry mechanisms for transient failures</li>
+                        <li>• Use test isolation to prevent interference</li>
+                        <li>• Monitor test stability over time</li>
+                    </ul>
+                </div>
+
+                <h3 class="text-2xl font-bold mb-4 mt-8">Long Build Times</h3>
+                <p class="text-lg text-gray-700 leading-relaxed mb-6">
+                    Slow builds can significantly impact developer productivity and deployment frequency.
+                </p>
+
+                <div class="bg-yellow-50 border-l-4 border-yellow-500 p-6 mb-8">
+                    <h4 class="text-lg font-bold mb-2 text-yellow-800">Optimization Strategies:</h4>
+                    <ul class="space-y-2 text-yellow-700">
+                        <li>• Implement build caching for dependencies</li>
+                        <li>• Use parallel job execution</li>
+                        <li>• Optimize Docker images and layers</li>
+                        <li>• Consider build matrix strategies</li>
+                    </ul>
+                </div>
+
+                <h2 class="text-3xl font-bold mb-6 mt-12">Best Practices for CI/CD</h2>
+                <p class="text-lg text-gray-700 leading-relaxed mb-6">
+                    Following established best practices ensures your CI/CD pipelines are reliable, maintainable, and secure.
+                </p>
+
+                <h3 class="text-2xl font-bold mb-4 mt-8">Pipeline Design Principles</h3>
+                <ul class="list-disc pl-6 mb-6 text-lg text-gray-700 space-y-2">
+                    <li><strong>Fail Fast:</strong> Stop the pipeline as soon as a critical issue is detected</li>
+                    <li><strong>Idempotent:</strong> Pipelines should produce the same result regardless of how many times they run</li>
+                    <li><strong>Reproducible:</strong> Builds should be deterministic and reproducible</li>
+                    <li><strong>Fast Feedback:</strong> Provide quick feedback to developers</li>
+                </ul>
+
+                <h3 class="text-2xl font-bold mb-4 mt-8">Code Quality Gates</h3>
+                <p class="text-lg text-gray-700 leading-relaxed mb-6">
+                    Implement quality gates to ensure only high-quality code reaches production.
+                </p>
+
+                <div class="bg-gray-900 rounded-lg p-6 mb-8">
+                    <pre class="text-green-400 text-sm overflow-x-auto"><code># Quality gates example
+quality-gates:
+  runs-on: ubuntu-latest
+  steps:
+  - name: Code Coverage Check
+    run: |
+      coverage=$(npm run test:coverage --silent | grep -o '[0-9]*%' | head -1)
+      if [ "$coverage" -lt 80 ]; then
+        echo "Coverage $coverage is below 80% threshold"
+        exit 1
+      fi
+  
+  - name: Security Scan
+    run: npm audit --audit-level high
+  
+  - name: Performance Budget
+    run: npm run lighthouse -- --budget-path=budget.json</code></pre>
+                </div>
+
+                <h2 class="text-3xl font-bold mb-6 mt-12">Conclusion</h2>
+                <p class="text-lg text-gray-700 leading-relaxed mb-6">
+                    CI/CD pipelines are essential for modern software development, enabling teams to deliver high-quality software quickly and reliably. By implementing the patterns, practices, and tools discussed in this guide, you can build robust pipelines that accelerate development and improve software quality.
+                </p>
+
+                <p class="text-lg text-gray-700 leading-relaxed mb-6">
+                    Remember that CI/CD is not just about automation—it's about creating a culture of continuous improvement, collaboration, and quality. Start with simple pipelines and gradually add complexity as your needs evolve. The investment in CI/CD will pay dividends in improved developer productivity, faster time to market, and higher software quality.
+                </p>
+
+                <div class="bg-blue-50 border-l-4 border-blue-500 p-6 mb-8">
+                    <h3 class="text-xl font-bold mb-3 text-blue-800">Next Steps</h3>
+                    <ul class="space-y-2 text-blue-700">
+                        <li>• Start with a simple CI/CD pipeline for your current project</li>
+                        <li>• Implement automated testing and quality gates</li>
+                        <li>• Explore advanced deployment strategies like blue-green and canary</li>
+                        <li>• Integrate security scanning into your pipeline</li>
+                        <li>• Monitor and optimize pipeline performance</li>
+                    </ul>
+                </div>
+            </div>
+        </article>
+
+        <!-- Related Articles -->
+        <section class="py-16 px-6 bg-gray-50">
+            <div class="max-w-6xl mx-auto">
+                <h2 class="text-3xl font-bold mb-8 text-center">Related Articles</h2>
+                <div class="grid md:grid-cols-2 gap-8">
+                    <a href="terraform-mastering-infrastructure-as-code.html" class="group">
+                        <div class="bg-white rounded-3xl shadow-lg p-8 hover:shadow-xl transition-shadow">
+                            <div class="flex items-center space-x-4 mb-4">
+                                <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-medium">DevOps & Cloud</span>
+                                <span class="text-gray-500 text-sm">December 22, 2025</span>
+                            </div>
+                            <h3 class="text-xl font-bold mb-3 group-hover:text-blue-600 transition-colors">Terraform: Mastering Infrastructure as Code</h3>
+                            <p class="text-gray-600">Learn how to manage cloud infrastructure with Terraform from basic concepts to advanced patterns.</p>
+                        </div>
+                    </a>
+                    <a href="git-complete-guide.html" class="group">
+                        <div class="bg-white rounded-3xl shadow-lg p-8 hover:shadow-xl transition-shadow">
+                            <div class="flex items-center space-x-4 mb-4">
+                                <span class="bg-purple-100 text-purple-800 px-3 py-1 rounded-full text-sm font-medium">Development</span>
+                                <span class="text-gray-500 text-sm">December 24, 2025</span>
+                            </div>
+                            <h3 class="text-xl font-bold mb-3 group-hover:text-blue-600 transition-colors">Git: The Complete Guide to Version Control Mastery</h3>
+                            <p class="text-gray-600">Master Git from the ground up with this comprehensive guide.</p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-50 border-t border-gray-200">
+        <div class="max-w-7xl mx-auto px-6 py-6">
+            <div class="flex flex-col md:flex-row justify-between items-center space-y-3 md:space-y-0">
+                <p class="text-gray-600 text-sm">© 2025 Deepak Patil. All rights reserved.</p>
+                <div class="flex space-x-6 text-sm">
+                    <a href="../privacy-policy.html" class="text-gray-600 hover:text-gray-900 transition-colors">Privacy Policy</a>
+                    <a href="../terms-conditions.html" class="text-gray-600 hover:text-gray-900 transition-colors">Terms & Conditions</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../js/main.js"></script>
+    <script src="../js/navbar.js"></script>
+    <style>
+        /* Mobile Menu Styles */
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 9999;
+            display: none;
+        }
+        
+        .mobile-menu.active {
+            display: block;
+        }
+        
+        .mobile-menu-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(4px);
+        }
+        
+        .mobile-menu-content {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 320px;
+            max-width: 85vw;
+            height: 100%;
+            background-color: white;
+            box-shadow: -10px 0 30px rgba(0, 0, 0, 0.1);
+            transform: translateX(100%);
+            transition: transform 0.3s ease-in-out;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .mobile-menu.active .mobile-menu-content {
+            transform: translateX(0);
+        }
+        
+        .mobile-menu-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem;
+            border-bottom: 1px solid #e5e7eb;
+        }
+        
+        .mobile-menu-close {
+            padding: 0.5rem;
+            border-radius: 0.5rem;
+            transition: background-color 0.2s;
+            cursor: pointer;
+        }
+        
+        .mobile-menu-close:hover {
+            background-color: #f3f4f6;
+        }
+        
+        .mobile-menu-nav {
+            flex: 1;
+            padding: 2rem 1.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+        
+        .mobile-menu-link {
+            display: block;
+            font-size: 1.125rem;
+            font-weight: 500;
+            color: #6b7280;
+            text-decoration: none;
+            padding: 0.5rem 0;
+            transition: color 0.2s;
+        }
+        
+        .mobile-menu-link:hover,
+        .mobile-menu-link.active {
+            color: #000;
+        }
+        
+        .mobile-menu-footer {
+            padding: 1.5rem;
+            border-top: 1px solid #e5e7eb;
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+        
+        .mobile-menu-footer-link {
+            font-size: 0.875rem;
+            color: #6b7280;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        
+        .mobile-menu-footer-link:hover {
+            color: #000;
+        }
+        
+        /* Hamburger animation */
+        .mobile-menu-open .hamburger-line:nth-child(1) {
+            transform: rotate(45deg) translateY(0);
+        }
+        .mobile-menu-open .hamburger-line:nth-child(2) {
+            opacity: 0;
+        }
+        .mobile-menu-open .hamburger-line:nth-child(3) {
+            transform: rotate(-45deg) translateY(0);
+        }
+        
+        /* Prevent body scroll when mobile menu is open */
+        body.mobile-menu-open {
+            overflow: hidden !important;
+            /* Removed position: fixed to prevent stacking context issues */
+        }
+    </style>
+</body>
+</html>

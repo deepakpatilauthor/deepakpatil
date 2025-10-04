@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Terraform: Mastering Infrastructure as Code - Deepak Patil</title>
+    <meta name="description" content="Learn how to manage cloud infrastructure with Terraform. From basic concepts to advanced patterns, discover how Infrastructure as Code can transform your DevOps workflow and make your infrastructure reliable, repeatable, and scalable.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Manrope:wght@300;400;500;600;700&family=Josefin+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../styles/main.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'apple': ['Inter', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'Helvetica Neue', 'sans-serif'],
+                        'apple-display': ['Manrope', 'Inter', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'Helvetica Neue', 'sans-serif'],
+                        'logo': ['Josefin Sans', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'Helvetica Neue', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="font-apple bg-white text-black antialiased">
+    <!-- Complete Responsive Navigation Bar -->
+    <nav class="bg-white shadow-sm border-b border-gray-200 fixed top-0 left-0 right-0 z-50" role="navigation" aria-label="Main navigation">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <!-- Brand/Logo -->
+                <div class="flex-shrink-0">
+                    <a href="../index.html" class="text-xl font-bold text-black hover:text-gray-700 transition-colors duration-200" aria-label="Deepak Patil - Home">
+                        DEEPAK PATIL
+                    </a>
+                </div>
+
+                <!-- Desktop Navigation -->
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-8" id="desktop-menu">
+                        <a href="../index.html" class="text-gray-600 hover:text-black px-3 py-2 text-sm font-medium transition-colors duration-200">Home</a>
+                        <a href="../about.html" class="text-gray-600 hover:text-black px-3 py-2 text-sm font-medium transition-colors duration-200">About</a>
+                        <a href="../work.html" class="text-gray-600 hover:text-black px-3 py-2 text-sm font-medium transition-colors duration-200">Work</a>
+                        <a href="../blog.html" class="text-black font-semibold px-3 py-2 text-sm font-medium transition-colors duration-200">Blog</a>
+                        <a href="../contact.html" class="text-gray-600 hover:text-black px-3 py-2 text-sm font-medium transition-colors duration-200">Contact</a>
+                    </div>
+                </div>
+
+                <!-- Mobile menu button -->
+                <div class="md:hidden">
+                    <button 
+                        id="mobile-menu-button" 
+                        type="button" 
+                        class="inline-flex items-center justify-center p-2 rounded-md text-gray-600 hover:text-black hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-black transition-colors duration-200"
+                        aria-controls="mobile-menu" 
+                        aria-expanded="false"
+                        aria-label="Toggle navigation menu"
+                    >
+                        <span class="sr-only">Open main menu</span>
+                        <!-- Hamburger icon -->
+                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile menu -->
+        <div id="mobile-menu" class="hidden md:hidden" role="menu" aria-labelledby="mobile-menu-button">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-white border-t border-gray-200 shadow-lg">
+                <!-- Close button -->
+                <div class="flex justify-end mb-2">
+                    <button 
+                        id="mobile-menu-close" 
+                        type="button" 
+                        class="inline-flex items-center justify-center p-2 rounded-md text-gray-600 hover:text-black hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-black transition-colors duration-200"
+                        aria-label="Close navigation menu"
+                    >
+                        <span class="sr-only">Close menu</span>
+                        <!-- Close icon -->
+                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                    </button>
+                </div>
+                
+                <!-- Mobile navigation links -->
+                <a href="../index.html" class="text-gray-600 hover:text-black hover:bg-gray-100 block px-3 py-2 text-base font-medium rounded-md transition-colors duration-200" role="menuitem">Home</a>
+                <a href="../about.html" class="text-gray-600 hover:text-black hover:bg-gray-100 block px-3 py-2 text-base font-medium rounded-md transition-colors duration-200" role="menuitem">About</a>
+                <a href="../work.html" class="text-gray-600 hover:text-black hover:bg-gray-100 block px-3 py-2 text-base font-medium rounded-md transition-colors duration-200" role="menuitem">Work</a>
+                <a href="../blog.html" class="bg-gray-100 text-black font-semibold block px-3 py-2 text-base font-medium rounded-md transition-colors duration-200" role="menuitem">Blog</a>
+                <a href="../contact.html" class="text-gray-600 hover:text-black hover:bg-gray-100 block px-3 py-2 text-base font-medium rounded-md transition-colors duration-200" role="menuitem">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="min-h-screen bg-white pt-20">
+        <!-- Article Header -->
+        <article class="max-w-4xl mx-auto px-6 py-16 pt-24">
+            <!-- Breadcrumb - Fixed -->
+            <nav class="mb-8 fixed top-16 left-0 right-0 bg-white/95 backdrop-blur-sm z-50 py-2 px-6 border-b border-gray-100">
+                <div class="flex items-center space-x-2 text-sm text-gray-500">
+                    <a href="../blog.html" class="hover:text-black transition-colors">Blog</a>
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                    </svg>
+                    <span>Terraform: Mastering Infrastructure as Code</span>
+                </div>
+            </nav>
+
+            <!-- Article Meta -->
+            <div class="mb-12">
+                <div class="flex items-center space-x-4 mb-6">
+                    <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-medium">DevOps & Cloud</span>
+                    <span class="text-gray-500">October 1, 2025</span>
+                    <span class="text-gray-500">15 min read</span>
+                </div>
+                <h1 class="text-5xl md:text-6xl font-apple-display font-bold tracking-tighter mb-6">Terraform: Mastering Infrastructure as Code</h1>
+                <p class="text-xl text-gray-600 leading-relaxed mb-8">
+                    Learn how to manage cloud infrastructure with Terraform. From basic concepts to advanced patterns, discover how Infrastructure as Code can transform your DevOps workflow and make your infrastructure reliable, repeatable, and scalable.
+                </p>
+                
+                <!-- Article Image/Visual -->
+                <div class="aspect-square bg-gradient-to-br from-purple-100 to-violet-200 rounded-2xl mb-12 overflow-hidden max-w-2xl mx-auto">
+                    <img src="../images/terraform-guide.png" 
+                         alt="Terraform: Mastering Infrastructure as Code" 
+                         class="w-full h-full object-cover rounded-2xl"
+                         style="width: 100%; height: 100%; object-fit: cover;">
+                </div>
+            </div>
+
+            <!-- Article Content -->
+            <div class="prose prose-lg max-w-none">
+                <p class="text-lg text-gray-700 leading-relaxed mb-8">
+                    In the modern era of cloud computing, managing infrastructure manually is no longer sustainable. As organizations scale and adopt multi-cloud strategies, the need for automated, repeatable, and reliable infrastructure management becomes paramount. This is where Infrastructure as Code (IaC) and Terraform come into play, revolutionizing how we think about and manage cloud resources.
+                </p>
+
+                <h2 class="text-3xl font-bold mb-6 mt-12">What is Infrastructure as Code?</h2>
+                <p class="text-lg text-gray-700 leading-relaxed mb-6">
+                    Infrastructure as Code is a practice that treats infrastructure configuration as software code. Instead of manually configuring servers, networks, and other infrastructure components, you define them using code that can be versioned, tested, and deployed just like application code. This approach brings several key benefits:
+                </p>
+
+                <ul class="list-disc pl-6 mb-8 text-lg text-gray-700 space-y-2">
+                    <li><strong>Consistency:</strong> Infrastructure is defined in code, ensuring identical environments across development, staging, and production</li>
+                    <li><strong>Version Control:</strong> All infrastructure changes are tracked, allowing you to see what changed, when, and why</li>
+                    <li><strong>Reproducibility:</strong> Environments can be created and destroyed programmatically</li>
+                    <li><strong>Collaboration:</strong> Teams can review infrastructure changes through pull requests</li>
+                    <li><strong>Documentation:</strong> Code serves as living documentation of your infrastructure</li>
+                </ul>
+
+                <h2 class="text-3xl font-bold mb-6 mt-12">Introduction to Terraform</h2>
+                <p class="text-lg text-gray-700 leading-relaxed mb-6">
+                    Terraform, developed by HashiCorp, is one of the most popular Infrastructure as Code tools available today. It's an open-source tool that allows you to define and provision infrastructure using a declarative configuration language called HCL (HashiCorp Configuration Language). Terraform supports over 200 providers, including AWS, Azure, Google Cloud, and many others.
+                </p>
+
+                <div class="bg-blue-50 border-l-4 border-blue-500 p-6 mb-8">
+                    <h3 class="text-xl font-bold mb-3 text-blue-800">Key Terraform Concepts</h3>
+                    <ul class="space-y-2 text-blue-700">
+                        <li><strong>Providers:</strong> Plugins that interact with APIs of cloud providers</li>
+                        <li><strong>Resources:</strong> Infrastructure components like servers, databases, or networks</li>
+                        <li><strong>State:</strong> A file that tracks the current state of your infrastructure</li>
+                        <li><strong>Modules:</strong> Reusable collections of resources that can be called from other configurations</li>
+                    </ul>
+                </div>
+
+                <h2 class="text-3xl font-bold mb-6 mt-12">Getting Started with Terraform</h2>
+                <p class="text-lg text-gray-700 leading-relaxed mb-6">
+                    Let's start with a simple example to understand how Terraform works. We'll create a basic AWS EC2 instance using Terraform.
+                </p>
+
+                <div class="bg-gray-900 rounded-lg p-6 mb-8">
+                    <pre class="text-green-400 text-sm overflow-x-auto"><code># main.tf
+terraform {
+  required_providers {
+    aws = {
+      source  = "hashicorp/aws"
+      version = "~> 5.0"
+    }
+  }
+}
+
+provider "aws" {
+  region = "us-west-2"
+}
+
+resource "aws_instance" "example" {
+  ami           = "ami-0c55b159cbfafe1d0"
+  instance_type = "t2.micro"
+  
+  tags = {
+    Name = "terraform-example"
+  }
+}</code></pre>
+                </div>
+
+                <p class="text-lg text-gray-700 leading-relaxed mb-6">
+                    This simple configuration demonstrates the basic structure of a Terraform file. Let's break it down:
+                </p>
+
+                <ul class="list-disc pl-6 mb-8 text-lg text-gray-700 space-y-2">
+                    <li><strong>Terraform block:</strong> Specifies the required providers and their versions</li>
+                    <li><strong>Provider block:</strong> Configures the AWS provider with the desired region</li>
+                    <li><strong>Resource block:</strong> Defines an AWS EC2 instance with specific attributes</li>
+                </ul>
+
+                <h2 class="text-3xl font-bold mb-6 mt-12">Terraform Workflow</h2>
+                <p class="text-lg text-gray-700 leading-relaxed mb-6">
+                    The Terraform workflow consists of several key commands that you'll use regularly:
+                </p>
+
+                <div class="grid md:grid-cols-2 gap-6 mb-8">
+                    <div class="bg-white border border-gray-200 rounded-lg p-6">
+                        <h3 class="text-xl font-bold mb-3">1. terraform init</h3>
+                        <p class="text-gray-600 mb-3">Initializes the working directory and downloads required providers</p>
+                        <div class="bg-gray-900 rounded p-3">
+                            <code class="text-green-400 text-sm">$ terraform init</code>
+                        </div>
+                    </div>
+                    <div class="bg-white border border-gray-200 rounded-lg p-6">
+                        <h3 class="text-xl font-bold mb-3">2. terraform plan</h3>
+                        <p class="text-gray-600 mb-3">Shows what changes will be made without applying them</p>
+                        <div class="bg-gray-900 rounded p-3">
+                            <code class="text-green-400 text-sm">$ terraform plan</code>
+                        </div>
+                    </div>
+                    <div class="bg-white border border-gray-200 rounded-lg p-6">
+                        <h3 class="text-xl font-bold mb-3">3. terraform apply</h3>
+                        <p class="text-gray-600 mb-3">Creates or updates infrastructure according to the plan</p>
+                        <div class="bg-gray-900 rounded p-3">
+                            <code class="text-green-400 text-sm">$ terraform apply</code>
+                        </div>
+                    </div>
+                    <div class="bg-white border border-gray-200 rounded-lg p-6">
+                        <h3 class="text-xl font-bold mb-3">4. terraform destroy</h3>
+                        <p class="text-gray-600 mb-3">Destroys all resources managed by the configuration</p>
+                        <div class="bg-gray-900 rounded p-3">
+                            <code class="text-green-400 text-sm">$ terraform destroy</code>
+                        </div>
+                    </div>
+                </div>
+
+                <h2 class="text-3xl font-bold mb-6 mt-12">Advanced Terraform Patterns</h2>
+                <p class="text-lg text-gray-700 leading-relaxed mb-6">
+                    As your infrastructure grows in complexity, you'll need to adopt more sophisticated patterns to maintain organization and reusability.
+                </p>
+
+                <h3 class="text-2xl font-bold mb-4 mt-8">Modules</h3>
+                <p class="text-lg text-gray-700 leading-relaxed mb-6">
+                    Modules are reusable collections of Terraform configurations that can be called from other configurations. They help organize code, promote reusability, and make configurations more maintainable.
+                </p>
+
+                <div class="bg-gray-900 rounded-lg p-6 mb-8">
+                    <pre class="text-green-400 text-sm overflow-x-auto"><code># modules/vpc/main.tf
+resource "aws_vpc" "main" {
+  cidr_block           = var.cidr_block
+  enable_dns_hostnames = true
+  enable_dns_support   = true
+  
+  tags = {
+    Name = var.name
+  }
+}
+
+# modules/vpc/variables.tf
+variable "cidr_block" {
+  description = "CIDR block for the VPC"
+  type        = string
+  default     = "10.0.0.0/16"
+}
+
+variable "name" {
+  description = "Name of the VPC"
+  type        = string
+}
+
+# main.tf
+module "vpc" {
+  source = "./modules/vpc"
+  
+  name       = "production-vpc"
+  cidr_block = "10.0.0.0/16"
+}</code></pre>
+                </div>
+
+                <h3 class="text-2xl font-bold mb-4 mt-8">Workspaces</h3>
+                <p class="text-lg text-gray-700 leading-relaxed mb-6">
+                    Terraform workspaces allow you to manage multiple environments (dev, staging, production) using the same configuration. Each workspace maintains its own state file.
+                </p>
+
+                <div class="bg-gray-900 rounded-lg p-6 mb-8">
+                    <pre class="text-green-400 text-sm overflow-x-auto"><code># Create and switch to a new workspace
+$ terraform workspace new staging
+$ terraform workspace select staging
+
+# List all workspaces
+$ terraform workspace list
+
+# Use workspace-specific variables
+resource "aws_instance" "web" {
+  instance_type = terraform.workspace == "production" ? "t3.large" : "t3.small"
+  # ... other configuration
+}</code></pre>
+                </div>
+
+                <h3 class="text-2xl font-bold mb-4 mt-8">Remote State</h3>
+                <p class="text-lg text-gray-700 leading-relaxed mb-6">
+                    For production environments, you should store Terraform state remotely to enable team collaboration and state locking. AWS S3 with DynamoDB for state locking is a popular choice.
+                </p>
+
+                <div class="bg-gray-900 rounded-lg p-6 mb-8">
+                    <pre class="text-green-400 text-sm overflow-x-auto"><code># terraform.tf
+terraform {
+  backend "s3" {
+    bucket         = "my-terraform-state-bucket"
+    key            = "infrastructure/terraform.tfstate"
+    region         = "us-west-2"
+    dynamodb_table = "terraform-state-lock"
+    encrypt        = true
+  }
+}</code></pre>
+                </div>
+
+                <h2 class="text-3xl font-bold mb-6 mt-12">Best Practices for Terraform</h2>
+                <p class="text-lg text-gray-700 leading-relaxed mb-6">
+                    Following best practices ensures your Terraform code is maintainable, secure, and scalable.
+                </p>
+
+                <h3 class="text-2xl font-bold mb-4 mt-8">1. Code Organization</h3>
+                <ul class="list-disc pl-6 mb-6 text-lg text-gray-700 space-y-2">
+                    <li>Use modules to organize related resources</li>
+                    <li>Separate environments into different directories or workspaces</li>
+                    <li>Use consistent naming conventions</li>
+                    <li>Keep configurations DRY (Don't Repeat Yourself)</li>
+                </ul>
+
+                <h3 class="text-2xl font-bold mb-4 mt-8">2. State Management</h3>
+                <ul class="list-disc pl-6 mb-6 text-lg text-gray-700 space-y-2">
+                    <li>Always use remote state for production</li>
+                    <li>Enable state locking to prevent concurrent modifications</li>
+                    <li>Regularly backup your state files</li>
+                    <li>Never commit state files to version control</li>
+                </ul>
+
+                <h3 class="text-2xl font-bold mb-4 mt-8">3. Security</h3>
+                <ul class="list-disc pl-6 mb-6 text-lg text-gray-700 space-y-2">
+                    <li>Use least privilege access for Terraform service accounts</li>
+                    <li>Encrypt state files at rest</li>
+                    <li>Use variables for sensitive data, never hardcode secrets</li>
+                    <li>Implement proper IAM policies and roles</li>
+                </ul>
+
+                <h3 class="text-2xl font-bold mb-4 mt-8">4. Testing and Validation</h3>
+                <ul class="list-disc pl-6 mb-6 text-lg text-gray-700 space-y-2">
+                    <li>Use terraform plan to review changes before applying</li>
+                    <li>Implement automated testing with tools like Terratest</li>
+                    <li>Use terraform fmt to ensure consistent formatting</li>
+                    <li>Validate configurations with terraform validate</li>
+                </ul>
+
+                <h2 class="text-3xl font-bold mb-6 mt-12">Terraform in CI/CD Pipelines</h2>
+                <p class="text-lg text-gray-700 leading-relaxed mb-6">
+                    Integrating Terraform into your CI/CD pipeline enables automated infrastructure deployments and ensures consistency across environments.
+                </p>
+
+                <div class="bg-gray-900 rounded-lg p-6 mb-8">
+                    <pre class="text-green-400 text-sm overflow-x-auto"><code># .github/workflows/terraform.yml
+name: 'Terraform'
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  terraform:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    
+    - name: Setup Terraform
+      uses: hashicorp/setup-terraform@v1
+      with:
+        terraform_version: 1.5.0
+    
+    - name: Terraform Format Check
+      run: terraform fmt -check
+    
+    - name: Terraform Init
+      run: terraform init
+    
+    - name: Terraform Validate
+      run: terraform validate
+    
+    - name: Terraform Plan
+      run: terraform plan
+      env:
+        TF_VAR_aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        TF_VAR_aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+    
+    - name: Terraform Apply
+      if: github.ref == 'refs/heads/main'
+      run: terraform apply -auto-approve</code></pre>
+                </div>
+
+                <h2 class="text-3xl font-bold mb-6 mt-12">Common Terraform Patterns</h2>
+                <p class="text-lg text-gray-700 leading-relaxed mb-6">
+                    Understanding common patterns helps you write more effective Terraform code and solve typical infrastructure challenges.
+                </p>
+
+                <h3 class="text-2xl font-bold mb-4 mt-8">Data Sources</h3>
+                <p class="text-lg text-gray-700 leading-relaxed mb-6">
+                    Data sources allow you to fetch information about existing resources without managing them.
+                </p>
+
+                <div class="bg-gray-900 rounded-lg p-6 mb-8">
+                    <pre class="text-green-400 text-sm overflow-x-auto"><code># Get information about an existing VPC
+data "aws_vpc" "existing" {
+  filter {
+    name   = "tag:Name"
+    values = ["production-vpc"]
+  }
+}
+
+# Use the existing VPC in your resources
+resource "aws_subnet" "web" {
+  vpc_id     = data.aws_vpc.existing.id
+  cidr_block = "10.0.1.0/24"
+  
+  tags = {
+    Name = "web-subnet"
+  }
+}</code></pre>
+                </div>
+
+                <h3 class="text-2xl font-bold mb-4 mt-8">Local Values</h3>
+                <p class="text-lg text-gray-700 leading-relaxed mb-6">
+                    Local values help reduce repetition and make your configuration more readable.
+                </p>
+
+                <div class="bg-gray-900 rounded-lg p-6 mb-8">
+                    <pre class="text-green-400 text-sm overflow-x-auto"><code>locals {
+  common_tags = {
+    Environment = var.environment
+    Project     = "my-project"
+    ManagedBy   = "terraform"
+  }
+  
+  name_prefix = "${var.project_name}-${var.environment}"
+}
+
+resource "aws_instance" "web" {
+  # ... other configuration
+  
+  tags = merge(local.common_tags, {
+    Name = "${local.name_prefix}-web-server"
+  })
+}</code></pre>
+                </div>
+
+                <h2 class="text-3xl font-bold mb-6 mt-12">Troubleshooting Common Issues</h2>
+                <p class="text-lg text-gray-700 leading-relaxed mb-6">
+                    Even experienced Terraform users encounter issues. Here are some common problems and their solutions.
+                </p>
+
+                <h3 class="text-2xl font-bold mb-4 mt-8">State Drift</h3>
+                <p class="text-lg text-gray-700 leading-relaxed mb-6">
+                    State drift occurs when the actual infrastructure differs from what Terraform thinks it should be. This can happen when resources are modified outside of Terraform.
+                </p>
+
+                <div class="bg-yellow-50 border-l-4 border-yellow-500 p-6 mb-8">
+                    <h4 class="text-lg font-bold mb-2 text-yellow-800">Solution:</h4>
+                    <p class="text-yellow-700 mb-3">Use terraform refresh to update the state file with the current state of resources:</p>
+                    <div class="bg-gray-900 rounded p-3">
+                        <code class="text-green-400 text-sm">$ terraform refresh</code>
+                    </div>
+                </div>
+
+                <h3 class="text-2xl font-bold mb-4 mt-8">Dependency Issues</h3>
+                <p class="text-lg text-gray-700 leading-relaxed mb-6">
+                    Sometimes Terraform doesn't understand the dependencies between resources, leading to creation failures.
+                </p>
+
+                <div class="bg-yellow-50 border-l-4 border-yellow-500 p-6 mb-8">
+                    <h4 class="text-lg font-bold mb-2 text-yellow-800">Solution:</h4>
+                    <p class="text-yellow-700 mb-3">Use explicit dependencies with the depends_on argument:</p>
+                    <div class="bg-gray-900 rounded p-3">
+                        <code class="text-green-400 text-sm">resource "aws_instance" "web" {
+  depends_on = [aws_security_group.web]
+  # ... other configuration
+}</code>
+                    </div>
+                </div>
+
+                <h2 class="text-3xl font-bold mb-6 mt-12">Advanced Features</h2>
+                <p class="text-lg text-gray-700 leading-relaxed mb-6">
+                    As you become more proficient with Terraform, you can leverage advanced features to create more sophisticated infrastructure.
+                </p>
+
+                <h3 class="text-2xl font-bold mb-4 mt-8">Dynamic Blocks</h3>
+                <p class="text-lg text-gray-700 leading-relaxed mb-6">
+                    Dynamic blocks allow you to create multiple similar resources or configurations based on variables.
+                </p>
+
+                <div class="bg-gray-900 rounded-lg p-6 mb-8">
+                    <pre class="text-green-400 text-sm overflow-x-auto"><code>variable "subnets" {
+  description = "List of subnets to create"
+  type = list(object({
+    name       = string
+    cidr_block = string
+    az         = string
+  }))
+  default = [
+    { name = "web", cidr_block = "10.0.1.0/24", az = "us-west-2a" },
+    { name = "app", cidr_block = "10.0.2.0/24", az = "us-west-2b" }
+  ]
+}
+
+resource "aws_subnet" "main" {
+  for_each = { for subnet in var.subnets : subnet.name => subnet }
+  
+  vpc_id            = aws_vpc.main.id
+  cidr_block        = each.value.cidr_block
+  availability_zone = each.value.az
+  
+  tags = {
+    Name = each.value.name
+  }
+}</code></pre>
+                </div>
+
+                <h3 class="text-2xl font-bold mb-4 mt-8">Terraform Cloud</h3>
+                <p class="text-lg text-gray-700 leading-relaxed mb-6">
+                    Terraform Cloud provides a hosted service for managing Terraform state, running plans and applies, and managing workspaces.
+                </p>
+
+                <ul class="list-disc pl-6 mb-8 text-lg text-gray-700 space-y-2">
+                    <li><strong>Remote State Management:</strong> Secure, encrypted state storage</li>
+                    <li><strong>Team Collaboration:</strong> Share state and configurations across teams</li>
+                    <li><strong>Policy as Code:</strong> Use Sentinel to enforce governance policies</li>
+                    <li><strong>Cost Estimation:</strong> See the cost impact of infrastructure changes</li>
+                </ul>
+
+                <h2 class="text-3xl font-bold mb-6 mt-12">Conclusion</h2>
+                <p class="text-lg text-gray-700 leading-relaxed mb-6">
+                    Terraform is a powerful tool that transforms how we manage infrastructure. By treating infrastructure as code, you gain the benefits of version control, collaboration, and automation that are essential in modern DevOps practices.
+                </p>
+
+                <p class="text-lg text-gray-700 leading-relaxed mb-6">
+                    Whether you're just starting with Infrastructure as Code or looking to optimize your existing Terraform workflows, the patterns and practices covered in this guide will help you build more reliable, maintainable, and scalable infrastructure.
+                </p>
+
+                <p class="text-lg text-gray-700 leading-relaxed mb-8">
+                    Remember that mastering Terraform is a journey. Start with simple configurations, gradually adopt more advanced patterns, and always follow best practices. The investment in learning Terraform will pay dividends in improved infrastructure reliability, team productivity, and operational efficiency.
+                </p>
+
+                <div class="bg-blue-50 border-l-4 border-blue-500 p-6 mb-8">
+                    <h3 class="text-xl font-bold mb-3 text-blue-800">Next Steps</h3>
+                    <ul class="space-y-2 text-blue-700">
+                        <li>• Practice with simple configurations in a sandbox environment</li>
+                        <li>• Explore Terraform modules in the Terraform Registry</li>
+                        <li>• Set up remote state management for your projects</li>
+                        <li>• Integrate Terraform into your CI/CD pipeline</li>
+                        <li>• Learn about Terraform Cloud for team collaboration</li>
+                    </ul>
+                </div>
+            </div>
+        </article>
+
+        <!-- Related Articles -->
+        <section class="py-16 px-6 bg-gray-50">
+            <div class="max-w-6xl mx-auto">
+                <h2 class="text-3xl font-bold mb-8 text-center">Related Articles</h2>
+                <div class="grid md:grid-cols-2 gap-8">
+                    <a href="cicd-pipelines-complete-guide.html" class="group">
+                        <div class="bg-white rounded-3xl shadow-lg p-8 hover:shadow-xl transition-shadow">
+                            <div class="flex items-center space-x-4 mb-4">
+                                <span class="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-medium">CI/CD</span>
+                                <span class="text-gray-500 text-sm">December 23, 2025</span>
+                            </div>
+                            <h3 class="text-xl font-bold mb-3 group-hover:text-blue-600 transition-colors">CI/CD Pipelines: The Complete Guide to Modern DevOps</h3>
+                            <p class="text-gray-600">Master Continuous Integration and Continuous Deployment with this comprehensive guide.</p>
+                        </div>
+                    </a>
+                    <a href="git-complete-guide.html" class="group">
+                        <div class="bg-white rounded-3xl shadow-lg p-8 hover:shadow-xl transition-shadow">
+                            <div class="flex items-center space-x-4 mb-4">
+                                <span class="bg-purple-100 text-purple-800 px-3 py-1 rounded-full text-sm font-medium">Development</span>
+                                <span class="text-gray-500 text-sm">December 24, 2025</span>
+                            </div>
+                            <h3 class="text-xl font-bold mb-3 group-hover:text-blue-600 transition-colors">Git: The Complete Guide to Version Control Mastery</h3>
+                            <p class="text-gray-600">Master Git from the ground up with this comprehensive guide.</p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-50 border-t border-gray-200">
+        <div class="max-w-7xl mx-auto px-6 py-6">
+            <div class="flex flex-col md:flex-row justify-between items-center space-y-3 md:space-y-0">
+                <p class="text-gray-600 text-sm">© 2025 Deepak Patil. All rights reserved.</p>
+                <div class="flex space-x-6 text-sm">
+                    <a href="../privacy-policy.html" class="text-gray-600 hover:text-gray-900 transition-colors">Privacy Policy</a>
+                    <a href="../terms-conditions.html" class="text-gray-600 hover:text-gray-900 transition-colors">Terms & Conditions</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../js/main.js"></script>
+    <script src="../js/navbar.js"></script>
+</body>
+</html>

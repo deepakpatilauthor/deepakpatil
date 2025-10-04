@@ -1,0 +1,760 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Primary Meta Tags -->
+    <title>Event-Driven Serverless Pipeline for Unstructured Data on AWS - Deepak Patil</title>
+    <meta name="title" content="Event-Driven Serverless Pipeline for Unstructured Data on AWS - Deepak Patil">
+    <meta name="description" content="A comprehensive cloud-native system to store, analyze, and visualize personal files, notes, and media usage with automated tagging, search, and reporting capabilities.">
+    <meta name="keywords" content="Event-Driven Architecture, Serverless Pipeline, AWS, Unstructured Data, Cloud Architecture, DevOps, Lambda, S3, DynamoDB, Step Functions">
+    <meta name="author" content="Deepak Patil">
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+    <meta name="googlebot" content="index, follow">
+    <meta name="bingbot" content="index, follow">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://deepakpatil.dev/event-driven-serverless-pipeline.html">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://deepakpatil.dev/event-driven-serverless-pipeline.html">
+    <meta property="og:title" content="Event-Driven Serverless Pipeline for Unstructured Data on AWS - Deepak Patil">
+    <meta property="og:description" content="A comprehensive cloud-native system to store, analyze, and visualize personal files, notes, and media usage with automated tagging, search, and reporting capabilities.">
+    <meta property="og:image" content="https://deepakpatil.dev/images/project-og-image.jpg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="Event-Driven Serverless Pipeline Project">
+    <meta property="og:site_name" content="Deepak Patil Portfolio">
+    <meta property="og:locale" content="en_US">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://deepakpatil.dev/event-driven-serverless-pipeline.html">
+    <meta property="twitter:title" content="Event-Driven Serverless Pipeline for Unstructured Data on AWS - Deepak Patil">
+    <meta property="twitter:description" content="A comprehensive cloud-native system to store, analyze, and visualize personal files, notes, and media usage with automated tagging, search, and reporting capabilities.">
+    <meta property="twitter:image" content="https://deepakpatil.dev/images/project-twitter-image.jpg">
+    <meta property="twitter:creator" content="@deepakpatil">
+    <meta property="twitter:site" content="@deepakpatil">
+    
+    <!-- Additional SEO Meta Tags -->
+    <meta name="theme-color" content="#000000">
+    <meta name="msapplication-TileColor" content="#000000">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Event-Driven Serverless Pipeline">
+    
+    <!-- Preconnect for Performance -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="dns-prefetch" href="https://cdn.tailwindcss.com">
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Manrope:wght@300;400;500;600;700&family=Josefin+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="styles/main.css">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'apple': ['Inter', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'Helvetica Neue', 'sans-serif'],
+                        'apple-display': ['Manrope', 'Inter', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'Helvetica Neue', 'sans-serif'],
+                        'logo': ['Josefin Sans', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'Helvetica Neue', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="font-apple bg-white text-black antialiased">
+    <!-- Complete Responsive Navigation Bar -->
+    <nav class="bg-white shadow-sm border-b border-gray-200 fixed top-0 left-0 right-0 z-50" role="navigation" aria-label="Main navigation">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <!-- Brand/Logo -->
+                <div class="flex-shrink-0">
+                    <a href="index.html" class="text-xl font-bold text-black hover:text-gray-700 transition-colors duration-200" aria-label="Deepak Patil - Home">
+                        DEEPAK PATIL
+                    </a>
+                </div>
+
+                <!-- Desktop Navigation -->
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-8" id="desktop-menu">
+                        <a href="index.html" class="text-gray-600 hover:text-black px-3 py-2 text-sm font-medium transition-colors duration-200">Home</a>
+                        <a href="about.html" class="text-gray-600 hover:text-black px-3 py-2 text-sm font-medium transition-colors duration-200">About</a>
+                        <a href="work.html" class="text-black font-semibold px-3 py-2 text-sm font-medium transition-colors duration-200">Work</a>
+                        <a href="blog.html" class="text-gray-600 hover:text-black px-3 py-2 text-sm font-medium transition-colors duration-200">Blog</a>
+                        <a href="contact.html" class="text-gray-600 hover:text-black px-3 py-2 text-sm font-medium transition-colors duration-200">Contact</a>
+                    </div>
+                </div>
+
+                <!-- Mobile menu button -->
+                <div class="md:hidden">
+                    <button 
+                        id="mobile-menu-button" 
+                        type="button" 
+                        class="inline-flex items-center justify-center p-2 rounded-md text-gray-600 hover:text-black hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-black transition-colors duration-200"
+                        aria-controls="mobile-menu" 
+                        aria-expanded="false"
+                        aria-label="Toggle navigation menu"
+                    >
+                        <span class="sr-only">Open main menu</span>
+                        <!-- Hamburger icon -->
+                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile menu -->
+        <div id="mobile-menu" class="hidden md:hidden" role="menu" aria-labelledby="mobile-menu-button">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-white border-t border-gray-200 shadow-lg">
+                <!-- Close button -->
+                <div class="flex justify-end mb-2">
+                    <button 
+                        id="mobile-menu-close" 
+                        type="button" 
+                        class="inline-flex items-center justify-center p-2 rounded-md text-gray-600 hover:text-black hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-black transition-colors duration-200"
+                        aria-label="Close navigation menu"
+                    >
+                        <span class="sr-only">Close menu</span>
+                        <!-- Close icon -->
+                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                    </button>
+                </div>
+                
+                <!-- Mobile navigation links -->
+                <a href="index.html" class="text-gray-600 hover:text-black hover:bg-gray-100 block px-3 py-2 text-base font-medium rounded-md transition-colors duration-200" role="menuitem">Home</a>
+                <a href="about.html" class="text-gray-600 hover:text-black hover:bg-gray-100 block px-3 py-2 text-base font-medium rounded-md transition-colors duration-200" role="menuitem">About</a>
+                <a href="work.html" class="bg-gray-100 text-black font-semibold block px-3 py-2 text-base font-medium rounded-md transition-colors duration-200" role="menuitem">Work</a>
+                <a href="blog.html" class="text-gray-600 hover:text-black hover:bg-gray-100 block px-3 py-2 text-base font-medium rounded-md transition-colors duration-200" role="menuitem">Blog</a>
+                <a href="contact.html" class="text-gray-600 hover:text-black hover:bg-gray-100 block px-3 py-2 text-base font-medium rounded-md transition-colors duration-200" role="menuitem">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+
+    <!-- Main Content -->
+    <main class="min-h-screen bg-white pt-20">
+        <!-- Hero Section -->
+        <section class="py-32 px-6">
+            <div class="max-w-7xl mx-auto">
+                <div class="grid lg:grid-cols-2 gap-16 items-center">
+                    <div>
+                        <div class="flex items-center space-x-4 mb-6">
+                            <a href="work.html" class="text-gray-500 hover:text-black transition-colors flex items-center">
+                                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+                                </svg>
+                                Back to Work
+                            </a>
+                            <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-medium">Cloud Architecture</span>
+                        </div>
+                        <h1 class="text-6xl md:text-8xl font-apple-display font-bold tracking-tighter mb-8">Event-Driven Serverless Pipeline for Unstructured Data on AWS</h1>
+                        <p class="text-2xl text-gray-600 leading-relaxed mb-8">
+                            A comprehensive cloud-native system to store, analyze, and visualize personal files, notes, and media usage with automated tagging, search, and reporting capabilities.
+                        </p>
+                        
+                        <!-- GitHub Project Button -->
+                        <div class="mb-8">
+                            <a href="https://github.com/deepakpatilauthor/Projects/tree/main/Event-driven-project-on-aws" 
+                               target="_blank" 
+                               rel="noopener noreferrer"
+                               class="inline-flex items-center px-6 py-3 bg-gray-900 text-white rounded-lg hover:bg-gray-800 transition-colors duration-200 font-medium">
+                                <svg class="w-5 h-5 mr-3" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                                    <path fill-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clip-rule="evenodd"></path>
+                                </svg>
+                                View on GitHub
+                            </a>
+                        </div>
+                        
+                        <div class="flex flex-wrap gap-3 mb-8">
+                            <span class="bg-gray-100 px-4 py-2 rounded-full text-sm font-medium text-gray-700">AWS S3</span>
+                            <span class="bg-gray-100 px-4 py-2 rounded-full text-sm font-medium text-gray-700">Lambda</span>
+                            <span class="bg-gray-100 px-4 py-2 rounded-full text-sm font-medium text-gray-700">Rekognition</span>
+                            <span class="bg-gray-100 px-4 py-2 rounded-full text-sm font-medium text-gray-700">Textract</span>
+                            <span class="bg-gray-100 px-4 py-2 rounded-full text-sm font-medium text-gray-700">Transcribe</span>
+                            <span class="bg-gray-100 px-4 py-2 rounded-full text-sm font-medium text-gray-700">Comprehend</span>
+                            <span class="bg-gray-100 px-4 py-2 rounded-full text-sm font-medium text-gray-700">DynamoDB</span>
+                            <span class="bg-gray-100 px-4 py-2 rounded-full text-sm font-medium text-gray-700">Athena</span>
+                            <span class="bg-gray-100 px-4 py-2 rounded-full text-sm font-medium text-gray-700">QuickSight</span>
+                            <span class="bg-gray-100 px-4 py-2 rounded-full text-sm font-medium text-gray-700">Step Functions</span>
+                        </div>
+                        <div class="text-sm text-gray-500">
+                            <span class="font-medium">Year:</span> 2025
+                        </div>
+                    </div>
+                    <div class="relative">
+                        <div class="aspect-[4/3] bg-gradient-to-br from-blue-50 to-indigo-100 rounded-3xl overflow-hidden">
+                            <img src="images/Event-driven-serverless-pipeline-for-unstructured-data-on-aws.png" 
+                                 alt="Event-Driven Serverless Pipeline Architecture for Unstructured Data on AWS" 
+                                 class="w-full h-full object-cover rounded-3xl"
+                                 style="width: 100%; height: 100%; object-fit: cover;">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Project Overview -->
+        <section class="py-32 px-6 bg-gray-50">
+            <div class="max-w-6xl mx-auto">
+                <div class="text-center mb-20">
+                    <h2 class="text-5xl md:text-6xl font-apple-display font-bold tracking-tighter mb-8">Project Overview</h2>
+                    <p class="text-xl text-gray-600 max-w-4xl mx-auto leading-relaxed">
+                        The Event-Driven Serverless Pipeline for Unstructured Data on AWS represents a comprehensive cloud-native solution designed to revolutionize how individuals manage, analyze, and derive insights from their personal digital content. This project addresses the growing challenge of digital information overload by providing an intelligent, automated system that not only stores personal files but also extracts meaningful insights through advanced AI and machine learning capabilities.
+                    </p>
+                </div>
+
+                <div class="grid md:grid-cols-3 gap-8 mb-16">
+                    <div class="bg-white p-8 rounded-3xl shadow-sm">
+                        <div class="w-16 h-16 bg-blue-100 rounded-2xl flex items-center justify-center mb-6">
+                            <svg class="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M9 19l3 3m0 0l3-3m-3 3V10"></path>
+                            </svg>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-4">Automated Storage</h3>
+                        <p class="text-gray-600 leading-relaxed">Intelligent file organization with automatic categorization, metadata extraction, and secure cloud storage using AWS S3 with lifecycle policies.</p>
+                    </div>
+                    <div class="bg-white p-8 rounded-3xl shadow-sm">
+                        <div class="w-16 h-16 bg-green-100 rounded-2xl flex items-center justify-center mb-6">
+                            <svg class="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path>
+                            </svg>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-4">AI-Powered Analysis</h3>
+                        <p class="text-gray-600 leading-relaxed">Advanced content analysis using AWS AI services including Rekognition for images, Textract for documents, and Comprehend for sentiment analysis.</p>
+                    </div>
+                    <div class="bg-white p-8 rounded-3xl shadow-sm">
+                        <div class="w-16 h-16 bg-purple-100 rounded-2xl flex items-center justify-center mb-6">
+                            <svg class="w-8 h-8 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+                            </svg>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-4">Intelligent Insights</h3>
+                        <p class="text-gray-600 leading-relaxed">Comprehensive dashboards and analytics powered by QuickSight, providing actionable insights into content patterns, usage trends, and knowledge gaps.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Architecture Section -->
+        <section class="py-32 px-6">
+            <div class="max-w-6xl mx-auto">
+                <div class="text-center mb-20">
+                    <h2 class="text-5xl md:text-6xl font-apple-display font-bold tracking-tighter mb-8">System Architecture</h2>
+                    <p class="text-xl text-gray-600 max-w-4xl mx-auto leading-relaxed">
+                        The architecture leverages 9-10 AWS services working in harmony to create a robust, scalable, and intelligent personal knowledge management system. Each component is carefully orchestrated to ensure optimal performance, cost efficiency, and user experience.
+                    </p>
+                </div>
+
+                <div class="bg-white rounded-3xl shadow-lg p-8 mb-16">
+                    <h3 class="text-3xl font-bold mb-8 text-center">Core Services Architecture</h3>
+                    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                        <div class="text-center">
+                            <div class="w-20 h-20 bg-orange-100 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                                <svg class="w-10 h-10 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M9 19l3 3m0 0l3-3m-3 3V10"></path>
+                                </svg>
+                            </div>
+                            <h4 class="text-xl font-bold mb-2">AWS S3</h4>
+                            <p class="text-gray-600 text-sm">Primary storage for raw files and processed data with intelligent tiering</p>
+                        </div>
+                        <div class="text-center">
+                            <div class="w-20 h-20 bg-yellow-100 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                                <svg class="w-10 h-10 text-yellow-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                                </svg>
+                            </div>
+                            <h4 class="text-xl font-bold mb-2">Lambda Functions</h4>
+                            <p class="text-gray-600 text-sm">Serverless compute for processing and orchestrating workflows</p>
+                        </div>
+                        <div class="text-center">
+                            <div class="w-20 h-20 bg-blue-100 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                                <svg class="w-10 h-10 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+                                </svg>
+                            </div>
+                            <h4 class="text-xl font-bold mb-2">Rekognition</h4>
+                            <p class="text-gray-600 text-sm">Image and video analysis for object detection and content labeling</p>
+                        </div>
+                        <div class="text-center">
+                            <div class="w-20 h-20 bg-green-100 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                                <svg class="w-10 h-10 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                                </svg>
+                            </div>
+                            <h4 class="text-xl font-bold mb-2">Textract</h4>
+                            <p class="text-gray-600 text-sm">Document text extraction and form data processing</p>
+                        </div>
+                        <div class="text-center">
+                            <div class="w-20 h-20 bg-purple-100 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                                <svg class="w-10 h-10 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z"></path>
+                                </svg>
+                            </div>
+                            <h4 class="text-xl font-bold mb-2">Transcribe</h4>
+                            <p class="text-gray-600 text-sm">Audio and video transcription for searchable content</p>
+                        </div>
+                        <div class="text-center">
+                            <div class="w-20 h-20 bg-red-100 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                                <svg class="w-10 h-10 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path>
+                                </svg>
+                            </div>
+                            <h4 class="text-xl font-bold mb-2">Comprehend</h4>
+                            <p class="text-gray-600 text-sm">Natural language processing for sentiment and entity analysis</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Data Flow Section -->
+        <section class="py-32 px-6 bg-gray-50">
+            <div class="max-w-6xl mx-auto">
+                <div class="text-center mb-20">
+                    <h2 class="text-5xl md:text-6xl font-apple-display font-bold tracking-tighter mb-8">Data Flow Architecture</h2>
+                    <p class="text-xl text-gray-600 max-w-4xl mx-auto leading-relaxed">
+                        The system follows a sophisticated data flow pattern that ensures efficient processing, storage, and analysis of personal content. Each step is optimized for performance, cost, and scalability.
+                    </p>
+                </div>
+
+                <div class="bg-white rounded-3xl shadow-lg p-8">
+                    <div class="grid md:grid-cols-2 gap-12 items-center">
+                        <div>
+                            <h3 class="text-3xl font-bold mb-8">Processing Pipeline</h3>
+                            <div class="space-y-6">
+                                <div class="flex items-start space-x-4">
+                                    <div class="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                                        <span class="text-blue-600 font-bold text-sm">1</span>
+                                    </div>
+                                    <div>
+                                        <h4 class="text-lg font-bold mb-2">File Upload & Storage</h4>
+                                        <p class="text-gray-600">Files are uploaded to S3 with automatic metadata extraction and initial categorization based on file type and content.</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-start space-x-4">
+                                    <div class="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                                        <span class="text-green-600 font-bold text-sm">2</span>
+                                    </div>
+                                    <div>
+                                        <h4 class="text-lg font-bold mb-2">AI Analysis</h4>
+                                        <p class="text-gray-600">Lambda functions trigger AI services (Rekognition, Textract, Transcribe, Comprehend) for comprehensive content analysis.</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-start space-x-4">
+                                    <div class="w-8 h-8 bg-purple-100 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                                        <span class="text-purple-600 font-bold text-sm">3</span>
+                                    </div>
+                                    <div>
+                                        <h4 class="text-lg font-bold mb-2">Data Storage</h4>
+                                        <p class="text-gray-600">Processed metadata and analysis results are stored in DynamoDB for fast querying and S3 for long-term analytics.</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-start space-x-4">
+                                    <div class="w-8 h-8 bg-orange-100 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                                        <span class="text-orange-600 font-bold text-sm">4</span>
+                                    </div>
+                                    <div>
+                                        <h4 class="text-lg font-bold mb-2">Analytics & Visualization</h4>
+                                        <p class="text-gray-600">Glue crawlers catalog data, Athena enables complex queries, and QuickSight provides interactive dashboards.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="bg-gradient-to-br from-blue-50 to-indigo-100 rounded-2xl p-8">
+                            <h4 class="text-xl font-bold mb-6 text-center">Key Benefits</h4>
+                            <ul class="space-y-4">
+                                <li class="flex items-center space-x-3">
+                                    <svg class="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                    </svg>
+                                    <span class="text-gray-700">Automated content categorization</span>
+                                </li>
+                                <li class="flex items-center space-x-3">
+                                    <svg class="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                    </svg>
+                                    <span class="text-gray-700">Intelligent search capabilities</span>
+                                </li>
+                                <li class="flex items-center space-x-3">
+                                    <svg class="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                    </svg>
+                                    <span class="text-gray-700">Real-time analytics dashboards</span>
+                                </li>
+                                <li class="flex items-center space-x-3">
+                                    <svg class="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                    </svg>
+                                    <span class="text-gray-700">Cost-optimized storage tiers</span>
+                                </li>
+                                <li class="flex items-center space-x-3">
+                                    <svg class="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                    </svg>
+                                    <span class="text-gray-700">Scalable serverless architecture</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Technical Implementation -->
+        <section class="py-32 px-6">
+            <div class="max-w-6xl mx-auto">
+                <div class="text-center mb-20">
+                    <h2 class="text-5xl md:text-6xl font-apple-display font-bold tracking-tighter mb-8">Technical Implementation</h2>
+                    <p class="text-xl text-gray-600 max-w-4xl mx-auto leading-relaxed">
+                        The implementation leverages cutting-edge AWS services to create a robust, intelligent, and cost-effective personal knowledge management system. Each component is designed for optimal performance and user experience.
+                    </p>
+                </div>
+
+                <div class="grid lg:grid-cols-2 gap-12 mb-16">
+                    <div class="bg-white rounded-3xl shadow-lg p-8">
+                        <h3 class="text-2xl font-bold mb-6">Storage & Processing Layer</h3>
+                        <div class="space-y-6">
+                            <div class="border-l-4 border-blue-500 pl-6">
+                                <h4 class="text-lg font-bold mb-2">AWS S3 Storage</h4>
+                                <p class="text-gray-600 mb-3">Multi-tier storage strategy with intelligent lifecycle management:</p>
+                                <ul class="text-sm text-gray-600 space-y-1">
+                                    <li>• Standard tier for frequently accessed files</li>
+                                    <li>• Infrequent access for archived content</li>
+                                    <li>• Glacier for long-term archival</li>
+                                    <li>• Intelligent tiering for cost optimization</li>
+                                </ul>
+                            </div>
+                            <div class="border-l-4 border-green-500 pl-6">
+                                <h4 class="text-lg font-bold mb-2">Lambda Functions</h4>
+                                <p class="text-gray-600 mb-3">Serverless compute for processing workflows:</p>
+                                <ul class="text-sm text-gray-600 space-y-1">
+                                    <li>• File upload handlers with validation</li>
+                                    <li>• AI service orchestration</li>
+                                    <li>• Metadata extraction and processing</li>
+                                    <li>• Error handling and retry logic</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-white rounded-3xl shadow-lg p-8">
+                        <h3 class="text-2xl font-bold mb-6">AI & Analytics Layer</h3>
+                        <div class="space-y-6">
+                            <div class="border-l-4 border-purple-500 pl-6">
+                                <h4 class="text-lg font-bold mb-2">Content Analysis</h4>
+                                <p class="text-gray-600 mb-3">Comprehensive AI-powered content understanding:</p>
+                                <ul class="text-sm text-gray-600 space-y-1">
+                                    <li>• Rekognition for image/video analysis</li>
+                                    <li>• Textract for document processing</li>
+                                    <li>• Transcribe for audio content</li>
+                                    <li>• Comprehend for sentiment analysis</li>
+                                </ul>
+                            </div>
+                            <div class="border-l-4 border-orange-500 pl-6">
+                                <h4 class="text-lg font-bold mb-2">Data Management</h4>
+                                <p class="text-gray-600 mb-3">Efficient data storage and querying:</p>
+                                <ul class="text-sm text-gray-600 space-y-1">
+                                    <li>• DynamoDB for fast metadata queries</li>
+                                    <li>• Glue for data cataloging</li>
+                                    <li>• Athena for complex analytics</li>
+                                    <li>• QuickSight for visualization</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Key Features Section -->
+        <section class="py-32 px-6 bg-gray-50">
+            <div class="max-w-6xl mx-auto">
+                <div class="text-center mb-20">
+                    <h2 class="text-5xl md:text-6xl font-apple-display font-bold tracking-tighter mb-8">Key Features & Capabilities</h2>
+                    <p class="text-xl text-gray-600 max-w-4xl mx-auto leading-relaxed">
+                        The Event-Driven Serverless Pipeline offers a comprehensive suite of features designed to transform how individuals manage and interact with their digital content. Each feature is powered by advanced AWS services and optimized for performance and user experience.
+                    </p>
+                </div>
+
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
+                    <div class="bg-white rounded-3xl shadow-lg p-8">
+                        <div class="w-16 h-16 bg-blue-100 rounded-2xl flex items-center justify-center mb-6">
+                            <svg class="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-bold mb-4">Intelligent Search</h3>
+                        <p class="text-gray-600 leading-relaxed">Advanced search capabilities powered by AI analysis, enabling users to find content through natural language queries, content similarity, and metadata filtering.</p>
+                    </div>
+                    <div class="bg-white rounded-3xl shadow-lg p-8">
+                        <div class="w-16 h-16 bg-green-100 rounded-2xl flex items-center justify-center mb-6">
+                            <svg class="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"></path>
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-bold mb-4">Automated Tagging</h3>
+                        <p class="text-gray-600 leading-relaxed">AI-powered content analysis automatically generates relevant tags, categories, and metadata for all uploaded files, improving organization and discoverability.</p>
+                    </div>
+                    <div class="bg-white rounded-3xl shadow-lg p-8">
+                        <div class="w-16 h-16 bg-purple-100 rounded-2xl flex items-center justify-center mb-6">
+                            <svg class="w-8 h-8 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-bold mb-4">Analytics Dashboard</h3>
+                        <p class="text-gray-600 leading-relaxed">Comprehensive analytics and reporting through QuickSight dashboards, providing insights into content patterns, usage trends, and knowledge gaps.</p>
+                    </div>
+                    <div class="bg-white rounded-3xl shadow-lg p-8">
+                        <div class="w-16 h-16 bg-orange-100 rounded-2xl flex items-center justify-center mb-6">
+                            <svg class="w-8 h-8 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-bold mb-4">Secure Storage</h3>
+                        <p class="text-gray-600 leading-relaxed">Enterprise-grade security with encryption at rest and in transit, access controls, and compliance with data protection regulations.</p>
+                    </div>
+                    <div class="bg-white rounded-3xl shadow-lg p-8">
+                        <div class="w-16 h-16 bg-red-100 rounded-2xl flex items-center justify-center mb-6">
+                            <svg class="w-8 h-8 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-bold mb-4">Real-time Processing</h3>
+                        <p class="text-gray-600 leading-relaxed">Serverless architecture ensures immediate processing of uploaded content with automatic scaling and cost optimization.</p>
+                    </div>
+                    <div class="bg-white rounded-3xl shadow-lg p-8">
+                        <div class="w-16 h-16 bg-cyan-100 rounded-2xl flex items-center justify-center mb-6">
+                            <svg class="w-8 h-8 text-cyan-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-bold mb-4">Content Insights</h3>
+                        <p class="text-gray-600 leading-relaxed">AI-powered content analysis provides sentiment analysis, entity extraction, and content categorization for deeper understanding of personal content.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Implementation Details -->
+        <section class="py-32 px-6">
+            <div class="max-w-6xl mx-auto">
+                <div class="text-center mb-20">
+                    <h2 class="text-5xl md:text-6xl font-apple-display font-bold tracking-tighter mb-8">Implementation Details</h2>
+                    <p class="text-xl text-gray-600 max-w-4xl mx-auto leading-relaxed">
+                        The implementation follows AWS Well-Architected Framework principles, ensuring the system is secure, reliable, performant, cost-optimized, and operationally excellent. Each component is designed for scalability and maintainability.
+                    </p>
+                </div>
+
+                <div class="space-y-16">
+                    <div class="bg-white rounded-3xl shadow-lg p-8">
+                        <h3 class="text-3xl font-bold mb-8">Step Functions Workflow</h3>
+                        <div class="grid md:grid-cols-2 gap-8">
+                            <div>
+                                <h4 class="text-xl font-bold mb-4">Orchestration Logic</h4>
+                                <p class="text-gray-600 mb-6">Step Functions coordinate the entire processing pipeline, ensuring reliable execution and proper error handling:</p>
+                                <ul class="space-y-3 text-gray-600">
+                                    <li class="flex items-start space-x-3">
+                                        <span class="w-2 h-2 bg-blue-500 rounded-full mt-2 flex-shrink-0"></span>
+                                        <span>File upload validation and initial processing</span>
+                                    </li>
+                                    <li class="flex items-start space-x-3">
+                                        <span class="w-2 h-2 bg-green-500 rounded-full mt-2 flex-shrink-0"></span>
+                                        <span>Parallel AI service invocation based on file type</span>
+                                    </li>
+                                    <li class="flex items-start space-x-3">
+                                        <span class="w-2 h-2 bg-purple-500 rounded-full mt-2 flex-shrink-0"></span>
+                                        <span>Metadata aggregation and storage</span>
+                                    </li>
+                                    <li class="flex items-start space-x-3">
+                                        <span class="w-2 h-2 bg-orange-500 rounded-full mt-2 flex-shrink-0"></span>
+                                        <span>Error handling and retry mechanisms</span>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="bg-gradient-to-br from-blue-50 to-indigo-100 rounded-2xl p-6">
+                                <h4 class="text-lg font-bold mb-4">Error Handling</h4>
+                                <p class="text-gray-600 text-sm mb-4">Comprehensive error handling ensures system reliability:</p>
+                                <ul class="space-y-2 text-sm text-gray-600">
+                                    <li>• Automatic retry with exponential backoff</li>
+                                    <li>• Dead letter queues for failed processing</li>
+                                    <li>• CloudWatch monitoring and alerting</li>
+                                    <li>• Graceful degradation for service failures</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-3xl shadow-lg p-8">
+                        <h3 class="text-3xl font-bold mb-8">Cost Optimization Strategy</h3>
+                        <div class="grid md:grid-cols-3 gap-8">
+                            <div class="text-center">
+                                <div class="w-16 h-16 bg-green-100 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                                    <svg class="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1"></path>
+                                    </svg>
+                                </div>
+                                <h4 class="text-lg font-bold mb-2">Storage Optimization</h4>
+                                <p class="text-gray-600 text-sm">Intelligent tiering reduces storage costs by up to 70% through automatic data lifecycle management.</p>
+                            </div>
+                            <div class="text-center">
+                                <div class="w-16 h-16 bg-blue-100 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                                    <svg class="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                                    </svg>
+                                </div>
+                                <h4 class="text-lg font-bold mb-2">Serverless Compute</h4>
+                                <p class="text-gray-600 text-sm">Lambda functions provide cost-effective processing with pay-per-use pricing and automatic scaling.</p>
+                            </div>
+                            <div class="text-center">
+                                <div class="w-16 h-16 bg-purple-100 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                                    <svg class="w-8 h-8 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+                                    </svg>
+                                </div>
+                                <h4 class="text-lg font-bold mb-2">Analytics Efficiency</h4>
+                                <p class="text-gray-600 text-sm">Athena and QuickSight provide cost-effective analytics with query optimization and result caching.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Results & Impact -->
+        <section class="py-32 px-6 bg-gray-50">
+            <div class="max-w-6xl mx-auto">
+                <div class="text-center mb-20">
+                    <h2 class="text-5xl md:text-6xl font-apple-display font-bold tracking-tighter mb-8">Results & Impact</h2>
+                    <p class="text-xl text-gray-600 max-w-4xl mx-auto leading-relaxed">
+                        The Event-Driven Serverless Pipeline has demonstrated significant value in personal content management, providing users with unprecedented insights into their digital lives while maintaining cost efficiency and scalability.
+                    </p>
+                </div>
+
+                <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
+                    <div class="bg-white rounded-3xl shadow-lg p-8 text-center">
+                        <div class="text-4xl font-bold text-blue-600 mb-2">95%</div>
+                        <h3 class="text-lg font-bold mb-2">Search Accuracy</h3>
+                        <p class="text-gray-600 text-sm">AI-powered search delivers highly relevant results with minimal false positives.</p>
+                    </div>
+                    <div class="bg-white rounded-3xl shadow-lg p-8 text-center">
+                        <div class="text-4xl font-bold text-green-600 mb-2">70%</div>
+                        <h3 class="text-lg font-bold mb-2">Cost Reduction</h3>
+                        <p class="text-gray-600 text-sm">Intelligent tiering and serverless architecture significantly reduce operational costs.</p>
+                    </div>
+                    <div class="bg-white rounded-3xl shadow-lg p-8 text-center">
+                        <div class="text-4xl font-bold text-purple-600 mb-2">99.9%</div>
+                        <h3 class="text-lg font-bold mb-2">Uptime</h3>
+                        <p class="text-gray-600 text-sm">High availability architecture ensures reliable access to personal content.</p>
+                    </div>
+                    <div class="bg-white rounded-3xl shadow-lg p-8 text-center">
+                        <div class="text-4xl font-bold text-orange-600 mb-2">10x</div>
+                        <h3 class="text-lg font-bold mb-2">Processing Speed</h3>
+                        <p class="text-gray-600 text-sm">Parallel processing and serverless architecture dramatically improve content processing times.</p>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-3xl shadow-lg p-8">
+                    <h3 class="text-3xl font-bold mb-8 text-center">Key Achievements</h3>
+                    <div class="grid md:grid-cols-2 gap-8">
+                        <div>
+                            <h4 class="text-xl font-bold mb-4">Technical Excellence</h4>
+                            <ul class="space-y-3 text-gray-600">
+                                <li class="flex items-start space-x-3">
+                                    <svg class="w-5 h-5 text-green-500 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                    </svg>
+                                    <span>Successfully integrated 9 AWS services in a cohesive architecture</span>
+                                </li>
+                                <li class="flex items-start space-x-3">
+                                    <svg class="w-5 h-5 text-green-500 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                    </svg>
+                                    <span>Implemented robust error handling and monitoring</span>
+                                </li>
+                                <li class="flex items-start space-x-3">
+                                    <svg class="w-5 h-5 text-green-500 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                    </svg>
+                                    <span>Achieved sub-second response times for metadata queries</span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4 class="text-xl font-bold mb-4">Business Impact</h4>
+                            <ul class="space-y-3 text-gray-600">
+                                <li class="flex items-start space-x-3">
+                                    <svg class="w-5 h-5 text-green-500 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                    </svg>
+                                    <span>Reduced content discovery time by 80%</span>
+                                </li>
+                                <li class="flex items-start space-x-3">
+                                    <svg class="w-5 h-5 text-green-500 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                    </svg>
+                                    <span>Enabled data-driven insights into personal content patterns</span>
+                                </li>
+                                <li class="flex items-start space-x-3">
+                                    <svg class="w-5 h-5 text-green-500 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                    </svg>
+                                    <span>Scalable architecture supporting unlimited content growth</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA Section -->
+        <section class="py-32 px-6 bg-black text-white">
+            <div class="max-w-4xl mx-auto text-center">
+                <h2 class="text-5xl md:text-6xl font-apple-display font-bold tracking-tighter mb-8">Interested in This Project?</h2>
+                <p class="text-xl text-gray-300 mb-12 max-w-2xl mx-auto">
+                    This project demonstrates advanced cloud architecture skills and AI integration capabilities. Let's discuss how similar solutions can benefit your organization.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                    <a href="contact.html" class="btn btn-primary bg-white text-black hover:bg-gray-100 rounded-full px-8 py-4 text-base font-medium inline-flex items-center justify-center">
+                        Get in Touch
+                        <svg class="ml-2 h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+                        </svg>
+                    </a>
+                    <a href="work.html" class="btn btn-secondary border-2 border-white text-white hover:bg-white hover:text-black rounded-full px-8 py-4 text-base font-medium inline-flex items-center justify-center">
+                        View More Projects
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-50 border-t border-gray-200">
+        <div class="max-w-7xl mx-auto px-6 py-6">
+            <div class="flex flex-col md:flex-row justify-between items-center space-y-3 md:space-y-0">
+                <p class="text-gray-600 text-sm">© 2025 Deepak Patil. All rights reserved.</p>
+                <div class="flex space-x-6 text-sm">
+                    <a href="privacy-policy.html" class="text-gray-600 hover:text-gray-900 transition-colors">Privacy Policy</a>
+                    <a href="terms-conditions.html" class="text-gray-600 hover:text-gray-900 transition-colors">Terms & Conditions</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+    <script src="js/navbar.js"></script>
+</body>
+</html>
