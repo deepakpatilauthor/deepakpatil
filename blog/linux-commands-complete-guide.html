@@ -1,0 +1,1424 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Linux Commands: The Complete Guide - Deepak Patil</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+    <link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png">
+    <link rel="manifest" href="../site.webmanifest">
+    <meta name="description" content="Master Linux with this comprehensive guide covering 100+ essential Linux commands with detailed examples. From basic file operations to advanced system administration.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Manrope:wght@300;400;500;600;700&family=Josefin+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../styles/main.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'apple': ['Inter', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'Helvetica Neue', 'sans-serif'],
+                        'apple-display': ['Manrope', 'Inter', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'Helvetica Neue', 'sans-serif'],
+                        'logo': ['Josefin Sans', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'Helvetica Neue', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="font-apple bg-white text-black antialiased">
+    <!-- Complete Responsive Navigation Bar -->
+    <nav class="bg-white shadow-sm border-b border-gray-200 fixed top-0 left-0 right-0 z-50" role="navigation" aria-label="Main navigation">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <!-- Brand/Logo -->
+                <div class="flex-shrink-0">
+                    <a href="../index.html" class="text-xl font-bold text-black hover:text-gray-700 transition-colors duration-200" aria-label="Deepak Patil - Home">
+                        DEEPAK PATIL
+                    </a>
+                </div>
+
+                <!-- Desktop Navigation -->
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-8" id="desktop-menu">
+                        <a href="../index.html" class="text-gray-600 hover:text-black px-3 py-2 text-sm font-medium transition-colors duration-200">Home</a>
+                        <a href="../about.html" class="text-gray-600 hover:text-black px-3 py-2 text-sm font-medium transition-colors duration-200">About</a>
+                        <a href="../work.html" class="text-gray-600 hover:text-black px-3 py-2 text-sm font-medium transition-colors duration-200">Work</a>
+                        <a href="../blog.html" class="text-black font-semibold px-3 py-2 text-sm font-medium transition-colors duration-200">Blog</a>
+                        <a href="../contact.html" class="text-gray-600 hover:text-black px-3 py-2 text-sm font-medium transition-colors duration-200">Contact</a>
+                    </div>
+                </div>
+
+                <!-- Mobile menu button -->
+                <div class="md:hidden">
+                    <button 
+                        id="mobile-menu-button" 
+                        type="button" 
+                        class="inline-flex items-center justify-center p-2 rounded-md text-gray-600 hover:text-black hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-black transition-colors duration-200"
+                        aria-controls="mobile-menu" 
+                        aria-expanded="false"
+                        aria-label="Toggle navigation menu"
+                    >
+                        <span class="sr-only">Open main menu</span>
+                        <!-- Hamburger icon -->
+                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile menu -->
+        <div id="mobile-menu" class="hidden md:hidden" role="menu" aria-labelledby="mobile-menu-button">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-white border-t border-gray-200 shadow-lg">
+                <!-- Close button -->
+                <div class="flex justify-end mb-2">
+                    <button 
+                        id="mobile-menu-close" 
+                        type="button" 
+                        class="inline-flex items-center justify-center p-2 rounded-md text-gray-600 hover:text-black hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-black transition-colors duration-200"
+                        aria-label="Close navigation menu"
+                    >
+                        <span class="sr-only">Close menu</span>
+                        <!-- Close icon -->
+                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                    </button>
+                </div>
+                
+                <!-- Mobile navigation links -->
+                <a href="../index.html" class="text-gray-600 hover:text-black hover:bg-gray-100 block px-3 py-2 text-base font-medium rounded-md transition-colors duration-200" role="menuitem">Home</a>
+                <a href="../about.html" class="text-gray-600 hover:text-black hover:bg-gray-100 block px-3 py-2 text-base font-medium rounded-md transition-colors duration-200" role="menuitem">About</a>
+                <a href="../work.html" class="text-gray-600 hover:text-black hover:bg-gray-100 block px-3 py-2 text-base font-medium rounded-md transition-colors duration-200" role="menuitem">Work</a>
+                <a href="../blog.html" class="bg-gray-100 text-black font-semibold block px-3 py-2 text-base font-medium rounded-md transition-colors duration-200" role="menuitem">Blog</a>
+                <a href="../contact.html" class="text-gray-600 hover:text-black hover:bg-gray-100 block px-3 py-2 text-base font-medium rounded-md transition-colors duration-200" role="menuitem">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+
+    <!-- Main Content -->
+    <main class="min-h-screen bg-white pt-20">
+        <!-- Article Header -->
+        <section class="py-20 px-6 pt-24">
+            <div class="max-w-4xl mx-auto">
+                <!-- Breadcrumb - Fixed -->
+                <nav class="mb-8 fixed top-16 left-0 right-0 bg-white/95 backdrop-blur-sm z-50 py-2 px-6 border-b border-gray-100">
+                    <div class="flex items-center space-x-2 text-sm text-gray-500">
+                        <a href="../blog.html" class="hover:text-black transition-colors">Blog</a>
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                        </svg>
+                        <span>Linux Commands: The Complete Guide</span>
+                    </div>
+                </nav>
+                
+                <!-- Back to Blog -->
+                <a href="../blog.html" class="inline-flex items-center text-gray-500 hover:text-black transition-colors mb-8">
+                    <svg class="h-4 w-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+                    </svg>
+                    Back to Blog
+                </a>
+
+                <!-- Article Meta -->
+                <div class="flex items-center gap-4 mb-6">
+                    <span class="bg-gray-100 text-gray-700 px-3 py-1 rounded-full text-sm font-medium">Development</span>
+                    <span class="text-gray-500 text-sm">October 9, 2025</span>
+                    <div class="flex items-center gap-1 text-gray-500 text-sm">
+                        <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                        <span>25 min read</span>
+                    </div>
+                </div>
+
+                <!-- Article Title -->
+                <h1 class="text-5xl md:text-6xl font-apple-display font-bold tracking-tighter mb-8 leading-tight">
+                    Linux Commands: The Complete Guide
+                </h1>
+
+                <!-- Article Excerpt -->
+                <p class="text-xl text-gray-600 leading-relaxed mb-12">
+                    Master Linux with this comprehensive guide covering 100+ essential Linux commands with detailed examples. From basic file operations to advanced system administration, this guide will transform your Linux skills.
+                </p>
+
+                <!-- Article Image/Visual -->
+                <div class="aspect-square rounded-2xl mb-12 overflow-hidden max-w-2xl mx-auto">
+                    <div class="w-full h-full bg-gradient-to-br from-green-100 to-emerald-200 flex items-center justify-center">
+                        <div class="text-center p-8">
+                            <div class="w-24 h-24 mx-auto mb-4 bg-green-600 rounded-full flex items-center justify-center">
+                                <svg class="w-12 h-12 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m-4 4l4 4-4 4m6-4h2a2 2 0 012 2v6a2 2 0 01-2 2h-2v-2h2v-6h-2v-2z"></path>
+                                </svg>
+                            </div>
+                            <h3 class="text-2xl font-bold text-gray-800 mb-2">Linux Commands</h3>
+                            <p class="text-gray-600">Complete Reference Guide</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Article Content -->
+        <article class="pb-20 px-6">
+            <div class="max-w-4xl mx-auto">
+                <div class="prose prose-lg max-w-none">
+                    <p class="text-lg text-gray-700 leading-relaxed mb-6">
+                        Linux commands are the foundation of system administration, development, and DevOps workflows. Whether you're a beginner learning the basics or an experienced professional looking for a comprehensive reference, this guide covers over 100 essential Linux commands with practical examples.
+                    </p>
+
+                    <p class="text-lg text-gray-700 leading-relaxed mb-6">
+                        From basic file operations to advanced system administration, network management, and process control, this comprehensive guide will help you master the Linux command line and become more productive in your daily work.
+                    </p>
+
+                    <h2 class="text-3xl font-apple-display font-bold mb-6 mt-12">Essential File and Directory Commands</h2>
+
+                    <h3 class="text-2xl font-semibold mb-4 mt-8">ls - List Directory Contents</h3>
+                    <p class="text-lg text-gray-700 leading-relaxed mb-4">Display files and directories in the current or specified directory.</p>
+                    <div class="bg-gray-100 p-6 rounded-lg mb-6">
+                        <h4 class="text-lg font-semibold mb-3">Examples:</h4>
+                        <pre class="text-sm text-gray-800 overflow-x-auto"><code># Basic listing
+ls
+
+# Detailed listing with permissions, size, date
+ls -l
+
+# Show hidden files (starting with .)
+ls -a
+
+# Human-readable file sizes
+ls -lh
+
+# Sort by modification time (newest first)
+ls -lt
+
+# Recursive listing of subdirectories
+ls -R
+
+# List with file types indicated
+ls -F
+
+# Long format with human-readable sizes and show hidden files
+ls -lah</code></pre>
+                    </div>
+
+                    <h3 class="text-2xl font-semibold mb-4 mt-8">cd - Change Directory</h3>
+                    <p class="text-lg text-gray-700 leading-relaxed mb-4">Navigate between directories in the filesystem.</p>
+                    <div class="bg-gray-100 p-6 rounded-lg mb-6">
+                        <h4 class="text-lg font-semibold mb-3">Examples:</h4>
+                        <pre class="text-sm text-gray-800 overflow-x-auto"><code># Go to home directory
+cd ~
+cd
+
+# Go to parent directory
+cd ..
+
+# Go to root directory
+cd /
+
+# Go to previous directory
+cd -
+
+# Go to specific directory
+cd /var/log
+
+# Go to subdirectory
+cd Documents/Projects</code></pre>
+                    </div>
+
+                    <h3 class="text-2xl font-semibold mb-4 mt-8">pwd - Print Working Directory</h3>
+                    <p class="text-lg text-gray-700 leading-relaxed mb-4">Display the current directory path.</p>
+                    <div class="bg-gray-100 p-6 rounded-lg mb-6">
+                        <h4 class="text-lg font-semibold mb-3">Examples:</h4>
+                        <pre class="text-sm text-gray-800 overflow-x-auto"><code># Show current directory
+pwd
+
+# Output: /home/username/Documents</code></pre>
+                    </div>
+
+                    <h3 class="text-2xl font-semibold mb-4 mt-8">mkdir - Make Directory</h3>
+                    <p class="text-lg text-gray-700 leading-relaxed mb-4">Create new directories.</p>
+                    <div class="bg-gray-100 p-6 rounded-lg mb-6">
+                        <h4 class="text-lg font-semibold mb-3">Examples:</h4>
+                        <pre class="text-sm text-gray-800 overflow-x-auto"><code># Create single directory
+mkdir new_folder
+
+# Create multiple directories
+mkdir folder1 folder2 folder3
+
+# Create directory with parent directories
+mkdir -p path/to/new/directory
+
+# Create directory with specific permissions
+mkdir -m 755 public_folder
+
+# Create directory structure
+mkdir -p project/{src,tests,docs}</code></pre>
+                    </div>
+
+                    <h3 class="text-2xl font-semibold mb-4 mt-8">rmdir - Remove Directory</h3>
+                    <p class="text-lg text-gray-700 leading-relaxed mb-4">Remove empty directories.</p>
+                    <div class="bg-gray-100 p-6 rounded-lg mb-6">
+                        <h4 class="text-lg font-semibold mb-3">Examples:</h4>
+                        <pre class="text-sm text-gray-800 overflow-x-auto"><code># Remove empty directory
+rmdir empty_folder
+
+# Remove multiple empty directories
+rmdir dir1 dir2 dir3
+
+# Remove directory and parent directories if empty
+rmdir -p path/to/empty/directory</code></pre>
+                    </div>
+
+                    <h3 class="text-2xl font-semibold mb-4 mt-8">rm - Remove Files/Directories</h3>
+                    <p class="text-lg text-gray-700 leading-relaxed mb-4">Delete files and directories.</p>
+                    <div class="bg-gray-100 p-6 rounded-lg mb-6">
+                        <h4 class="text-lg font-semibold mb-3">Examples:</h4>
+                        <pre class="text-sm text-gray-800 overflow-x-auto"><code># Remove file
+rm filename.txt
+
+# Remove multiple files
+rm file1.txt file2.txt file3.txt
+
+# Remove directory and all contents (recursive)
+rm -r directory_name
+
+# Force removal without confirmation
+rm -f filename.txt
+
+# Interactive removal (ask before each file)
+rm -i *.txt
+
+# Remove directory recursively with force
+rm -rf directory_name
+
+# Remove files with specific pattern
+rm *.log</code></pre>
+                    </div>
+
+                    <h3 class="text-2xl font-semibold mb-4 mt-8">cp - Copy Files/Directories</h3>
+                    <p class="text-lg text-gray-700 leading-relaxed mb-4">Copy files and directories.</p>
+                    <div class="bg-gray-100 p-6 rounded-lg mb-6">
+                        <h4 class="text-lg font-semibold mb-3">Examples:</h4>
+                        <pre class="text-sm text-gray-800 overflow-x-auto"><code># Copy file
+cp source.txt destination.txt
+
+# Copy file to directory
+cp file.txt /path/to/directory/
+
+# Copy directory recursively
+cp -r source_dir destination_dir
+
+# Preserve file attributes
+cp -p source.txt destination.txt
+
+# Interactive copy (ask before overwriting)
+cp -i source.txt destination.txt
+
+# Copy with verbose output
+cp -v source.txt destination.txt
+
+# Copy multiple files to directory
+cp file1.txt file2.txt /destination/directory/</code></pre>
+                    </div>
+
+                    <h3 class="text-2xl font-semibold mb-4 mt-8">mv - Move/Rename Files</h3>
+                    <p class="text-lg text-gray-700 leading-relaxed mb-4">Move or rename files and directories.</p>
+                    <div class="bg-gray-100 p-6 rounded-lg mb-6">
+                        <h4 class="text-lg font-semibold mb-3">Examples:</h4>
+                        <pre class="text-sm text-gray-800 overflow-x-auto"><code># Rename file
+mv old_name.txt new_name.txt
+
+# Move file to directory
+mv file.txt /destination/directory/
+
+# Move directory
+mv source_dir /destination/path/
+
+# Move multiple files
+mv file1.txt file2.txt /destination/
+
+# Interactive move (ask before overwriting)
+mv -i source.txt destination.txt
+
+# Move with verbose output
+mv -v source.txt destination.txt</code></pre>
+                    </div>
+
+                    <h3 class="text-2xl font-semibold mb-4 mt-8">touch - Create/Update File Timestamps</h3>
+                    <p class="text-lg text-gray-700 leading-relaxed mb-4">Create empty files or update file timestamps.</p>
+                    <div class="bg-gray-100 p-6 rounded-lg mb-6">
+                        <h4 class="text-lg font-semibold mb-3">Examples:</h4>
+                        <pre class="text-sm text-gray-800 overflow-x-auto"><code># Create empty file
+touch new_file.txt
+
+# Create multiple files
+touch file1.txt file2.txt file3.txt
+
+# Update file timestamp to current time
+touch existing_file.txt
+
+# Set specific timestamp
+touch -t 202310091200 file.txt
+
+# Create file with specific date
+touch -d "2023-10-09" file.txt</code></pre>
+                    </div>
+
+                    <h2 class="text-3xl font-apple-display font-bold mb-6 mt-12">File Viewing and Editing Commands</h2>
+
+                    <h3 class="text-2xl font-semibold mb-4 mt-8">cat - Display File Contents</h3>
+                    <p class="text-lg text-gray-700 leading-relaxed mb-4">Display the entire contents of a file.</p>
+                    <div class="bg-gray-100 p-6 rounded-lg mb-6">
+                        <h4 class="text-lg font-semibold mb-3">Examples:</h4>
+                        <pre class="text-sm text-gray-800 overflow-x-auto"><code># Display file contents
+cat filename.txt
+
+# Display multiple files
+cat file1.txt file2.txt
+
+# Number all lines
+cat -n filename.txt
+
+# Show non-printing characters
+cat -v filename.txt
+
+# Display with line endings visible
+cat -E filename.txt
+
+# Concatenate files
+cat file1.txt file2.txt > combined.txt</code></pre>
+                    </div>
+
+                    <h3 class="text-2xl font-semibold mb-4 mt-8">less - View File Contents (Pager)</h3>
+                    <p class="text-lg text-gray-700 leading-relaxed mb-4">View file contents with scrolling and search capabilities.</p>
+                    <div class="bg-gray-100 p-6 rounded-lg mb-6">
+                        <h4 class="text-lg font-semibold mb-3">Examples:</h4>
+                        <pre class="text-sm text-gray-800 overflow-x-auto"><code># View file with less
+less filename.txt
+
+# View with line numbers
+less -N filename.txt
+
+# Search for text (press / then type search term)
+less filename.txt
+
+# Navigate: Space (next page), b (previous page), q (quit)</code></pre>
+                    </div>
+
+                    <h3 class="text-2xl font-semibold mb-4 mt-8">head - Display First Lines</h3>
+                    <p class="text-lg text-gray-700 leading-relaxed mb-4">Show the first few lines of a file.</p>
+                    <div class="bg-gray-100 p-6 rounded-lg mb-6">
+                        <h4 class="text-lg font-semibold mb-3">Examples:</h4>
+                        <pre class="text-sm text-gray-800 overflow-x-auto"><code># Show first 10 lines (default)
+head filename.txt
+
+# Show first 20 lines
+head -n 20 filename.txt
+
+# Show first 5 lines
+head -5 filename.txt
+
+# Show first 1KB of file
+head -c 1024 filename.txt</code></pre>
+                    </div>
+
+                    <h3 class="text-2xl font-semibold mb-4 mt-8">tail - Display Last Lines</h3>
+                    <p class="text-lg text-gray-700 leading-relaxed mb-4">Show the last few lines of a file.</p>
+                    <div class="bg-gray-100 p-6 rounded-lg mb-6">
+                        <h4 class="text-lg font-semibold mb-3">Examples:</h4>
+                        <pre class="text-sm text-gray-800 overflow-x-auto"><code># Show last 10 lines (default)
+tail filename.txt
+
+# Show last 20 lines
+tail -n 20 filename.txt
+
+# Follow file changes in real-time
+tail -f logfile.txt
+
+# Show last 5 lines
+tail -5 filename.txt
+
+# Follow with line numbers
+tail -fn 20 logfile.txt</code></pre>
+                    </div>
+
+                    <h3 class="text-2xl font-semibold mb-4 mt-8">grep - Search Text in Files</h3>
+                    <p class="text-lg text-gray-700 leading-relaxed mb-4">Search for patterns in files or text streams.</p>
+                    <div class="bg-gray-100 p-6 rounded-lg mb-6">
+                        <h4 class="text-lg font-semibold mb-3">Examples:</h4>
+                        <pre class="text-sm text-gray-800 overflow-x-auto"><code># Search for text in file
+grep "search_term" filename.txt
+
+# Case-insensitive search
+grep -i "search_term" filename.txt
+
+# Show line numbers
+grep -n "search_term" filename.txt
+
+# Search in multiple files
+grep "error" *.log
+
+# Search recursively in directories
+grep -r "function_name" /path/to/code/
+
+# Show context lines (before and after match)
+grep -C 3 "search_term" filename.txt
+
+# Invert match (show lines that don't contain pattern)
+grep -v "exclude_term" filename.txt
+
+# Use regular expressions
+grep -E "^[0-9]+" filename.txt</code></pre>
+                    </div>
+
+                    <h3 class="text-2xl font-semibold mb-4 mt-8">find - Find Files and Directories</h3>
+                    <p class="text-lg text-gray-700 leading-relaxed mb-4">Search for files and directories based on various criteria.</p>
+                    <div class="bg-gray-100 p-6 rounded-lg mb-6">
+                        <h4 class="text-lg font-semibold mb-3">Examples:</h4>
+                        <pre class="text-sm text-gray-800 overflow-x-auto"><code># Find files by name
+find /path -name "*.txt"
+
+# Find files by type
+find /path -type f -name "*.log"
+
+# Find directories
+find /path -type d -name "project*"
+
+# Find files by size
+find /path -size +100M
+
+# Find files by modification time
+find /path -mtime -7  # Modified in last 7 days
+
+# Find files by permissions
+find /path -perm 755
+
+# Execute command on found files
+find /path -name "*.tmp" -delete
+
+# Find files and show details
+find /path -name "*.txt" -ls</code></pre>
+                    </div>
+
+                    <h3 class="text-2xl font-semibold mb-4 mt-8">locate - Find Files by Name</h3>
+                    <p class="text-lg text-gray-700 leading-relaxed mb-4">Quickly find files by name using a database.</p>
+                    <div class="bg-gray-100 p-6 rounded-lg mb-6">
+                        <h4 class="text-lg font-semibold mb-3">Examples:</h4>
+                        <pre class="text-sm text-gray-800 overflow-x-auto"><code># Find files by name
+locate filename.txt
+
+# Case-insensitive search
+locate -i "filename"
+
+# Limit number of results
+locate -l 10 "*.log"
+
+# Update locate database
+sudo updatedb</code></pre>
+                    </div>
+
+                    <h2 class="text-3xl font-apple-display font-bold mb-6 mt-12">File Permissions and Ownership</h2>
+
+                    <h3 class="text-2xl font-semibold mb-4 mt-8">chmod - Change File Permissions</h3>
+                    <p class="text-lg text-gray-700 leading-relaxed mb-4">Modify file and directory permissions.</p>
+                    <div class="bg-gray-100 p-6 rounded-lg mb-6">
+                        <h4 class="text-lg font-semibold mb-3">Examples:</h4>
+                        <pre class="text-sm text-gray-800 overflow-x-auto"><code># Give read, write, execute to owner
+chmod 755 filename.txt
+
+# Give read and write to owner, read to group and others
+chmod 644 filename.txt
+
+# Make file executable
+chmod +x script.sh
+
+# Remove execute permission
+chmod -x script.sh
+
+# Give write permission to group
+chmod g+w filename.txt
+
+# Remove read permission from others
+chmod o-r filename.txt
+
+# Recursive permission change
+chmod -R 755 directory/
+
+# Symbolic permissions
+chmod u=rwx,g=rx,o=r filename.txt</code></pre>
+                    </div>
+
+                    <h3 class="text-2xl font-semibold mb-4 mt-8">chown - Change File Ownership</h3>
+                    <p class="text-lg text-gray-700 leading-relaxed mb-4">Change the owner and group of files.</p>
+                    <div class="bg-gray-100 p-6 rounded-lg mb-6">
+                        <h4 class="text-lg font-semibold mb-3">Examples:</h4>
+                        <pre class="text-sm text-gray-800 overflow-x-auto"><code># Change owner
+sudo chown newuser filename.txt
+
+# Change owner and group
+sudo chown newuser:newgroup filename.txt
+
+# Change only group
+sudo chown :newgroup filename.txt
+
+# Recursive ownership change
+sudo chown -R newuser:newgroup directory/
+
+# Change ownership of symbolic link
+sudo chown -h newuser symlink</code></pre>
+                    </div>
+
+                    <h3 class="text-2xl font-semibold mb-4 mt-8">chgrp - Change Group Ownership</h3>
+                    <p class="text-lg text-gray-700 leading-relaxed mb-4">Change the group ownership of files.</p>
+                    <div class="bg-gray-100 p-6 rounded-lg mb-6">
+                        <h4 class="text-lg font-semibold mb-3">Examples:</h4>
+                        <pre class="text-sm text-gray-800 overflow-x-auto"><code># Change group
+sudo chgrp newgroup filename.txt
+
+# Recursive group change
+sudo chgrp -R newgroup directory/</code></pre>
+                    </div>
+
+                    <h2 class="text-3xl font-apple-display font-bold mb-6 mt-12">Process Management Commands</h2>
+
+                    <h3 class="text-2xl font-semibold mb-4 mt-8">ps - Process Status</h3>
+                    <p class="text-lg text-gray-700 leading-relaxed mb-4">Display information about running processes.</p>
+                    <div class="bg-gray-100 p-6 rounded-lg mb-6">
+                        <h4 class="text-lg font-semibold mb-3">Examples:</h4>
+                        <pre class="text-sm text-gray-800 overflow-x-auto"><code># Show all processes
+ps aux
+
+# Show processes in tree format
+ps auxf
+
+# Show processes for current user
+ps ux
+
+# Show specific process
+ps aux | grep nginx
+
+# Show process tree
+ps -ef --forest
+
+# Show processes with custom format
+ps -eo pid,ppid,cmd,%mem,%cpu</code></pre>
+                    </div>
+
+                    <h3 class="text-2xl font-semibold mb-4 mt-8">top - Real-time Process Monitor</h3>
+                    <p class="text-lg text-gray-700 leading-relaxed mb-4">Display real-time information about system processes.</p>
+                    <div class="bg-gray-100 p-6 rounded-lg mb-6">
+                        <h4 class="text-lg font-semibold mb-3">Examples:</h4>
+                        <pre class="text-sm text-gray-800 overflow-x-auto"><code># Start top
+top
+
+# Show processes for specific user
+top -u username
+
+# Update interval (seconds)
+top -d 2
+
+# Sort by CPU usage
+top -o %CPU
+
+# Sort by memory usage
+top -o %MEM</code></pre>
+                    </div>
+
+                    <h3 class="text-2xl font-semibold mb-4 mt-8">htop - Interactive Process Viewer</h3>
+                    <p class="text-lg text-gray-700 leading-relaxed mb-4">Enhanced version of top with better interface.</p>
+                    <div class="bg-gray-100 p-6 rounded-lg mb-6">
+                        <h4 class="text-lg font-semibold mb-3">Examples:</h4>
+                        <pre class="text-sm text-gray-800 overflow-x-auto"><code># Start htop
+htop
+
+# Show processes for specific user
+htop -u username
+
+# Show only specific processes
+htop -p 1234,5678</code></pre>
+                    </div>
+
+                    <h3 class="text-2xl font-semibold mb-4 mt-8">kill - Terminate Processes</h3>
+                    <p class="text-lg text-gray-700 leading-relaxed mb-4">Send signals to processes to terminate or control them.</p>
+                    <div class="bg-gray-100 p-6 rounded-lg mb-6">
+                        <h4 class="text-lg font-semibold mb-3">Examples:</h4>
+                        <pre class="text-sm text-gray-800 overflow-x-auto"><code># Terminate process gracefully
+kill 1234
+
+# Force kill process
+kill -9 1234
+
+# Kill all processes with name
+killall nginx
+
+# Send specific signal
+kill -TERM 1234
+
+# Kill process by name
+pkill nginx
+
+# Kill processes by pattern
+pkill -f "python script.py"</code></pre>
+                    </div>
+
+                    <h3 class="text-2xl font-semibold mb-4 mt-8">jobs - List Background Jobs</h3>
+                    <p class="text-lg text-gray-700 leading-relaxed mb-4">Display jobs running in the background.</p>
+                    <div class="bg-gray-100 p-6 rounded-lg mb-6">
+                        <h4 class="text-lg font-semibold mb-3">Examples:</h4>
+                        <pre class="text-sm text-gray-800 overflow-x-auto"><code># List background jobs
+jobs
+
+# List jobs with process IDs
+jobs -l
+
+# Bring job to foreground
+fg %1
+
+# Send job to background
+bg %1
+
+# Start command in background
+command &</code></pre>
+                    </div>
+
+                    <h3 class="text-2xl font-semibold mb-4 mt-8">nohup - Run Commands Immune to Hangups</h3>
+                    <p class="text-lg text-gray-700 leading-relaxed mb-4">Run commands that continue after terminal session ends.</p>
+                    <div class="bg-gray-100 p-6 rounded-lg mb-6">
+                        <h4 class="text-lg font-semibold mb-3">Examples:</h4>
+                        <pre class="text-sm text-gray-800 overflow-x-auto"><code># Run command with nohup
+nohup long_running_script.sh &
+
+# Redirect output to file
+nohup command > output.log 2>&1 &
+
+# Run with nohup and disown
+nohup command & disown</code></pre>
+                    </div>
+
+                    <h2 class="text-3xl font-apple-display font-bold mb-6 mt-12">System Information Commands</h2>
+
+                    <h3 class="text-2xl font-semibold mb-4 mt-8">uname - System Information</h3>
+                    <p class="text-lg text-gray-700 leading-relaxed mb-4">Display system information.</p>
+                    <div class="bg-gray-100 p-6 rounded-lg mb-6">
+                        <h4 class="text-lg font-semibold mb-3">Examples:</h4>
+                        <pre class="text-sm text-gray-800 overflow-x-auto"><code># Show kernel name
+uname
+
+# Show all system information
+uname -a
+
+# Show kernel release
+uname -r
+
+# Show machine hardware name
+uname -m
+
+# Show processor type
+uname -p</code></pre>
+                    </div>
+
+                    <h3 class="text-2xl font-semibold mb-4 mt-8">whoami - Current User</h3>
+                    <p class="text-lg text-gray-700 leading-relaxed mb-4">Display the current username.</p>
+                    <div class="bg-gray-100 p-6 rounded-lg mb-6">
+                        <h4 class="text-lg font-semibold mb-3">Examples:</h4>
+                        <pre class="text-sm text-gray-800 overflow-x-auto"><code># Show current user
+whoami
+
+# Show user ID
+id
+
+# Show detailed user information
+id -a</code></pre>
+                    </div>
+
+                    <h3 class="text-2xl font-semibold mb-4 mt-8">df - Disk Space Usage</h3>
+                    <p class="text-lg text-gray-700 leading-relaxed mb-4">Display disk space usage for filesystems.</p>
+                    <div class="bg-gray-100 p-6 rounded-lg mb-6">
+                        <h4 class="text-lg font-semibold mb-3">Examples:</h4>
+                        <pre class="text-sm text-gray-800 overflow-x-auto"><code># Show disk usage
+df
+
+# Human-readable format
+df -h
+
+# Show inode usage
+df -i
+
+# Show specific filesystem
+df -h /dev/sda1</code></pre>
+                    </div>
+
+                    <h3 class="text-2xl font-semibold mb-4 mt-8">du - Directory Usage</h3>
+                    <p class="text-lg text-gray-700 leading-relaxed mb-4">Display disk usage of files and directories.</p>
+                    <div class="bg-gray-100 p-6 rounded-lg mb-6">
+                        <h4 class="text-lg font-semibold mb-3">Examples:</h4>
+                        <pre class="text-sm text-gray-800 overflow-x-auto"><code># Show directory size
+du /path/to/directory
+
+# Human-readable format
+du -h /path/to/directory
+
+# Show summary only
+du -s /path/to/directory
+
+# Show all subdirectories
+du -h /path/to/directory
+
+# Sort by size
+du -h /path/to/directory | sort -hr
+
+# Show only directories
+du -h --max-depth=1 /path/to/directory</code></pre>
+                    </div>
+
+                    <h3 class="text-2xl font-semibold mb-4 mt-8">free - Memory Usage</h3>
+                    <p class="text-lg text-gray-700 leading-relaxed mb-4">Display memory usage information.</p>
+                    <div class="bg-gray-100 p-6 rounded-lg mb-6">
+                        <h4 class="text-lg font-semibold mb-3">Examples:</h4>
+                        <pre class="text-sm text-gray-800 overflow-x-auto"><code># Show memory usage
+free
+
+# Human-readable format
+free -h
+
+# Show memory usage in MB
+free -m
+
+# Continuous monitoring
+free -h -s 5</code></pre>
+                    </div>
+
+                    <h3 class="text-2xl font-semibold mb-4 mt-8">uptime - System Uptime</h3>
+                    <p class="text-lg text-gray-700 leading-relaxed mb-4">Display system uptime and load averages.</p>
+                    <div class="bg-gray-100 p-6 rounded-lg mb-6">
+                        <h4 class="text-lg font-semibold mb-3">Examples:</h4>
+                        <pre class="text-sm text-gray-800 overflow-x-auto"><code># Show uptime
+uptime
+
+# Show uptime in a nice format
+uptime -p</code></pre>
+                    </div>
+
+                    <h2 class="text-3xl font-apple-display font-bold mb-6 mt-12">Network Commands</h2>
+
+                    <h3 class="text-2xl font-semibold mb-4 mt-8">ping - Test Network Connectivity</h3>
+                    <p class="text-lg text-gray-700 leading-relaxed mb-4">Test network connectivity to a host.</p>
+                    <div class="bg-gray-100 p-6 rounded-lg mb-6">
+                        <h4 class="text-lg font-semibold mb-3">Examples:</h4>
+                        <pre class="text-sm text-gray-800 overflow-x-auto"><code># Ping a host
+ping google.com
+
+# Ping with limited packets
+ping -c 4 google.com
+
+# Ping with specific interval
+ping -i 2 google.com
+
+# Ping with timeout
+ping -W 5 google.com</code></pre>
+                    </div>
+
+                    <h3 class="text-2xl font-semibold mb-4 mt-8">netstat - Network Statistics</h3>
+                    <p class="text-lg text-gray-700 leading-relaxed mb-4">Display network connections and statistics.</p>
+                    <div class="bg-gray-100 p-6 rounded-lg mb-6">
+                        <h4 class="text-lg font-semibold mb-3">Examples:</h4>
+                        <pre class="text-sm text-gray-800 overflow-x-auto"><code># Show all connections
+netstat -a
+
+# Show listening ports
+netstat -l
+
+# Show with process information
+netstat -p
+
+# Show TCP connections only
+netstat -t
+
+# Show UDP connections only
+netstat -u
+
+# Show with numerical addresses
+netstat -n</code></pre>
+                    </div>
+
+                    <h3 class="text-2xl font-semibold mb-4 mt-8">ss - Socket Statistics</h3>
+                    <p class="text-lg text-gray-700 leading-relaxed mb-4">Display socket statistics (modern replacement for netstat).</p>
+                    <div class="bg-gray-100 p-6 rounded-lg mb-6">
+                        <h4 class="text-lg font-semibold mb-3">Examples:</h4>
+                        <pre class="text-sm text-gray-800 overflow-x-auto"><code># Show all sockets
+ss -a
+
+# Show listening sockets
+ss -l
+
+# Show TCP sockets
+ss -t
+
+# Show UDP sockets
+ss -u
+
+# Show with process information
+ss -p
+
+# Show with numerical addresses
+ss -n</code></pre>
+                    </div>
+
+                    <h3 class="text-2xl font-semibold mb-4 mt-8">wget - Download Files</h3>
+                    <p class="text-lg text-gray-700 leading-relaxed mb-4">Download files from the internet.</p>
+                    <div class="bg-gray-100 p-6 rounded-lg mb-6">
+                        <h4 class="text-lg font-semibold mb-3">Examples:</h4>
+                        <pre class="text-sm text-gray-800 overflow-x-auto"><code># Download file
+wget https://example.com/file.zip
+
+# Download with custom filename
+wget -O custom_name.zip https://example.com/file.zip
+
+# Download in background
+wget -b https://example.com/large_file.zip
+
+# Resume interrupted download
+wget -c https://example.com/file.zip
+
+# Download with rate limiting
+wget --limit-rate=200k https://example.com/file.zip</code></pre>
+                    </div>
+
+                    <h3 class="text-2xl font-semibold mb-4 mt-8">curl - Transfer Data</h3>
+                    <p class="text-lg text-gray-700 leading-relaxed mb-4">Transfer data to or from a server.</p>
+                    <div class="bg-gray-100 p-6 rounded-lg mb-6">
+                        <h4 class="text-lg font-semibold mb-3">Examples:</h4>
+                        <pre class="text-sm text-gray-800 overflow-x-auto"><code># Download file
+curl -O https://example.com/file.zip
+
+# Download with custom filename
+curl -o custom_name.zip https://example.com/file.zip
+
+# Follow redirects
+curl -L https://example.com
+
+# Show headers
+curl -I https://example.com
+
+# POST data
+curl -X POST -d "data=value" https://api.example.com
+
+# Upload file
+curl -F "file=@local_file.txt" https://upload.example.com</code></pre>
+                    </div>
+
+                    <h2 class="text-3xl font-apple-display font-bold mb-6 mt-12">Text Processing Commands</h2>
+
+                    <h3 class="text-2xl font-semibold mb-4 mt-8">sort - Sort Lines</h3>
+                    <p class="text-lg text-gray-700 leading-relaxed mb-4">Sort lines of text files.</p>
+                    <div class="bg-gray-100 p-6 rounded-lg mb-6">
+                        <h4 class="text-lg font-semibold mb-3">Examples:</h4>
+                        <pre class="text-sm text-gray-800 overflow-x-auto"><code># Sort file
+sort filename.txt
+
+# Sort numerically
+sort -n numbers.txt
+
+# Sort in reverse order
+sort -r filename.txt
+
+# Sort by specific field
+sort -k 2 filename.txt
+
+# Sort and remove duplicates
+sort -u filename.txt
+
+# Sort with case insensitive
+sort -f filename.txt</code></pre>
+                    </div>
+
+                    <h3 class="text-2xl font-semibold mb-4 mt-8">uniq - Remove Duplicate Lines</h3>
+                    <p class="text-lg text-gray-700 leading-relaxed mb-4">Remove or report duplicate lines.</p>
+                    <div class="bg-gray-100 p-6 rounded-lg mb-6">
+                        <h4 class="text-lg font-semibold mb-3">Examples:</h4>
+                        <pre class="text-sm text-gray-800 overflow-x-auto"><code># Remove duplicate lines
+uniq filename.txt
+
+# Count occurrences
+uniq -c filename.txt
+
+# Show only unique lines
+uniq -u filename.txt
+
+# Show only duplicate lines
+uniq -d filename.txt
+
+# Case insensitive comparison
+uniq -i filename.txt</code></pre>
+                    </div>
+
+                    <h3 class="text-2xl font-semibold mb-4 mt-8">cut - Extract Columns</h3>
+                    <p class="text-lg text-gray-700 leading-relaxed mb-4">Extract columns from files.</p>
+                    <div class="bg-gray-100 p-6 rounded-lg mb-6">
+                        <h4 class="text-lg font-semibold mb-3">Examples:</h4>
+                        <pre class="text-sm text-gray-800 overflow-x-auto"><code># Extract first column
+cut -f1 filename.txt
+
+# Extract multiple columns
+cut -f1,3,5 filename.txt
+
+# Extract with custom delimiter
+cut -d',' -f1,2 filename.csv
+
+# Extract characters
+cut -c1-10 filename.txt
+
+# Extract from specific position
+cut -c5- filename.txt</code></pre>
+                    </div>
+
+                    <h3 class="text-2xl font-semibold mb-4 mt-8">awk - Pattern Scanning and Processing</h3>
+                    <p class="text-lg text-gray-700 leading-relaxed mb-4">Powerful text processing tool.</p>
+                    <div class="bg-gray-100 p-6 rounded-lg mb-6">
+                        <h4 class="text-lg font-semibold mb-3">Examples:</h4>
+                        <pre class="text-sm text-gray-800 overflow-x-auto"><code># Print specific field
+awk '{print $1}' filename.txt
+
+# Print multiple fields
+awk '{print $1, $3}' filename.txt
+
+# Print lines matching pattern
+awk '/pattern/ {print}' filename.txt
+
+# Print with custom separator
+awk -F',' '{print $1, $2}' filename.csv
+
+# Calculate sum of column
+awk '{sum += $1} END {print sum}' numbers.txt
+
+# Print line numbers
+awk '{print NR, $0}' filename.txt</code></pre>
+                    </div>
+
+                    <h3 class="text-2xl font-semibold mb-4 mt-8">sed - Stream Editor</h3>
+                    <p class="text-lg text-gray-700 leading-relaxed mb-4">Stream editor for filtering and transforming text.</p>
+                    <div class="bg-gray-100 p-6 rounded-lg mb-6">
+                        <h4 class="text-lg font-semibold mb-3">Examples:</h4>
+                        <pre class="text-sm text-gray-800 overflow-x-auto"><code># Replace text
+sed 's/old/new/g' filename.txt
+
+# Replace in file
+sed -i 's/old/new/g' filename.txt
+
+# Delete lines
+sed '5d' filename.txt
+
+# Print specific lines
+sed -n '10,20p' filename.txt
+
+# Add text to beginning of line
+sed 's/^/prefix /' filename.txt
+
+# Remove empty lines
+sed '/^$/d' filename.txt</code></pre>
+                    </div>
+
+                    <h2 class="text-3xl font-apple-display font-bold mb-6 mt-12">Archive and Compression Commands</h2>
+
+                    <h3 class="text-2xl font-semibold mb-4 mt-8">tar - Archive Files</h3>
+                    <p class="text-lg text-gray-700 leading-relaxed mb-4">Create and extract tar archives.</p>
+                    <div class="bg-gray-100 p-6 rounded-lg mb-6">
+                        <h4 class="text-lg font-semibold mb-3">Examples:</h4>
+                        <pre class="text-sm text-gray-800 overflow-x-auto"><code># Create archive
+tar -cf archive.tar files/
+
+# Extract archive
+tar -xf archive.tar
+
+# Create compressed archive
+tar -czf archive.tar.gz files/
+
+# Extract compressed archive
+tar -xzf archive.tar.gz
+
+# List archive contents
+tar -tf archive.tar
+
+# Extract specific files
+tar -xf archive.tar file1.txt file2.txt
+
+# Create archive with verbose output
+tar -cvf archive.tar files/</code></pre>
+                    </div>
+
+                    <h3 class="text-2xl font-semibold mb-4 mt-8">gzip - Compress Files</h3>
+                    <p class="text-lg text-gray-700 leading-relaxed mb-4">Compress files using gzip compression.</p>
+                    <div class="bg-gray-100 p-6 rounded-lg mb-6">
+                        <h4 class="text-lg font-semibold mb-3">Examples:</h4>
+                        <pre class="text-sm text-gray-800 overflow-x-auto"><code># Compress file
+gzip filename.txt
+
+# Decompress file
+gunzip filename.txt.gz
+
+# Keep original file
+gzip -k filename.txt
+
+# Compress with best compression
+gzip -9 filename.txt
+
+# Compress with fastest compression
+gzip -1 filename.txt</code></pre>
+                    </div>
+
+                    <h3 class="text-2xl font-semibold mb-4 mt-8">zip - Create ZIP Archives</h3>
+                    <p class="text-lg text-gray-700 leading-relaxed mb-4">Create and extract ZIP archives.</p>
+                    <div class="bg-gray-100 p-6 rounded-lg mb-6">
+                        <h4 class="text-lg font-semibold mb-3">Examples:</h4>
+                        <pre class="text-sm text-gray-800 overflow-x-auto"><code># Create ZIP archive
+zip archive.zip files/
+
+# Extract ZIP archive
+unzip archive.zip
+
+# Create ZIP with password
+zip -P password archive.zip files/
+
+# List ZIP contents
+unzip -l archive.zip
+
+# Extract to specific directory
+unzip archive.zip -d /destination/</code></pre>
+                    </div>
+
+                    <h2 class="text-3xl font-apple-display font-bold mb-6 mt-12">User and Group Management</h2>
+
+                    <h3 class="text-2xl font-semibold mb-4 mt-8">useradd - Add User</h3>
+                    <p class="text-lg text-gray-700 leading-relaxed mb-4">Create new user accounts.</p>
+                    <div class="bg-gray-100 p-6 rounded-lg mb-6">
+                        <h4 class="text-lg font-semibold mb-3">Examples:</h4>
+                        <pre class="text-sm text-gray-800 overflow-x-auto"><code># Add user
+sudo useradd username
+
+# Add user with home directory
+sudo useradd -m username
+
+# Add user with specific shell
+sudo useradd -s /bin/bash username
+
+# Add user with specific UID
+sudo useradd -u 1001 username
+
+# Add user to specific group
+sudo useradd -g groupname username</code></pre>
+                    </div>
+
+                    <h3 class="text-2xl font-semibold mb-4 mt-8">usermod - Modify User</h3>
+                    <p class="text-lg text-gray-700 leading-relaxed mb-4">Modify existing user accounts.</p>
+                    <div class="bg-gray-100 p-6 rounded-lg mb-6">
+                        <h4 class="text-lg font-semibold mb-3">Examples:</h4>
+                        <pre class="text-sm text-gray-800 overflow-x-auto"><code># Change user's home directory
+sudo usermod -d /new/home username
+
+# Change user's shell
+sudo usermod -s /bin/zsh username
+
+# Add user to group
+sudo usermod -a -G groupname username
+
+# Lock user account
+sudo usermod -L username
+
+# Unlock user account
+sudo usermod -U username</code></pre>
+                    </div>
+
+                    <h3 class="text-2xl font-semibold mb-4 mt-8">passwd - Change Password</h3>
+                    <p class="text-lg text-gray-700 leading-relaxed mb-4">Change user passwords.</p>
+                    <div class="bg-gray-100 p-6 rounded-lg mb-6">
+                        <h4 class="text-lg font-semibold mb-3">Examples:</h4>
+                        <pre class="text-sm text-gray-800 overflow-x-auto"><code># Change own password
+passwd
+
+# Change another user's password
+sudo passwd username
+
+# Lock user password
+sudo passwd -l username
+
+# Unlock user password
+sudo passwd -u username</code></pre>
+                    </div>
+
+                    <h3 class="text-2xl font-semibold mb-4 mt-8">groupadd - Add Group</h3>
+                    <p class="text-lg text-gray-700 leading-relaxed mb-4">Create new groups.</p>
+                    <div class="bg-gray-100 p-6 rounded-lg mb-6">
+                        <h4 class="text-lg font-semibold mb-3">Examples:</h4>
+                        <pre class="text-sm text-gray-800 overflow-x-auto"><code># Add group
+sudo groupadd groupname
+
+# Add group with specific GID
+sudo groupadd -g 1001 groupname</code></pre>
+                    </div>
+
+                    <h2 class="text-3xl font-apple-display font-bold mb-6 mt-12">Service Management Commands</h2>
+
+                    <h3 class="text-2xl font-semibold mb-4 mt-8">systemctl - System Control</h3>
+                    <p class="text-lg text-gray-700 leading-relaxed mb-4">Control systemd services and units.</p>
+                    <div class="bg-gray-100 p-6 rounded-lg mb-6">
+                        <h4 class="text-lg font-semibold mb-3">Examples:</h4>
+                        <pre class="text-sm text-gray-800 overflow-x-auto"><code># Start service
+sudo systemctl start nginx
+
+# Stop service
+sudo systemctl stop nginx
+
+# Restart service
+sudo systemctl restart nginx
+
+# Enable service (start on boot)
+sudo systemctl enable nginx
+
+# Disable service
+sudo systemctl disable nginx
+
+# Check service status
+systemctl status nginx
+
+# List all services
+systemctl list-units
+
+# List failed services
+systemctl --failed</code></pre>
+                    </div>
+
+                    <h3 class="text-2xl font-semibold mb-4 mt-8">service - Service Management</h3>
+                    <p class="text-lg text-gray-700 leading-relaxed mb-4">Control services (legacy command).</p>
+                    <div class="bg-gray-100 p-6 rounded-lg mb-6">
+                        <h4 class="text-lg font-semibold mb-3">Examples:</h4>
+                        <pre class="text-sm text-gray-800 overflow-x-auto"><code># Start service
+sudo service nginx start
+
+# Stop service
+sudo service nginx stop
+
+# Restart service
+sudo service nginx restart
+
+# Check service status
+sudo service nginx status</code></pre>
+                    </div>
+
+                    <h2 class="text-3xl font-apple-display font-bold mb-6 mt-12">Package Management Commands</h2>
+
+                    <h3 class="text-2xl font-semibold mb-4 mt-8">apt - Advanced Package Tool</h3>
+                    <p class="text-lg text-gray-700 leading-relaxed mb-4">Package management for Debian/Ubuntu systems.</p>
+                    <div class="bg-gray-100 p-6 rounded-lg mb-6">
+                        <h4 class="text-lg font-semibold mb-3">Examples:</h4>
+                        <pre class="text-sm text-gray-800 overflow-x-auto"><code># Update package list
+sudo apt update
+
+# Upgrade packages
+sudo apt upgrade
+
+# Install package
+sudo apt install package_name
+
+# Remove package
+sudo apt remove package_name
+
+# Search for package
+apt search keyword
+
+# Show package information
+apt show package_name
+
+# List installed packages
+apt list --installed
+
+# Clean package cache
+sudo apt clean</code></pre>
+                    </div>
+
+                    <h3 class="text-2xl font-semibold mb-4 mt-8">yum - Yellowdog Updater Modified</h3>
+                    <p class="text-lg text-gray-700 leading-relaxed mb-4">Package management for Red Hat/CentOS systems.</p>
+                    <div class="bg-gray-100 p-6 rounded-lg mb-6">
+                        <h4 class="text-lg font-semibold mb-3">Examples:</h4>
+                        <pre class="text-sm text-gray-800 overflow-x-auto"><code># Install package
+sudo yum install package_name
+
+# Remove package
+sudo yum remove package_name
+
+# Update packages
+sudo yum update
+
+# Search for package
+yum search keyword
+
+# Show package information
+yum info package_name
+
+# List installed packages
+yum list installed</code></pre>
+                    </div>
+
+                    <h3 class="text-2xl font-semibold mb-4 mt-8">dnf - Dandified YUM</h3>
+                    <p class="text-lg text-gray-700 leading-relaxed mb-4">Modern package manager for Fedora/RHEL 8+.</p>
+                    <div class="bg-gray-100 p-6 rounded-lg mb-6">
+                        <h4 class="text-lg font-semibold mb-3">Examples:</h4>
+                        <pre class="text-sm text-gray-800 overflow-x-auto"><code># Install package
+sudo dnf install package_name
+
+# Remove package
+sudo dnf remove package_name
+
+# Update packages
+sudo dnf update
+
+# Search for package
+dnf search keyword
+
+# Show package information
+dnf info package_name</code></pre>
+                    </div>
+
+                    <h2 class="text-3xl font-apple-display font-bold mb-6 mt-12">Advanced Commands</h2>
+
+                    <h3 class="text-2xl font-semibold mb-4 mt-8">cron - Schedule Tasks</h3>
+                    <p class="text-lg text-gray-700 leading-relaxed mb-4">Schedule commands to run at specific times.</p>
+                    <div class="bg-gray-100 p-6 rounded-lg mb-6">
+                        <h4 class="text-lg font-semibold mb-3">Examples:</h4>
+                        <pre class="text-sm text-gray-800 overflow-x-auto"><code># Edit crontab
+crontab -e
+
+# List crontab
+crontab -l
+
+# Remove crontab
+crontab -r
+
+# Cron format: minute hour day month weekday command
+# Run every day at 2 AM
+0 2 * * * /path/to/script.sh
+
+# Run every 5 minutes
+*/5 * * * * /path/to/script.sh
+
+# Run every Monday at 9 AM
+0 9 * * 1 /path/to/script.sh</code></pre>
+                    </div>
+
+                    <h3 class="text-2xl font-semibold mb-4 mt-8">rsync - Remote Sync</h3>
+                    <p class="text-lg text-gray-700 leading-relaxed mb-4">Synchronize files and directories.</p>
+                    <div class="bg-gray-100 p-6 rounded-lg mb-6">
+                        <h4 class="text-lg font-semibold mb-3">Examples:</h4>
+                        <pre class="text-sm text-gray-800 overflow-x-auto"><code># Sync directories
+rsync -av source/ destination/
+
+# Sync to remote server
+rsync -av local/ user@server:/remote/path/
+
+# Sync with progress
+rsync -av --progress source/ destination/
+
+# Sync excluding files
+rsync -av --exclude='*.tmp' source/ destination/
+
+# Dry run (show what would be done)
+rsync -av --dry-run source/ destination/</code></pre>
+                    </div>
+
+                    <h3 class="text-2xl font-semibold mb-4 mt-8">screen - Terminal Multiplexer</h3>
+                    <p class="text-lg text-gray-700 leading-relaxed mb-4">Run multiple terminal sessions.</p>
+                    <div class="bg-gray-100 p-6 rounded-lg mb-6">
+                        <h4 class="text-lg font-semibold mb-3">Examples:</h4>
+                        <pre class="text-sm text-gray-800 overflow-x-auto"><code># Start new screen session
+screen
+
+# Start screen with name
+screen -S session_name
+
+# List screen sessions
+screen -ls
+
+# Attach to screen session
+screen -r session_name
+
+# Detach from screen (Ctrl+A, then D)
+# Reattach to screen
+screen -r</code></pre>
+                    </div>
+
+                    <h3 class="text-2xl font-semibold mb-4 mt-8">tmux - Terminal Multiplexer</h3>
+                    <p class="text-lg text-gray-700 leading-relaxed mb-4">Modern terminal multiplexer.</p>
+                    <div class="bg-gray-100 p-6 rounded-lg mb-6">
+                        <h4 class="text-lg font-semibold mb-3">Examples:</h4>
+                        <pre class="text-sm text-gray-800 overflow-x-auto"><code># Start new tmux session
+tmux
+
+# Start tmux with name
+tmux new-session -s session_name
+
+# List tmux sessions
+tmux list-sessions
+
+# Attach to tmux session
+tmux attach-session -t session_name
+
+# Create new window (Ctrl+B, then C)
+# Switch between windows (Ctrl+B, then number)</code></pre>
+                    </div>
+
+                    <h2 class="text-3xl font-apple-display font-bold mb-6 mt-12">Conclusion</h2>
+
+                    <p class="text-lg text-gray-700 leading-relaxed mb-6">
+                        This comprehensive guide covers over 100 essential Linux commands that every system administrator, developer, and DevOps engineer should know. From basic file operations to advanced system administration, these commands form the foundation of Linux expertise.
+                    </p>
+
+                    <p class="text-lg text-gray-700 leading-relaxed mb-6">
+                        Remember that mastery comes with practice. Start with the basic commands and gradually work your way up to the more advanced ones. Use the `man` command to get detailed information about any command, and don't hesitate to experiment in a safe environment.
+                    </p>
+
+                    <p class="text-lg text-gray-700 leading-relaxed mb-6">
+                        Linux commands are powerful tools that can automate tasks, manage systems, and solve complex problems. With this knowledge, you'll be well-equipped to handle any Linux environment with confidence and efficiency.
+                    </p>
+
+                    <h3 class="text-2xl font-semibold mb-4 mt-8">Quick Reference Tips</h3>
+                    <ul class="list-disc list-inside space-y-3 mb-6">
+                        <li class="text-lg text-gray-700 leading-relaxed">Use <code>man command</code> to get help for any command</li>
+                        <li class="text-lg text-gray-700 leading-relaxed">Use <code>command --help</code> for quick help</li>
+                        <li class="text-lg text-gray-700 leading-relaxed">Use <code>history</code> to see previously used commands</li>
+                        <li class="text-lg text-gray-700 leading-relaxed">Use <code>!!</code> to repeat the last command</li>
+                        <li class="text-lg text-gray-700 leading-relaxed">Use <code>Ctrl+C</code> to cancel running commands</li>
+                        <li class="text-lg text-gray-700 leading-relaxed">Use <code>Ctrl+Z</code> to suspend processes</li>
+                        <li class="text-lg text-gray-700 leading-relaxed">Use <code>Tab</code> for command and filename completion</li>
+                    </ul>
+
+                </div>
+
+            </div>
+        </article>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-50 border-t border-gray-200">
+        <div class="max-w-7xl mx-auto px-6 py-6">
+            <div class="flex flex-col md:flex-row justify-between items-center space-y-3 md:space-y-0">
+                <p class="text-gray-600 text-sm">© 2025 Deepak Patil. All rights reserved.</p>
+                <div class="flex space-x-6 text-sm">
+                    <a href="../privacy-policy.html" class="text-gray-600 hover:text-gray-900 transition-colors">Privacy Policy</a>
+                    <a href="../terms-conditions.html" class="text-gray-600 hover:text-gray-900 transition-colors">Terms & Conditions</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../js/main.js"></script>
+    <script src="../js/navbar.js"></script>
+</body>
+</html>
