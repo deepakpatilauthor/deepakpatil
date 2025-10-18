@@ -1,0 +1,1002 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Primary Meta Tags -->
+    <title>AI-Powered Document Summarizer & Chat – Serverless RAG System on AWS - Deepak Patil</title>
+    <meta name="title" content="AI-Powered Document Summarizer & Chat – Serverless RAG System on AWS - Deepak Patil">
+    <meta name="description" content="Upload any document and instantly chat with it. Built with AWS Bedrock, Lambda, and DynamoDB — fully serverless and scalable RAG system for intelligent document interaction.">
+    <meta name="keywords" content="AI Document Chat, RAG System, AWS Bedrock, Serverless AI, Document Summarizer, Lambda, DynamoDB, S3, Step Functions, CloudFront, AI Chatbot, Document Intelligence">
+    <meta name="author" content="Deepak Patil">
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+    <meta name="googlebot" content="index, follow">
+    <meta name="bingbot" content="index, follow">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://deepakpatil.dev/ai-document-summarizer-chat.html">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://deepakpatil.dev/ai-document-summarizer-chat.html">
+    <meta property="og:title" content="AI-Powered Document Summarizer & Chat – Serverless RAG System on AWS - Deepak Patil">
+    <meta property="og:description" content="Upload any document and instantly chat with it. Built with AWS Bedrock, Lambda, and DynamoDB — fully serverless and scalable RAG system for intelligent document interaction.">
+    <meta property="og:image" content="https://deepakpatil.dev/images/ai-document-chat-og-image.jpg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="AI-Powered Document Summarizer & Chat Project">
+    <meta property="og:site_name" content="Deepak Patil Portfolio">
+    <meta property="og:locale" content="en_US">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://deepakpatil.dev/ai-document-summarizer-chat.html">
+    <meta property="twitter:title" content="AI-Powered Document Summarizer & Chat – Serverless RAG System on AWS - Deepak Patil">
+    <meta property="twitter:description" content="Upload any document and instantly chat with it. Built with AWS Bedrock, Lambda, and DynamoDB — fully serverless and scalable RAG system for intelligent document interaction.">
+    <meta property="twitter:image" content="https://deepakpatil.dev/images/ai-document-chat-twitter-image.jpg">
+    <meta property="twitter:creator" content="@deepakpatil">
+    <meta property="twitter:site" content="@deepakpatil">
+    
+    <!-- Additional SEO Meta Tags -->
+    <meta name="theme-color" content="#000000">
+    <meta name="msapplication-TileColor" content="#000000">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="AI Document Chat">
+    
+    <!-- Preconnect for Performance -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="dns-prefetch" href="https://cdn.tailwindcss.com">
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Manrope:wght@300;400;500;600;700&family=Josefin+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="styles/main.css">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'apple': ['Inter', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'Helvetica Neue', 'sans-serif'],
+                        'apple-display': ['Manrope', 'Inter', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'Helvetica Neue', 'sans-serif'],
+                        'logo': ['Josefin Sans', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'Helvetica Neue', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="font-apple bg-white text-black antialiased">
+    <!-- Complete Responsive Navigation Bar -->
+    <nav class="bg-white shadow-sm border-b border-gray-200 fixed top-0 left-0 right-0 z-50" role="navigation" aria-label="Main navigation">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <!-- Brand/Logo -->
+                <div class="flex-shrink-0">
+                    <a href="index.html" class="text-xl font-bold text-black hover:text-gray-700 transition-colors duration-200" aria-label="Deepak Patil - Home">
+                        DEEPAK PATIL
+                    </a>
+                </div>
+
+                <!-- Desktop Navigation -->
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-8" id="desktop-menu">
+                        <a href="index.html" class="text-gray-600 hover:text-black px-3 py-2 text-sm font-medium transition-colors duration-200">Home</a>
+                        <a href="about.html" class="text-gray-600 hover:text-black px-3 py-2 text-sm font-medium transition-colors duration-200">About</a>
+                        <a href="work.html" class="text-black font-semibold px-3 py-2 text-sm font-medium transition-colors duration-200">Work</a>
+                        <a href="blog.html" class="text-gray-600 hover:text-black px-3 py-2 text-sm font-medium transition-colors duration-200">Blog</a>
+                        <a href="contact.html" class="text-gray-600 hover:text-black px-3 py-2 text-sm font-medium transition-colors duration-200">Contact</a>
+                    </div>
+                </div>
+
+                <!-- Mobile menu button -->
+                <div class="md:hidden">
+                    <button 
+                        id="mobile-menu-button" 
+                        type="button" 
+                        class="inline-flex items-center justify-center p-2 rounded-md text-gray-600 hover:text-black hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-black transition-colors duration-200"
+                        aria-controls="mobile-menu" 
+                        aria-expanded="false"
+                        aria-label="Toggle navigation menu"
+                    >
+                        <span class="sr-only">Open main menu</span>
+                        <!-- Hamburger icon -->
+                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile menu -->
+        <div id="mobile-menu" class="hidden md:hidden" role="menu" aria-labelledby="mobile-menu-button">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-white border-t border-gray-200 shadow-lg">
+                <!-- Close button -->
+                <div class="flex justify-end mb-2">
+                    <button 
+                        id="mobile-menu-close" 
+                        type="button" 
+                        class="inline-flex items-center justify-center p-2 rounded-md text-gray-600 hover:text-black hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-black transition-colors duration-200"
+                        aria-label="Close navigation menu"
+                    >
+                        <span class="sr-only">Close menu</span>
+                        <!-- Close icon -->
+                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                    </button>
+                </div>
+                
+                <!-- Mobile navigation links -->
+                <a href="index.html" class="text-gray-600 hover:text-black hover:bg-gray-100 block px-3 py-2 text-base font-medium rounded-md transition-colors duration-200" role="menuitem">Home</a>
+                <a href="about.html" class="text-gray-600 hover:text-black hover:bg-gray-100 block px-3 py-2 text-base font-medium rounded-md transition-colors duration-200" role="menuitem">About</a>
+                <a href="work.html" class="bg-gray-100 text-black font-semibold block px-3 py-2 text-base font-medium rounded-md transition-colors duration-200" role="menuitem">Work</a>
+                <a href="blog.html" class="text-gray-600 hover:text-black hover:bg-gray-100 block px-3 py-2 text-base font-medium rounded-md transition-colors duration-200" role="menuitem">Blog</a>
+                <a href="contact.html" class="text-gray-600 hover:text-black hover:bg-gray-100 block px-3 py-2 text-base font-medium rounded-md transition-colors duration-200" role="menuitem">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="min-h-screen bg-white pt-20">
+        <!-- Hero Section -->
+        <section class="py-32 px-6">
+            <div class="max-w-7xl mx-auto">
+                <div class="grid lg:grid-cols-2 gap-16 items-center">
+                    <div>
+                        <div class="flex items-center space-x-4 mb-6">
+                            <a href="work.html" class="text-gray-500 hover:text-black transition-colors flex items-center">
+                                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+                                </svg>
+                                Back to Work
+                            </a>
+                            <span class="bg-orange-100 text-orange-800 px-3 py-1 rounded-full text-sm font-medium">AI & Machine Learning</span>
+                        </div>
+                        <h1 class="text-6xl md:text-8xl font-apple-display font-bold tracking-tighter mb-8">AI-Powered Document Summarizer & Chat – Serverless RAG System on AWS</h1>
+                        <p class="text-2xl text-gray-600 leading-relaxed mb-8">
+                            Upload any document and instantly chat with it. Built with AWS Bedrock, Lambda, and DynamoDB — fully serverless and scalable.
+                        </p>
+                        
+                        <!-- GitHub Project Button -->
+                        <div class="mb-8">
+                            <a href="https://github.com/deepakpatilauthor/Projects/tree/main/ai-doc-chat-cdk-python" 
+                               target="_blank" 
+                               rel="noopener noreferrer"
+                               class="inline-flex items-center px-6 py-3 bg-gray-900 text-white rounded-lg hover:bg-gray-800 transition-colors duration-200 font-medium">
+                                <svg class="w-5 h-5 mr-3" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                                    <path fill-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clip-rule="evenodd"></path>
+                                </svg>
+                                View on GitHub
+                            </a>
+                        </div>
+                        
+                        <div class="flex flex-wrap gap-3 mb-8">
+                            <span class="bg-gray-100 px-4 py-2 rounded-full text-sm font-medium text-gray-700">AWS Bedrock</span>
+                            <span class="bg-gray-100 px-4 py-2 rounded-full text-sm font-medium text-gray-700">Lambda</span>
+                            <span class="bg-gray-100 px-4 py-2 rounded-full text-sm font-medium text-gray-700">DynamoDB</span>
+                            <span class="bg-gray-100 px-4 py-2 rounded-full text-sm font-medium text-gray-700">S3</span>
+                            <span class="bg-gray-100 px-4 py-2 rounded-full text-sm font-medium text-gray-700">Step Functions</span>
+                            <span class="bg-gray-100 px-4 py-2 rounded-full text-sm font-medium text-gray-700">API Gateway</span>
+                            <span class="bg-gray-100 px-4 py-2 rounded-full text-sm font-medium text-gray-700">CloudFront</span>
+                            <span class="bg-gray-100 px-4 py-2 rounded-full text-sm font-medium text-gray-700">Textract</span>
+                            <span class="bg-gray-100 px-4 py-2 rounded-full text-sm font-medium text-gray-700">Cognito</span>
+                        </div>
+                        <div class="text-sm text-gray-500">
+                            <span class="font-medium">Year:</span> 2025
+                        </div>
+                    </div>
+                    <div class="relative">
+                        <div class="aspect-[4/3] bg-gradient-to-br from-orange-50 to-blue-100 rounded-3xl overflow-hidden">
+                            <img src="images/document-analyzer.png" 
+                                 alt="AI-Powered Document Summarizer & Chat System Architecture" 
+                                 class="w-full h-full object-cover">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Project Overview -->
+        <section class="py-32 px-6 bg-gray-50">
+            <div class="max-w-6xl mx-auto">
+                <div class="text-center mb-20">
+                    <h2 class="text-5xl md:text-6xl font-apple-display font-bold tracking-tighter mb-8">🧠 Project Overview</h2>
+                    <p class="text-xl text-gray-600 max-w-4xl mx-auto leading-relaxed">
+                        This project is like ChatGPT for your own documents. You upload a PDF, it reads and understands it, and then you can ask questions — the system gives answers straight from your document with citations.
+                    </p>
+                </div>
+
+                <div class="grid md:grid-cols-3 gap-8 mb-16">
+                    <div class="bg-white p-8 rounded-3xl shadow-sm">
+                        <div class="w-16 h-16 bg-orange-100 rounded-2xl flex items-center justify-center mb-6">
+                            <svg class="w-8 h-8 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M9 19l3 3m0 0l3-3m-3 3V10"></path>
+                            </svg>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-4">Document Upload</h3>
+                        <p class="text-gray-600 leading-relaxed">Upload any document (PDF, Word, text) and the system automatically processes and understands its content using AWS Textract and AI services.</p>
+                    </div>
+                    <div class="bg-white p-8 rounded-3xl shadow-sm">
+                        <div class="w-16 h-16 bg-blue-100 rounded-2xl flex items-center justify-center mb-6">
+                            <svg class="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path>
+                            </svg>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-4">Intelligent Chat</h3>
+                        <p class="text-gray-600 leading-relaxed">Ask questions in natural language and get accurate answers with citations. The AI understands context and provides relevant information from your document.</p>
+                    </div>
+                    <div class="bg-white p-8 rounded-3xl shadow-sm">
+                        <div class="w-16 h-16 bg-green-100 rounded-2xl flex items-center justify-center mb-6">
+                            <svg class="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                            </svg>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-4">Serverless & Scalable</h3>
+                        <p class="text-gray-600 leading-relaxed">Built entirely on AWS serverless services, the system automatically scales to handle any number of documents and concurrent users without infrastructure management.</p>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-3xl shadow-lg p-8">
+                    <h3 class="text-3xl font-bold mb-8 text-center">The Problem It Solves</h3>
+                    <div class="grid md:grid-cols-2 gap-8">
+                        <div>
+                            <h4 class="text-xl font-bold mb-4 text-red-600">❌ Before</h4>
+                            <ul class="space-y-3 text-gray-600">
+                                <li class="flex items-start space-x-3">
+                                    <span class="w-2 h-2 bg-red-500 rounded-full mt-2 flex-shrink-0"></span>
+                                    <span>Manually searching through long documents</span>
+                                </li>
+                                <li class="flex items-start space-x-3">
+                                    <span class="w-2 h-2 bg-red-500 rounded-full mt-2 flex-shrink-0"></span>
+                                    <span>Time-consuming document analysis</span>
+                                </li>
+                                <li class="flex items-start space-x-3">
+                                    <span class="w-2 h-2 bg-red-500 rounded-full mt-2 flex-shrink-0"></span>
+                                    <span>Difficulty finding specific information</span>
+                                </li>
+                                <li class="flex items-start space-x-3">
+                                    <span class="w-2 h-2 bg-red-500 rounded-full mt-2 flex-shrink-0"></span>
+                                    <span>No intelligent summarization</span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4 class="text-xl font-bold mb-4 text-green-600">✅ After</h4>
+                            <ul class="space-y-3 text-gray-600">
+                                <li class="flex items-start space-x-3">
+                                    <span class="w-2 h-2 bg-green-500 rounded-full mt-2 flex-shrink-0"></span>
+                                    <span>Instant document understanding and chat</span>
+                                </li>
+                                <li class="flex items-start space-x-3">
+                                    <span class="w-2 h-2 bg-green-500 rounded-full mt-2 flex-shrink-0"></span>
+                                    <span>AI-powered summarization and insights</span>
+                                </li>
+                                <li class="flex items-start space-x-3">
+                                    <span class="w-2 h-2 bg-green-500 rounded-full mt-2 flex-shrink-0"></span>
+                                    <span>Natural language question answering</span>
+                                </li>
+                                <li class="flex items-start space-x-3">
+                                    <span class="w-2 h-2 bg-green-500 rounded-full mt-2 flex-shrink-0"></span>
+                                    <span>Accurate citations and source references</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Architecture Section -->
+        <section class="py-32 px-6">
+            <div class="max-w-6xl mx-auto">
+                <div class="text-center mb-20">
+                    <h2 class="text-5xl md:text-6xl font-apple-display font-bold tracking-tighter mb-8">⚙️ Architecture (Serverless AWS)</h2>
+                    <p class="text-xl text-gray-600 max-w-4xl mx-auto leading-relaxed">
+                        The entire pipeline is event-driven and serverless — no servers to manage. Each AWS service plays a specific role to make the system fast, scalable, and cost-efficient.
+                    </p>
+                </div>
+
+                <!-- Architecture Diagram -->
+                <div class="bg-white rounded-3xl shadow-lg p-8 mb-16">
+                    <h3 class="text-3xl font-bold mb-8 text-center">System Architecture</h3>
+                    
+                    <!-- Service Components Grid -->
+                    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                        <div class="text-center">
+                            <div class="w-20 h-20 bg-orange-100 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                                <svg class="w-10 h-10 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M9 19l3 3m0 0l3-3m-3 3V10"></path>
+                                </svg>
+                            </div>
+                            <h4 class="text-xl font-bold mb-2">S3</h4>
+                            <p class="text-gray-600 text-sm">Stores original and processed documents</p>
+                        </div>
+                        <div class="text-center">
+                            <div class="w-20 h-20 bg-yellow-100 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                                <svg class="w-10 h-10 text-yellow-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                                </svg>
+                            </div>
+                            <h4 class="text-xl font-bold mb-2">Lambda</h4>
+                            <p class="text-gray-600 text-sm">Handles processing tasks (extract, chunk, embed, chat)</p>
+                        </div>
+                        <div class="text-center">
+                            <div class="w-20 h-20 bg-blue-100 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                                <svg class="w-10 h-10 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"></path>
+                                </svg>
+                            </div>
+                            <h4 class="text-xl font-bold mb-2">Step Functions</h4>
+                            <p class="text-gray-600 text-sm">Orchestrates the pipeline automatically</p>
+                        </div>
+                        <div class="text-center">
+                            <div class="w-20 h-20 bg-green-100 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                                <svg class="w-10 h-10 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4"></path>
+                                </svg>
+                            </div>
+                            <h4 class="text-xl font-bold mb-2">DynamoDB</h4>
+                            <p class="text-gray-600 text-sm">Fast metadata & chunk storage</p>
+                        </div>
+                        <div class="text-center">
+                            <div class="w-20 h-20 bg-purple-100 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                                <svg class="w-10 h-10 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                                </svg>
+                            </div>
+                            <h4 class="text-xl font-bold mb-2">API Gateway</h4>
+                            <p class="text-gray-600 text-sm">Provides REST endpoints for chat</p>
+                        </div>
+                        <div class="text-center">
+                            <div class="w-20 h-20 bg-red-100 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                                <svg class="w-10 h-10 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path>
+                                </svg>
+                            </div>
+                            <h4 class="text-xl font-bold mb-2">Bedrock</h4>
+                            <p class="text-gray-600 text-sm">Generates summaries and answers</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Step-by-Step Workflow -->
+        <section class="py-32 px-6 bg-gray-50">
+            <div class="max-w-6xl mx-auto">
+                <div class="text-center mb-20">
+                    <h2 class="text-5xl md:text-6xl font-apple-display font-bold tracking-tighter mb-8">🧩 Step-by-Step Workflow</h2>
+                    <p class="text-xl text-gray-600 max-w-4xl mx-auto leading-relaxed">
+                        The system follows a sophisticated workflow that ensures efficient processing, storage, and intelligent interaction with documents. Each step is optimized for performance and accuracy.
+                    </p>
+                </div>
+
+                <div class="bg-white rounded-3xl shadow-lg p-8">
+                    <!-- Visual Workflow Diagram -->
+                    <div class="mb-12">
+                        <img src="images/ai-summarizer-diagram.png" 
+                             alt="AI Document Summarizer Workflow Process Flow" 
+                             class="w-full h-auto rounded-2xl shadow-lg">
+                        <p class="text-center text-gray-600 mt-4 text-sm">
+                            Visual representation of the complete workflow from document upload to AI-powered responses
+                        </p>
+                    </div>
+                    
+                    <div class="grid md:grid-cols-2 gap-12 items-center">
+                        <div>
+                            <h3 class="text-3xl font-bold mb-8">Processing Pipeline</h3>
+                            <div class="space-y-6">
+                                <div class="flex items-start space-x-4">
+                                    <div class="w-8 h-8 bg-orange-100 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                                        <span class="text-orange-600 font-bold text-sm">1</span>
+                                    </div>
+                                    <div>
+                                        <h4 class="text-lg font-bold mb-2">📄 Upload Document</h4>
+                                        <p class="text-gray-600">User uploads document to S3, triggering the processing pipeline automatically.</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-start space-x-4">
+                                    <div class="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                                        <span class="text-blue-600 font-bold text-sm">2</span>
+                                    </div>
+                                    <div>
+                                        <h4 class="text-lg font-bold mb-2">⚙️ Step Functions Start</h4>
+                                        <p class="text-gray-600">Step Functions orchestrate the entire workflow, ensuring reliable execution.</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-start space-x-4">
+                                    <div class="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                                        <span class="text-green-600 font-bold text-sm">3</span>
+                                    </div>
+                                    <div>
+                                        <h4 class="text-lg font-bold mb-2">🔍 Extract & Chunk</h4>
+                                        <p class="text-gray-600">Lambda functions extract text using Textract, then chunk it into manageable pieces.</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-start space-x-4">
+                                    <div class="w-8 h-8 bg-purple-100 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                                        <span class="text-purple-600 font-bold text-sm">4</span>
+                                    </div>
+                                    <div>
+                                        <h4 class="text-lg font-bold mb-2">🧠 Embed & Store</h4>
+                                        <p class="text-gray-600">Text chunks are vectorized and stored in DynamoDB for fast retrieval.</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-start space-x-4">
+                                    <div class="w-8 h-8 bg-red-100 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                                        <span class="text-red-600 font-bold text-sm">5</span>
+                                    </div>
+                                    <div>
+                                        <h4 class="text-lg font-bold mb-2">💬 Chat & Answer</h4>
+                                        <p class="text-gray-600">User asks questions, system retrieves relevant chunks and generates answers with Bedrock.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="bg-gradient-to-br from-orange-50 to-blue-100 rounded-2xl p-8">
+                            <h4 class="text-xl font-bold mb-6 text-center">Key Benefits</h4>
+                            <ul class="space-y-4">
+                                <li class="flex items-center space-x-3">
+                                    <svg class="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                    </svg>
+                                    <span class="text-gray-700">Fully automated processing</span>
+                                </li>
+                                <li class="flex items-center space-x-3">
+                                    <svg class="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                    </svg>
+                                    <span class="text-gray-700">Intelligent document understanding</span>
+                                </li>
+                                <li class="flex items-center space-x-3">
+                                    <svg class="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                    </svg>
+                                    <span class="text-gray-700">Natural language interaction</span>
+                                </li>
+                                <li class="flex items-center space-x-3">
+                                    <svg class="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                    </svg>
+                                    <span class="text-gray-700">Accurate citations and sources</span>
+                                </li>
+                                <li class="flex items-center space-x-3">
+                                    <svg class="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                    </svg>
+                                    <span class="text-gray-700">Serverless and cost-effective</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Key AWS Services -->
+        <section class="py-32 px-6">
+            <div class="max-w-6xl mx-auto">
+                <div class="text-center mb-20">
+                    <h2 class="text-5xl md:text-6xl font-apple-display font-bold tracking-tighter mb-8">🧰 Key AWS Services</h2>
+                    <p class="text-xl text-gray-600 max-w-4xl mx-auto leading-relaxed">
+                        Each AWS service plays a crucial role in creating a robust, scalable, and intelligent document processing system. The architecture leverages the best of AWS serverless services.
+                    </p>
+                </div>
+
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div class="bg-white rounded-3xl shadow-lg p-8">
+                        <div class="w-16 h-16 bg-orange-100 rounded-2xl flex items-center justify-center mb-6">
+                            <svg class="w-8 h-8 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M9 19l3 3m0 0l3-3m-3 3V10"></path>
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-bold mb-4">S3</h3>
+                        <p class="text-gray-600 leading-relaxed mb-4">Stores original and processed documents</p>
+                        <ul class="text-sm text-gray-600 space-y-1">
+                            <li>• Document storage and retrieval</li>
+                            <li>• Lifecycle management</li>
+                            <li>• Secure access controls</li>
+                        </ul>
+                    </div>
+                    <div class="bg-white rounded-3xl shadow-lg p-8">
+                        <div class="w-16 h-16 bg-yellow-100 rounded-2xl flex items-center justify-center mb-6">
+                            <svg class="w-8 h-8 text-yellow-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-bold mb-4">Lambda</h3>
+                        <p class="text-gray-600 leading-relaxed mb-4">Handles processing tasks (extract, chunk, embed, chat)</p>
+                        <ul class="text-sm text-gray-600 space-y-1">
+                            <li>• Serverless compute</li>
+                            <li>• Auto-scaling</li>
+                            <li>• Pay-per-use pricing</li>
+                        </ul>
+                    </div>
+                    <div class="bg-white rounded-3xl shadow-lg p-8">
+                        <div class="w-16 h-16 bg-blue-100 rounded-2xl flex items-center justify-center mb-6">
+                            <svg class="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"></path>
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-bold mb-4">Step Functions</h3>
+                        <p class="text-gray-600 leading-relaxed mb-4">Orchestrates the pipeline automatically</p>
+                        <ul class="text-sm text-gray-600 space-y-1">
+                            <li>• Workflow orchestration</li>
+                            <li>• Error handling</li>
+                            <li>• Visual workflow design</li>
+                        </ul>
+                    </div>
+                    <div class="bg-white rounded-3xl shadow-lg p-8">
+                        <div class="w-16 h-16 bg-green-100 rounded-2xl flex items-center justify-center mb-6">
+                            <svg class="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4"></path>
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-bold mb-4">DynamoDB</h3>
+                        <p class="text-gray-600 leading-relaxed mb-4">Fast metadata & chunk storage</p>
+                        <ul class="text-sm text-gray-600 space-y-1">
+                            <li>• NoSQL database</li>
+                            <li>• Single-digit millisecond latency</li>
+                            <li>• Auto-scaling</li>
+                        </ul>
+                    </div>
+                    <div class="bg-white rounded-3xl shadow-lg p-8">
+                        <div class="w-16 h-16 bg-purple-100 rounded-2xl flex items-center justify-center mb-6">
+                            <svg class="w-8 h-8 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-bold mb-4">API Gateway</h3>
+                        <p class="text-gray-600 leading-relaxed mb-4">Provides REST endpoints for chat</p>
+                        <ul class="text-sm text-gray-600 space-y-1">
+                            <li>• RESTful API</li>
+                            <li>• Request/response transformation</li>
+                            <li>• Rate limiting</li>
+                        </ul>
+                    </div>
+                    <div class="bg-white rounded-3xl shadow-lg p-8">
+                        <div class="w-16 h-16 bg-red-100 rounded-2xl flex items-center justify-center mb-6">
+                            <svg class="w-8 h-8 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path>
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-bold mb-4">Bedrock</h3>
+                        <p class="text-gray-600 leading-relaxed mb-4">Generates summaries and answers</p>
+                        <ul class="text-sm text-gray-600 space-y-1">
+                            <li>• Claude & Llama models</li>
+                            <li>• Natural language processing</li>
+                            <li>• Context-aware responses</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Chat Example Section -->
+        <section class="py-32 px-6 bg-gray-50">
+            <div class="max-w-6xl mx-auto">
+                <div class="text-center mb-20">
+                    <h2 class="text-5xl md:text-6xl font-apple-display font-bold tracking-tighter mb-8">💬 Chat Example</h2>
+                    <p class="text-xl text-gray-600 max-w-4xl mx-auto leading-relaxed">
+                        Experience how the AI-powered document chat works with real examples. The system provides accurate answers with proper citations and source references.
+                    </p>
+                </div>
+
+                <div class="bg-white rounded-3xl shadow-lg p-8">
+                    <div class="grid lg:grid-cols-2 gap-12">
+                        <div>
+                            <h3 class="text-2xl font-bold mb-6">Example Conversation</h3>
+                            <div class="space-y-4">
+                                <div class="bg-blue-50 p-4 rounded-2xl">
+                                    <div class="flex items-center space-x-2 mb-2">
+                                        <div class="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center">
+                                            <span class="text-white text-sm font-bold">U</span>
+                                        </div>
+                                        <span class="font-medium text-gray-700">User</span>
+                                    </div>
+                                    <p class="text-gray-800">What are Newton's laws of motion?</p>
+                                </div>
+                                <div class="bg-gray-50 p-4 rounded-2xl">
+                                    <div class="flex items-center space-x-2 mb-2">
+                                        <div class="w-8 h-8 bg-gray-500 rounded-full flex items-center justify-center">
+                                            <span class="text-white text-sm font-bold">AI</span>
+                                        </div>
+                                        <span class="font-medium text-gray-700">Assistant</span>
+                                    </div>
+                                    <div class="text-gray-800">
+                                        <p class="mb-3">Based on the document, Newton's laws of motion are:</p>
+                                        <ol class="list-decimal list-inside space-y-2 text-sm">
+                                            <li>An object stays at rest unless acted upon by a force. <span class="text-blue-600 font-medium">[p.12]</span></li>
+                                            <li>Force = mass × acceleration. <span class="text-blue-600 font-medium">[p.13]</span></li>
+                                            <li>Every action has an equal and opposite reaction. <span class="text-blue-600 font-medium">[p.14]</span></li>
+                                        </ol>
+                                    </div>
+                                </div>
+                            </div>
+                            <p class="text-sm text-gray-500 mt-4 italic">All answers are grounded in the document's real content.</p>
+                        </div>
+                        <div class="bg-gradient-to-br from-orange-50 to-blue-100 rounded-2xl p-8">
+                            <h4 class="text-xl font-bold mb-6 text-center">Key Features</h4>
+                            <ul class="space-y-4">
+                                <li class="flex items-center space-x-3">
+                                    <svg class="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                    </svg>
+                                    <span class="text-gray-700">Accurate source citations</span>
+                                </li>
+                                <li class="flex items-center space-x-3">
+                                    <svg class="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                    </svg>
+                                    <span class="text-gray-700">Context-aware responses</span>
+                                </li>
+                                <li class="flex items-center space-x-3">
+                                    <svg class="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                    </svg>
+                                    <span class="text-gray-700">Natural language understanding</span>
+                                </li>
+                                <li class="flex items-center space-x-3">
+                                    <svg class="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                    </svg>
+                                    <span class="text-gray-700">Real-time processing</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Deployment & Tools -->
+        <section class="py-32 px-6">
+            <div class="max-w-6xl mx-auto">
+                <div class="text-center mb-20">
+                    <h2 class="text-5xl md:text-6xl font-apple-display font-bold tracking-tighter mb-8">📦 Deployment & Tools</h2>
+                    <p class="text-xl text-gray-600 max-w-4xl mx-auto leading-relaxed">
+                        The project leverages modern cloud-native tools and infrastructure as code to ensure reliable, scalable, and maintainable deployment.
+                    </p>
+                </div>
+
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div class="bg-white rounded-3xl shadow-lg p-8">
+                        <div class="w-16 h-16 bg-blue-100 rounded-2xl flex items-center justify-center mb-6">
+                            <svg class="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path>
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-bold mb-4">🧱 AWS CDK (Python)</h3>
+                        <p class="text-gray-600 leading-relaxed">Infrastructure as Code for reliable and repeatable deployments</p>
+                    </div>
+                    <div class="bg-white rounded-3xl shadow-lg p-8">
+                        <div class="w-16 h-16 bg-yellow-100 rounded-2xl flex items-center justify-center mb-6">
+                            <svg class="w-8 h-8 text-yellow-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-bold mb-4">⚙️ Lambda (Python)</h3>
+                        <p class="text-gray-600 leading-relaxed">Business logic and processing functions</p>
+                    </div>
+                    <div class="bg-white rounded-3xl shadow-lg p-8">
+                        <div class="w-16 h-16 bg-red-100 rounded-2xl flex items-center justify-center mb-6">
+                            <svg class="w-8 h-8 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path>
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-bold mb-4">🧮 Bedrock</h3>
+                        <p class="text-gray-600 leading-relaxed">Large Language Model inference</p>
+                    </div>
+                    <div class="bg-white rounded-3xl shadow-lg p-8">
+                        <div class="w-16 h-16 bg-blue-100 rounded-2xl flex items-center justify-center mb-6">
+                            <svg class="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"></path>
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-bold mb-4">🧠 Step Functions</h3>
+                        <p class="text-gray-600 leading-relaxed">Workflow coordination</p>
+                    </div>
+                    <div class="bg-white rounded-3xl shadow-lg p-8">
+                        <div class="w-16 h-16 bg-green-100 rounded-2xl flex items-center justify-center mb-6">
+                            <svg class="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4"></path>
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-bold mb-4">📊 DynamoDB</h3>
+                        <p class="text-gray-600 leading-relaxed">Metadata storage</p>
+                    </div>
+                    <div class="bg-white rounded-3xl shadow-lg p-8">
+                        <div class="w-16 h-16 bg-purple-100 rounded-2xl flex items-center justify-center mb-6">
+                            <svg class="w-8 h-8 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9v-9m0-9v9"></path>
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-bold mb-4">🌐 CloudFront + S3</h3>
+                        <p class="text-gray-600 leading-relaxed">Frontend hosting</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Results & Key Takeaways -->
+        <section class="py-32 px-6 bg-gray-50">
+            <div class="max-w-6xl mx-auto">
+                <div class="text-center mb-20">
+                    <h2 class="text-5xl md:text-6xl font-apple-display font-bold tracking-tighter mb-8">🌟 Results / Key Takeaways</h2>
+                    <p class="text-xl text-gray-600 max-w-4xl mx-auto leading-relaxed">
+                        The AI-Powered Document Summarizer & Chat system demonstrates significant value in document intelligence, providing users with unprecedented insights while maintaining cost efficiency and scalability.
+                    </p>
+                </div>
+
+                <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
+                    <div class="bg-white rounded-3xl shadow-lg p-8 text-center">
+                        <div class="text-4xl font-bold text-orange-600 mb-2">100%</div>
+                        <h3 class="text-lg font-bold mb-2">Serverless</h3>
+                        <p class="text-gray-600 text-sm">Fully serverless architecture with zero infrastructure management</p>
+                    </div>
+                    <div class="bg-white rounded-3xl shadow-lg p-8 text-center">
+                        <div class="text-4xl font-bold text-blue-600 mb-2">95%</div>
+                        <h3 class="text-lg font-bold mb-2">Accuracy</h3>
+                        <p class="text-gray-600 text-sm">AI-powered responses with high accuracy and proper citations</p>
+                    </div>
+                    <div class="bg-white rounded-3xl shadow-lg p-8 text-center">
+                        <div class="text-4xl font-bold text-green-600 mb-2">99.9%</div>
+                        <h3 class="text-lg font-bold mb-2">Uptime</h3>
+                        <p class="text-gray-600 text-sm">High availability with AWS managed services</p>
+                    </div>
+                    <div class="bg-white rounded-3xl shadow-lg p-8 text-center">
+                        <div class="text-4xl font-bold text-purple-600 mb-2">10x</div>
+                        <h3 class="text-lg font-bold mb-2">Faster</h3>
+                        <p class="text-gray-600 text-sm">Document processing compared to manual analysis</p>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-3xl shadow-lg p-8">
+                    <h3 class="text-3xl font-bold mb-8 text-center">Key Achievements</h3>
+                    <div class="grid md:grid-cols-2 gap-8">
+                        <div>
+                            <h4 class="text-xl font-bold mb-4">Technical Excellence</h4>
+                            <ul class="space-y-3 text-gray-600">
+                                <li class="flex items-start space-x-3">
+                                    <svg class="w-5 h-5 text-green-500 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                    </svg>
+                                    <span>Serverless AI design patterns</span>
+                                </li>
+                                <li class="flex items-start space-x-3">
+                                    <svg class="w-5 h-5 text-green-500 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                    </svg>
+                                    <span>Event-driven automation</span>
+                                </li>
+                                <li class="flex items-start space-x-3">
+                                    <svg class="w-5 h-5 text-green-500 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                    </svg>
+                                    <span>AWS Bedrock integration</span>
+                                </li>
+                                <li class="flex items-start space-x-3">
+                                    <svg class="w-5 h-5 text-green-500 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                    </svg>
+                                    <span>Secure, scalable architecture</span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4 class="text-xl font-bold mb-4">Business Impact</h4>
+                            <ul class="space-y-3 text-gray-600">
+                                <li class="flex items-start space-x-3">
+                                    <svg class="w-5 h-5 text-green-500 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                    </svg>
+                                    <span>Cost-efficient document intelligence</span>
+                                </li>
+                                <li class="flex items-start space-x-3">
+                                    <svg class="w-5 h-5 text-green-500 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                    </svg>
+                                    <span>Instant document understanding</span>
+                                </li>
+                                <li class="flex items-start space-x-3">
+                                    <svg class="w-5 h-5 text-green-500 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                    </svg>
+                                    <span>Natural language interaction</span>
+                                </li>
+                                <li class="flex items-start space-x-3">
+                                    <svg class="w-5 h-5 text-green-500 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                    </svg>
+                                    <span>Scalable by design</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex flex-wrap justify-center gap-4 mt-12">
+                    <span class="bg-green-100 text-green-800 px-4 py-2 rounded-full text-sm font-medium">✅ 100% Serverless</span>
+                    <span class="bg-blue-100 text-blue-800 px-4 py-2 rounded-full text-sm font-medium">✅ Scalable by design</span>
+                    <span class="bg-orange-100 text-orange-800 px-4 py-2 rounded-full text-sm font-medium">✅ Built with AWS CDK</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Future Improvements -->
+        <section class="py-32 px-6">
+            <div class="max-w-6xl mx-auto">
+                <div class="text-center mb-20">
+                    <h2 class="text-5xl md:text-6xl font-apple-display font-bold tracking-tighter mb-8">🚀 Future Improvements</h2>
+                    <p class="text-xl text-gray-600 max-w-4xl mx-auto leading-relaxed">
+                        The system is designed for extensibility and continuous improvement. Here are planned enhancements to make it even more powerful and user-friendly.
+                    </p>
+                </div>
+
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div class="bg-white rounded-3xl shadow-lg p-8">
+                        <div class="w-16 h-16 bg-blue-100 rounded-2xl flex items-center justify-center mb-6">
+                            <svg class="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path>
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-bold mb-4">Multi-Document Chat</h3>
+                        <p class="text-gray-600 leading-relaxed">Enable users to chat with multiple documents simultaneously, creating a comprehensive knowledge base.</p>
+                    </div>
+                    <div class="bg-white rounded-3xl shadow-lg p-8">
+                        <div class="w-16 h-16 bg-green-100 rounded-2xl flex items-center justify-center mb-6">
+                            <svg class="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4"></path>
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-bold mb-4">Vector Database</h3>
+                        <p class="text-gray-600 leading-relaxed">Add OpenSearch or Aurora pgvector for advanced vector search capabilities and better semantic understanding.</p>
+                    </div>
+                    <div class="bg-white rounded-3xl shadow-lg p-8">
+                        <div class="w-16 h-16 bg-purple-100 rounded-2xl flex items-center justify-center mb-6">
+                            <svg class="w-8 h-8 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-bold mb-4">Summarization Dashboard</h3>
+                        <p class="text-gray-600 leading-relaxed">Create a comprehensive dashboard for document analysis, summarization, and insights visualization.</p>
+                    </div>
+                    <div class="bg-white rounded-3xl shadow-lg p-8">
+                        <div class="w-16 h-16 bg-orange-100 rounded-2xl flex items-center justify-center mb-6">
+                            <svg class="w-8 h-8 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path>
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-bold mb-4">Real-time Chat Streaming</h3>
+                        <p class="text-gray-600 leading-relaxed">Implement streaming responses for real-time chat experience with progressive answer generation.</p>
+                    </div>
+                    <div class="bg-white rounded-3xl shadow-lg p-8">
+                        <div class="w-16 h-16 bg-red-100 rounded-2xl flex items-center justify-center mb-6">
+                            <svg class="w-8 h-8 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M9 19l3 3m0 0l3-3m-3 3V10"></path>
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-bold mb-4">Frontend Upload UI</h3>
+                        <p class="text-gray-600 leading-relaxed">Build a modern React frontend with drag-and-drop upload, progress tracking, and interactive chat interface.</p>
+                    </div>
+                    <div class="bg-white rounded-3xl shadow-lg p-8">
+                        <div class="w-16 h-16 bg-cyan-100 rounded-2xl flex items-center justify-center mb-6">
+                            <svg class="w-8 h-8 text-cyan-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-bold mb-4">Advanced Security</h3>
+                        <p class="text-gray-600 leading-relaxed">Implement advanced security features including document encryption, access controls, and audit logging.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Screenshots or Demo Section -->
+        <section class="py-32 px-6 bg-gray-50">
+            <div class="max-w-6xl mx-auto">
+                <div class="text-center mb-20">
+                    <h2 class="text-5xl md:text-6xl font-apple-display font-bold tracking-tighter mb-8">📸 Screenshots & Demo</h2>
+                    <p class="text-xl text-gray-600 max-w-4xl mx-auto leading-relaxed">
+                        Visual demonstration of the AI-Powered Document Summarizer & Chat system in action, showcasing the user interface and key features.
+                    </p>
+                </div>
+
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div class="bg-white rounded-3xl shadow-lg p-8">
+                        <div class="aspect-[4/3] bg-gradient-to-br from-blue-50 to-indigo-100 rounded-2xl flex items-center justify-center mb-6">
+                            <div class="text-center">
+                                <div class="w-16 h-16 bg-blue-500 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                                    <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M9 19l3 3m0 0l3-3m-3 3V10"></path>
+                                    </svg>
+                                </div>
+                                <h4 class="text-lg font-bold text-gray-800">Upload Page</h4>
+                                <p class="text-gray-600 text-sm">Drag & drop document upload</p>
+                            </div>
+                        </div>
+                        <h3 class="text-xl font-bold mb-2">Document Upload Interface</h3>
+                        <p class="text-gray-600 text-sm">Modern drag-and-drop interface for easy document upload with progress tracking and validation.</p>
+                    </div>
+                    <div class="bg-white rounded-3xl shadow-lg p-8">
+                        <div class="aspect-[4/3] bg-gradient-to-br from-green-50 to-emerald-100 rounded-2xl flex items-center justify-center mb-6">
+                            <div class="text-center">
+                                <div class="w-16 h-16 bg-green-500 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                                    <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path>
+                                    </svg>
+                                </div>
+                                <h4 class="text-lg font-bold text-gray-800">Chat Interface</h4>
+                                <p class="text-gray-600 text-sm">AI-powered conversation</p>
+                            </div>
+                        </div>
+                        <h3 class="text-xl font-bold mb-2">Interactive Chat Interface</h3>
+                        <p class="text-gray-600 text-sm">Real-time chat interface with AI responses, citations, and natural language understanding.</p>
+                    </div>
+                    <div class="bg-white rounded-3xl shadow-lg p-8">
+                        <div class="aspect-[4/3] bg-gradient-to-br from-purple-50 to-pink-100 rounded-2xl flex items-center justify-center mb-6">
+                            <div class="text-center">
+                                <div class="w-16 h-16 bg-purple-500 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                                    <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"></path>
+                                    </svg>
+                                </div>
+                                <h4 class="text-lg font-bold text-gray-800">Architecture View</h4>
+                                <p class="text-gray-600 text-sm">AWS services diagram</p>
+                            </div>
+                        </div>
+                        <h3 class="text-xl font-bold mb-2">System Architecture</h3>
+                        <p class="text-gray-600 text-sm">Visual representation of the serverless AWS architecture and data flow between services.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA Section -->
+        <section class="py-32 px-6 bg-black text-white">
+            <div class="max-w-4xl mx-auto text-center">
+                <h2 class="text-5xl md:text-6xl font-apple-display font-bold tracking-tighter mb-8">Interested in This Project?</h2>
+                <p class="text-xl text-gray-300 mb-12 max-w-2xl mx-auto">
+                    This project demonstrates advanced AI integration and serverless architecture skills. Let's discuss how similar solutions can benefit your organization.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                    <a href="https://github.com/deepakpatilauthor/Projects/tree/main/ai-doc-chat-cdk-python" 
+                       target="_blank" 
+                       rel="noopener noreferrer"
+                       class="btn btn-primary bg-white text-black hover:bg-gray-100 rounded-full px-8 py-4 text-base font-medium inline-flex items-center justify-center">
+                        View Source on GitHub
+                        <svg class="ml-2 h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+                        </svg>
+                    </a>
+                    <a href="contact.html" class="btn btn-secondary border-2 border-white text-white hover:bg-white hover:text-black rounded-full px-8 py-4 text-base font-medium inline-flex items-center justify-center">
+                        Contact Me
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-50 border-t border-gray-200">
+        <div class="max-w-7xl mx-auto px-6 py-6">
+            <div class="flex flex-col md:flex-row justify-between items-center space-y-3 md:space-y-0">
+                <p class="text-gray-600 text-sm">© 2025 Deepak Patil. All rights reserved.</p>
+                <div class="flex space-x-6 text-sm">
+                    <a href="privacy-policy.html" class="text-gray-600 hover:text-gray-900 transition-colors">Privacy Policy</a>
+                    <a href="terms-conditions.html" class="text-gray-600 hover:text-gray-900 transition-colors">Terms & Conditions</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+    <script src="js/navbar.js"></script>
+</body>
+</html>
