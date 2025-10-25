@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+    <link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png">
+    <link rel="manifest" href="../site.webmanifest">
+    
+    <!-- Primary Meta Tags -->
+    <title>How to Build an Observability Stack (Logs, Metrics, Tracing) for Your Cloud-Native App - Deepak Patil</title>
+    <meta name="title" content="How to Build an Observability Stack (Logs, Metrics, Tracing) for Your Cloud-Native App - Deepak Patil">
+    <meta name="description" content="Learn how to build a comprehensive observability stack for cloud-native applications. Master logs, metrics, and tracing with Prometheus, Loki, Jaeger, and OpenTelemetry. Complete guide with real-world examples and best practices.">
+    <meta name="keywords" content="Observability, Logs, Metrics, Tracing, Prometheus, Grafana, Loki, Jaeger, OpenTelemetry, Cloud Native, DevOps, SRE, Monitoring, Alerting, Distributed Systems, Microservices">
+    <meta name="author" content="Deepak Patil">
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+    <meta name="googlebot" content="index, follow">
+    <meta name="bingbot" content="index, follow">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://deepakpatil.dev/blog/how-to-build-observability-stack.html">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://deepakpatil.dev/blog/how-to-build-observability-stack.html">
+    <meta property="og:title" content="How to Build an Observability Stack (Logs, Metrics, Tracing) for Your Cloud-Native App">
+    <meta property="og:description" content="Learn how to build a comprehensive observability stack for cloud-native applications. Master logs, metrics, and tracing with Prometheus, Loki, Jaeger, and OpenTelemetry.">
+    <meta property="og:image" content="https://deepakpatil.dev/images/observability-stack-guide.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="Observability Stack Guide - Logs, Metrics, Tracing">
+    <meta property="og:site_name" content="Deepak Patil Portfolio">
+    <meta property="og:locale" content="en_US">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://deepakpatil.dev/blog/how-to-build-observability-stack.html">
+    <meta property="twitter:title" content="How to Build an Observability Stack (Logs, Metrics, Tracing) for Your Cloud-Native App">
+    <meta property="twitter:description" content="Learn how to build a comprehensive observability stack for cloud-native applications. Master logs, metrics, and tracing with Prometheus, Loki, Jaeger, and OpenTelemetry.">
+    <meta property="twitter:image" content="https://deepakpatil.dev/images/observability-stack-guide.png">
+    <meta property="twitter:creator" content="@deepakpatil">
+    <meta property="twitter:site" content="@deepakpatil">
+    
+    <!-- Additional SEO Meta Tags -->
+    <meta name="theme-color" content="#000000">
+    <meta name="msapplication-TileColor" content="#000000">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-title" content="Observability Stack Guide">
+    
+    <!-- Preconnect for Performance -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="dns-prefetch" href="https://cdn.tailwindcss.com">
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Manrope:wght@300;400;500;600;700&family=Josefin+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../styles/main.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'apple': ['Inter', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'Helvetica Neue', 'sans-serif'],
+                        'apple-display': ['Manrope', 'Inter', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'Helvetica Neue', 'sans-serif'],
+                        'logo': ['Josefin Sans', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'Helvetica Neue', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <!-- Structured Data (JSON-LD) -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "headline": "How to Build an Observability Stack (Logs, Metrics, Tracing) for Your Cloud-Native App",
+        "description": "Learn how to build a comprehensive observability stack for cloud-native applications. Master logs, metrics, and tracing with Prometheus, Loki, Jaeger, and OpenTelemetry. Complete guide with real-world examples and best practices.",
+        "url": "https://deepakpatil.dev/blog/how-to-build-observability-stack.html",
+        "datePublished": "2025-10-25",
+        "dateModified": "2025-10-25",
+        "author": {
+            "@type": "Person",
+            "name": "Deepak Patil",
+            "url": "https://deepakpatil.dev"
+        },
+        "publisher": {
+            "@type": "Person",
+            "name": "Deepak Patil",
+            "url": "https://deepakpatil.dev"
+        },
+        "keywords": ["Observability", "Logs", "Metrics", "Tracing", "Prometheus", "Grafana", "Loki", "Jaeger", "OpenTelemetry", "Cloud Native", "DevOps", "SRE"],
+        "wordCount": "2000",
+        "timeRequired": "PT12M",
+        "articleSection": "DevOps & Cloud",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https://deepakpatil.dev/blog/how-to-build-observability-stack.html"
+        }
+    }
+    </script>
+</head>
+<body class="font-apple bg-white text-black antialiased">
+    <!-- Complete Responsive Navigation Bar -->
+    <nav class="bg-white shadow-sm border-b border-gray-200 fixed top-0 left-0 right-0 z-50" role="navigation" aria-label="Main navigation">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <!-- Brand/Logo -->
+                <div class="flex-shrink-0">
+                    <a href="../index.html" class="text-xl font-bold text-black hover:text-gray-700 transition-colors duration-200" aria-label="Deepak Patil - Home">
+                        DEEPAK PATIL
+                    </a>
+                </div>
+
+                <!-- Desktop Navigation -->
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-8" id="desktop-menu">
+                        <a href="../index.html" class="text-gray-600 hover:text-black px-3 py-2 text-sm font-medium transition-colors duration-200">Home</a>
+                        <a href="../about.html" class="text-gray-600 hover:text-black px-3 py-2 text-sm font-medium transition-colors duration-200">About</a>
+                        <a href="../work.html" class="text-gray-600 hover:text-black px-3 py-2 text-sm font-medium transition-colors duration-200">Work</a>
+                        <a href="../blog.html" class="text-black font-semibold px-3 py-2 text-sm font-medium transition-colors duration-200">Blog</a>
+                        <a href="../contact.html" class="text-gray-600 hover:text-black px-3 py-2 text-sm font-medium transition-colors duration-200">Contact</a>
+                    </div>
+                </div>
+
+                <!-- Mobile menu button -->
+                <div class="md:hidden">
+                    <button 
+                        id="mobile-menu-button" 
+                        type="button" 
+                        class="inline-flex items-center justify-center p-2 rounded-md text-gray-600 hover:text-black hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-black transition-colors duration-200"
+                        aria-controls="mobile-menu" 
+                        aria-expanded="false"
+                        aria-label="Toggle navigation menu"
+                    >
+                        <span class="sr-only">Open main menu</span>
+                        <!-- Hamburger icon -->
+                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile menu -->
+        <div id="mobile-menu" class="hidden md:hidden" role="menu" aria-labelledby="mobile-menu-button">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-white border-t border-gray-200 shadow-lg">
+                <!-- Close button -->
+                <div class="flex justify-end mb-2">
+                    <button 
+                        id="mobile-menu-close" 
+                        type="button" 
+                        class="inline-flex items-center justify-center p-2 rounded-md text-gray-600 hover:text-black hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-black transition-colors duration-200"
+                        aria-label="Close navigation menu"
+                    >
+                        <span class="sr-only">Close menu</span>
+                        <!-- Close icon -->
+                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                    </button>
+                </div>
+                
+                <!-- Mobile navigation links -->
+                <a href="../index.html" class="text-gray-600 hover:text-black hover:bg-gray-100 block px-3 py-2 text-base font-medium rounded-md transition-colors duration-200" role="menuitem">Home</a>
+                <a href="../about.html" class="text-gray-600 hover:text-black hover:bg-gray-100 block px-3 py-2 text-base font-medium rounded-md transition-colors duration-200" role="menuitem">About</a>
+                <a href="../work.html" class="text-gray-600 hover:text-black hover:bg-gray-100 block px-3 py-2 text-base font-medium rounded-md transition-colors duration-200" role="menuitem">Work</a>
+                <a href="../blog.html" class="bg-gray-100 text-black font-semibold block px-3 py-2 text-base font-medium rounded-md transition-colors duration-200" role="menuitem">Blog</a>
+                <a href="../contact.html" class="text-gray-600 hover:text-black hover:bg-gray-100 block px-3 py-2 text-base font-medium rounded-md transition-colors duration-200" role="menuitem">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="min-h-screen bg-white pt-20">
+        <!-- Article Header -->
+        <section class="py-20 px-6 pt-24">
+            <div class="max-w-4xl mx-auto">
+                <!-- Breadcrumb - Fixed -->
+                <nav class="mb-8 fixed top-16 left-0 right-0 bg-white/95 backdrop-blur-sm z-50 py-2 px-6 border-b border-gray-100">
+                    <div class="flex items-center space-x-2 text-sm text-gray-500">
+                        <a href="../blog.html" class="hover:text-black transition-colors">Blog</a>
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                        </svg>
+                        <span>How to Build an Observability Stack</span>
+                    </div>
+                </nav>
+                
+                <!-- Back to Blog -->
+                <a href="../blog.html" class="inline-flex items-center text-gray-500 hover:text-black transition-colors mb-8">
+                    <svg class="h-4 w-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+                    </svg>
+                    Back to Blog
+                </a>
+
+                <!-- Article Meta -->
+                <div class="flex items-center gap-4 mb-6">
+                    <span class="bg-gray-100 text-gray-700 px-3 py-1 rounded-full text-sm font-medium">DevOps & Cloud</span>
+                    <span class="text-gray-500 text-sm">October 25, 2025</span>
+                    <div class="flex items-center gap-1 text-gray-500 text-sm">
+                        <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                        <span>12 min read</span>
+                    </div>
+                </div>
+
+                <!-- Article Title -->
+                <h1 class="text-5xl md:text-6xl font-apple-display font-bold tracking-tighter mb-8 leading-tight">
+                    How to Build an Observability Stack (Logs, Metrics, Tracing) for Your Cloud-Native App
+                </h1>
+
+                <!-- Article Excerpt -->
+                <p class="text-xl text-gray-600 leading-relaxed mb-12">
+                    Learn how to build a comprehensive observability stack for cloud-native applications. Master logs, metrics, and tracing with Prometheus, Loki, Jaeger, and OpenTelemetry. Complete guide with real-world examples and best practices.
+                </p>
+
+                <!-- Article Image/Visual -->
+                <div class="mb-12 flex items-center justify-center">
+                    <img src="../images/how-to-build-an-observability-stack.png" 
+                         alt="How to Build an Observability Stack - Logs, Metrics, Tracing for Cloud-Native Apps" 
+                         class="max-w-full max-h-[500px] object-contain">
+                </div>
+            </div>
+        </section>
+
+        <!-- Article Content -->
+        <article class="pb-20 px-6">
+            <div class="max-w-4xl mx-auto">
+                <div class="prose prose-lg max-w-none">
+                    <p class="text-lg text-gray-700 leading-relaxed mb-6">
+                        Picture this: it's 3 AM, your production system is down, and you're staring at a black box wondering what went wrong. Sound familiar? In today's cloud-native world, where applications are distributed across multiple services, containers, and regions, traditional monitoring just doesn't cut it anymore. You need observability.
+                    </p>
+
+                    <p class="text-lg text-gray-700 leading-relaxed mb-6">
+                        Observability isn't just about collecting data—it's about understanding your system's behavior from the inside out. It's the difference between knowing something is broken and understanding why it broke, how it affects your users, and what you need to fix it. Think of it as giving your application a nervous system that can feel, process, and communicate what's happening.
+                    </p>
+
+                    <h2 class="text-3xl font-apple-display font-bold mb-6 mt-12">The Three Pillars of Observability</h2>
+                    
+                    <p class="text-lg text-gray-700 leading-relaxed mb-6">
+                        Observability rests on three fundamental pillars: logs, metrics, and tracing. Each tells a different part of your system's story, and together, they create a complete picture of what's happening in your application.
+                    </p>
+
+                    <h3 class="text-2xl font-semibold mb-4 mt-8">Logs: The Story of What Happened</h3>
+                    <p class="text-lg text-gray-700 leading-relaxed mb-6">
+                        Logs are your system's diary. They capture discrete events with timestamps, giving you a chronological record of what happened. When a user logs in, when a payment fails, when a service starts up—logs capture these moments in time.
+                    </p>
+
+                    <p class="text-lg text-gray-700 leading-relaxed mb-6">
+                        The challenge with logs isn't collecting them (most applications already do this), but making them useful. I've seen teams drown in log noise, where finding the needle of useful information becomes nearly impossible. The key is structured logging with consistent formats and meaningful context.
+                    </p>
+
+                    <div class="bg-gray-50 rounded-lg p-6 mb-6">
+                        <h4 class="font-semibold mb-3">Example: Structured Log Entry</h4>
+                        <pre class="text-sm text-gray-800 overflow-x-auto"><code>{
+  "timestamp": "2025-01-15T10:30:45Z",
+  "level": "INFO",
+  "service": "user-service",
+  "trace_id": "abc123def456",
+  "user_id": "user_789",
+  "action": "login_attempt",
+  "ip_address": "192.168.1.100",
+  "success": true,
+  "duration_ms": 245
+}</code></pre>
+                    </div>
+
+                    <h3 class="text-2xl font-semibold mb-4 mt-8">Metrics: The Pulse of Your System</h3>
+                    <p class="text-lg text-gray-700 leading-relaxed mb-6">
+                        While logs tell you what happened, metrics tell you how often it happened and how your system is performing over time. They're like the vital signs of your application—CPU usage, memory consumption, request rates, error rates, and response times.
+                    </p>
+
+                    <p class="text-lg text-gray-700 leading-relaxed mb-6">
+                        Metrics are perfect for alerting because they're numerical and can be aggregated. You can set up alerts when your error rate exceeds 5% or when response times spike above 2 seconds. But here's the thing: metrics alone won't tell you why something happened—they'll just tell you that it did.
+                    </p>
+
+                    <h3 class="text-2xl font-semibold mb-4 mt-8">Tracing: Following the Journey</h3>
+                    <p class="text-lg text-gray-700 leading-relaxed mb-6">
+                        Distributed tracing is where the magic happens. When a user makes a request to your application, that request might touch dozens of services: load balancers, API gateways, microservices, databases, caches, and external APIs. Tracing follows that request through every service, creating a map of the entire journey.
+                    </p>
+
+                    <p class="text-lg text-gray-700 leading-relaxed mb-6">
+                        This is crucial for microservices architectures where a single user action can trigger a cascade of service calls. Without tracing, you're essentially flying blind through a complex system. With it, you can see exactly where bottlenecks occur, which services are slow, and how failures propagate through your system.
+                    </p>
+
+                    <h2 class="text-3xl font-apple-display font-bold mb-6 mt-12">Core Components of an Observability Stack</h2>
+
+                    <p class="text-lg text-gray-700 leading-relaxed mb-6">
+                        Building an observability stack is like assembling a puzzle—each piece has a specific role, and they need to work together seamlessly. Let me walk you through the essential components and how they fit together.
+                    </p>
+
+                    <h3 class="text-2xl font-semibold mb-4 mt-8">Log Collection and Storage</h3>
+                    <p class="text-lg text-gray-700 leading-relaxed mb-6">
+                        For log collection, you have several excellent options. Fluentd is a popular choice for log aggregation—it's like a universal translator that can collect logs from any source and send them to any destination. It's particularly good at handling high-volume log streams and can parse, filter, and transform logs on the fly.
+                    </p>
+
+                    <p class="text-lg text-gray-700 leading-relaxed mb-6">
+                        For storage, I'm a big fan of Grafana Loki. It's designed specifically for logs and integrates beautifully with Grafana for visualization. Unlike traditional log storage solutions that index every field, Loki only indexes metadata, making it much more cost-effective for large-scale deployments.
+                    </p>
+
+                    <h3 class="text-2xl font-semibold mb-4 mt-8">Metrics Collection and Storage</h3>
+                    <p class="text-lg text-gray-700 leading-relaxed mb-6">
+                        Prometheus is the gold standard for metrics collection. It's a time-series database that's incredibly good at collecting, storing, and querying metrics. What makes Prometheus special is its pull-based model—instead of applications pushing metrics, Prometheus scrapes them at regular intervals.
+                    </p>
+
+                    <p class="text-lg text-gray-700 leading-relaxed mb-6">
+                        The Prometheus query language (PromQL) is incredibly powerful. You can write complex queries to analyze your metrics, create alerts, and build sophisticated dashboards. For example, you can calculate the 99th percentile response time across all services or track the error rate for a specific API endpoint.
+                    </p>
+
+                    <h3 class="text-2xl font-semibold mb-4 mt-8">Distributed Tracing</h3>
+                    <p class="text-lg text-gray-700 leading-relaxed mb-6">
+                        For distributed tracing, Jaeger is my go-to choice. It's open-source, highly scalable, and integrates well with the rest of the observability stack. Jaeger can handle millions of traces per day and provides excellent visualization of request flows through your services.
+                    </p>
+
+                    <p class="text-lg text-gray-700 leading-relaxed mb-6">
+                        The key to effective tracing is instrumentation. You need to add trace context to your applications so that requests can be followed across service boundaries. This is where OpenTelemetry comes in—it provides a standardized way to instrument your applications and send telemetry data to any backend.
+                    </p>
+
+                    <h2 class="text-3xl font-apple-display font-bold mb-6 mt-12">Step-by-Step Guide to Building Your Stack</h2>
+
+                    <p class="text-lg text-gray-700 leading-relaxed mb-6">
+                        Now let's get practical. I'll walk you through setting up a complete observability stack for a Kubernetes-based microservices application. This is the same approach I've used in production environments, so you know it works.
+                    </p>
+
+                    <h3 class="text-2xl font-semibold mb-4 mt-8">Step 1: Setting Up Data Collection</h3>
+                    <p class="text-lg text-gray-700 leading-relaxed mb-6">
+                        First, you need to instrument your applications. This means adding code to collect logs, metrics, and traces. For a Node.js application, here's how you'd set up OpenTelemetry:
+                    </p>
+
+                    <div class="bg-gray-50 rounded-lg p-6 mb-6">
+                        <h4 class="font-semibold mb-3">OpenTelemetry Setup (Node.js)</h4>
+                        <pre class="text-sm text-gray-800 overflow-x-auto"><code>const { NodeSDK } = require('@opentelemetry/sdk-node');
+const { getNodeAutoInstrumentations } = require('@opentelemetry/auto-instrumentations-node');
+const { JaegerExporter } = require('@opentelemetry/exporter-jaeger');
+const { PrometheusExporter } = require('@opentelemetry/exporter-prometheus');
+
+const sdk = new NodeSDK({
+  traceExporter: new JaegerExporter({
+    endpoint: 'http://jaeger-collector:14268/api/traces',
+  }),
+  metricReader: new PrometheusExporter({
+    port: 9464,
+  }),
+  instrumentations: [getNodeAutoInstrumentations()],
+});
+
+sdk.start();</code></pre>
+                    </div>
+
+                    <h3 class="text-2xl font-semibold mb-4 mt-8">Step 2: Deploying the Observability Stack</h3>
+                    <p class="text-lg text-gray-700 leading-relaxed mb-6">
+                        For Kubernetes, I recommend using Helm charts to deploy your observability stack. Here's a basic setup that includes Prometheus, Grafana, Loki, and Jaeger:
+                    </p>
+
+                    <div class="bg-gray-50 rounded-lg p-6 mb-6">
+                        <h4 class="font-semibold mb-3">Helm Values for Observability Stack</h4>
+                        <pre class="text-sm text-gray-800 overflow-x-auto"><code># prometheus-values.yaml
+prometheus:
+  server:
+    persistentVolume:
+      enabled: true
+      size: 50Gi
+  alertmanager:
+    enabled: true
+
+grafana:
+  enabled: true
+  adminPassword: "your-secure-password"
+  persistence:
+    enabled: true
+    size: 10Gi
+
+loki:
+  enabled: true
+  persistence:
+    enabled: true
+    size: 20Gi
+
+jaeger:
+  enabled: true
+  storage:
+    type: elasticsearch
+    elasticsearch:
+      nodeCount: 3</code></pre>
+                    </div>
+
+                    <h3 class="text-2xl font-semibold mb-4 mt-8">Step 3: Configuring Dashboards and Alerts</h3>
+                    <p class="text-lg text-gray-700 leading-relaxed mb-6">
+                        Dashboards are where observability becomes actionable. I always start with four key dashboards: infrastructure overview, application performance, business metrics, and error analysis. Each dashboard should tell a story and help you quickly identify issues.
+                    </p>
+
+                    <p class="text-lg text-gray-700 leading-relaxed mb-6">
+                        For alerts, follow the "golden signals" approach: latency, traffic, errors, and saturation. Set up alerts for response time degradation, error rate spikes, traffic anomalies, and resource saturation. But here's the crucial part: make sure your alerts are actionable. Nothing kills alert fatigue faster than noisy, non-actionable alerts.
+                    </p>
+
+                    <h2 class="text-3xl font-apple-display font-bold mb-6 mt-12">Real-World Example: E-commerce Microservices</h2>
+
+                    <p class="text-lg text-gray-700 leading-relaxed mb-6">
+                        Let me show you how this works in practice with a real e-commerce application. Imagine you have a user service, product service, order service, and payment service, all running on Kubernetes.
+                    </p>
+
+                    <p class="text-lg text-gray-700 leading-relaxed mb-6">
+                        When a customer places an order, the request flows through an API gateway, hits the order service, which calls the product service to check inventory, then the payment service to process payment, and finally updates the order status. This is a perfect scenario for distributed tracing.
+                    </p>
+
+                    <div class="bg-gray-50 rounded-lg p-6 mb-6">
+                        <h4 class="font-semibold mb-3">Example Prometheus Query for Order Processing</h4>
+                        <pre class="text-sm text-gray-800 overflow-x-auto"><code># Average response time for order processing
+rate(http_request_duration_seconds_sum{service="order-service", endpoint="/orders"}[5m]) / 
+rate(http_request_duration_seconds_count{service="order-service", endpoint="/orders"}[5m])
+
+# Error rate across all services
+sum(rate(http_requests_total{status=~"5.."}[5m])) / 
+sum(rate(http_requests_total[5m])) * 100
+
+# Database connection pool utilization
+db_connections_active / db_connections_max * 100</code></pre>
+                    </div>
+
+                    <h2 class="text-3xl font-apple-display font-bold mb-6 mt-12">Best Practices and Common Mistakes</h2>
+
+                    <p class="text-lg text-gray-700 leading-relaxed mb-6">
+                        I've seen teams make the same mistakes over and over again. Let me share the lessons I've learned from building observability stacks for dozens of organizations.
+                    </p>
+
+                    <h3 class="text-2xl font-semibold mb-4 mt-8">Balancing Data Volume vs. Cost</h3>
+                    <p class="text-lg text-gray-700 leading-relaxed mb-6">
+                        The biggest mistake I see is collecting everything without thinking about cost. Logs and metrics can generate massive amounts of data, and storage costs can quickly spiral out of control. Be strategic about what you collect and how long you keep it.
+                    </p>
+
+                    <p class="text-lg text-gray-700 leading-relaxed mb-6">
+                        Use log sampling for high-volume, low-value logs. Keep detailed logs for errors and important business events, but sample debug logs at 1% or 10%. For metrics, focus on the signals that matter for your business and your ability to detect issues.
+                    </p>
+
+                    <h3 class="text-2xl font-semibold mb-4 mt-8">Standardizing Log Formats</h3>
+                    <p class="text-lg text-gray-700 leading-relaxed mb-6">
+                        Inconsistent log formats are a nightmare to work with. Establish a standard log format across all your services and enforce it through linting rules and code reviews. Include common fields like service name, trace ID, user ID, and request ID in every log entry.
+                    </p>
+
+                    <h3 class="text-2xl font-semibold mb-4 mt-8">Ensuring Correlation Across Data Types</h3>
+                    <p class="text-lg text-gray-700 leading-relaxed mb-6">
+                        The real power of observability comes from correlating logs, metrics, and traces. Use consistent identifiers across all three: trace IDs, request IDs, user IDs, and service names. This allows you to start with a metric alert, drill down to the specific trace, and then examine the logs for that exact request.
+                    </p>
+
+                    <h2 class="text-3xl font-apple-display font-bold mb-6 mt-12">Advanced Tips</h2>
+
+                    <h3 class="text-2xl font-semibold mb-4 mt-8">Using OpenTelemetry SDKs</h3>
+                    <p class="text-lg text-gray-700 leading-relaxed mb-6">
+                        OpenTelemetry is becoming the standard for observability instrumentation. It provides a single API for collecting logs, metrics, and traces, and it works with any backend system. Start with auto-instrumentation for your frameworks and libraries, then add custom instrumentation for business-specific metrics.
+                    </p>
+
+                    <h3 class="text-2xl font-semibold mb-4 mt-8">Automating Dashboards and Alerts</h3>
+                    <p class="text-lg text-gray-700 leading-relaxed mb-6">
+                        Don't manually create dashboards and alerts for every service. Use infrastructure as code to define your observability stack alongside your application. This ensures that every new service automatically gets the right dashboards and alerts, and your observability stack evolves with your application.
+                    </p>
+
+                    <h3 class="text-2xl font-semibold mb-4 mt-8">Integrating with AIOps Tools</h3>
+                    <p class="text-lg text-gray-700 leading-relaxed mb-6">
+                        Modern AIOps tools can analyze your observability data to detect anomalies, predict failures, and suggest root causes. Tools like PagerDuty's AIOps or DataDog's machine learning features can help you move from reactive to proactive monitoring.
+                    </p>
+
+                    <h2 class="text-3xl font-apple-display font-bold mb-6 mt-12">Conclusion</h2>
+
+                    <p class="text-lg text-gray-700 leading-relaxed mb-6">
+                        Building an observability stack isn't just about collecting data—it's about creating a system that helps you understand, debug, and improve your applications. The best observability stacks are those that provide clear insights into system behavior and enable fast incident response.
+                    </p>
+
+                    <p class="text-lg text-gray-700 leading-relaxed mb-6">
+                        Remember, observability is a journey, not a destination. Start with the basics: structured logging, key metrics, and basic tracing. As your system grows, add more sophisticated features like distributed tracing, advanced alerting, and AIOps integration.
+                    </p>
+
+                    <p class="text-lg text-gray-700 leading-relaxed mb-6">
+                        The investment in observability pays dividends in reduced downtime, faster debugging, and better system understanding. Your future self (and your team) will thank you when that 3 AM incident becomes a 5-minute fix instead of a 5-hour nightmare.
+                    </p>
+
+                    <div class="bg-blue-50 border-l-4 border-blue-400 p-6 mt-8">
+                        <h4 class="font-semibold text-blue-800 mb-2">Ready to Get Started?</h4>
+                        <p class="text-blue-700">
+                            Start small with one service and gradually expand your observability stack. Focus on the signals that matter most to your business, and remember that good observability is about quality, not quantity. Your users and your on-call engineers will thank you.
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+        </article>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-50 border-t border-gray-200">
+        <div class="max-w-7xl mx-auto px-6 py-6">
+            <div class="flex flex-col md:flex-row justify-between items-center space-y-3 md:space-y-0">
+                <p class="text-gray-600 text-sm">© 2025 Deepak Patil. All rights reserved.</p>
+                <div class="flex space-x-6 text-sm">
+                    <a href="../privacy-policy.html" class="text-gray-600 hover:text-gray-900 transition-colors">Privacy Policy</a>
+                    <a href="../terms-conditions.html" class="text-gray-600 hover:text-gray-900 transition-colors">Terms & Conditions</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../js/main.js"></script>
+    <script src="../js/navbar.js"></script>
+    <style>
+        /* Body padding to account for fixed navbar */
+        body {
+            padding-top: 4rem; /* 64px for h-16 navbar */
+        }
+
+        /* Hamburger animation */
+        #mobile-menu-button.active svg {
+            transform: rotate(90deg);
+            transition: transform 0.3s ease;
+        }
+
+        /* Mobile menu animation */
+        #mobile-menu {
+            transition: all 0.3s ease;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            z-index: 50;
+        }
+
+        #mobile-menu:not(.hidden) {
+            animation: slideDown 0.3s ease;
+            display: block !important;
+            opacity: 1 !important;
+            visibility: visible !important;
+            transform: translateY(0) !important;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Ensure mobile menu is properly positioned on mobile */
+        @media (max-width: 767px) {
+            #mobile-menu {
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                z-index: 50;
+            }
+        }
+
+        /* Force mobile menu visibility when not hidden */
+        #mobile-menu:not(.hidden) {
+            display: block !important;
+            opacity: 1 !important;
+            visibility: visible !important;
+            transform: translateY(0) !important;
+        }
+    </style>
+</body>
+</html>
