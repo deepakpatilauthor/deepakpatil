@@ -1,0 +1,293 @@
+---
+layout: "layouts/base.njk"
+activeNav: "work"
+title: "Portfolio Projects - Deepak Patil | Cloud Architecture & DevOps Portfolio"
+description: "Explore Deepak Patil's portfolio of cloud architecture and DevOps projects. Featuring AWS, Terraform, CI/CD pipelines, and modern web technologies. View detailed case studies and technical implementations."
+keywords: "Portfolio, Cloud Architecture Projects, DevOps Projects, AWS Projects, Terraform Projects, CI/CD Projects, Full Stack Development, Software Engineering Portfolio, Cloud Consultant Projects"
+ogImage: "/images/work-og-image.jpg"
+ogImageAlt: "Deepak Patil Portfolio Projects"
+jsonld: |
+  {
+          "@context": "https://schema.org",
+          "@type": "CollectionPage",
+          "name": "Portfolio Projects - Deepak Patil",
+          "description": "Explore Deepak Patil's portfolio of cloud architecture and DevOps projects. Featuring AWS, Terraform, CI/CD pipelines, and modern web technologies.",
+          "url": "https://deepakpatil.com/work/",
+          "mainEntity": {
+              "@type": "ItemList",
+              "name": "Portfolio Projects",
+              "description": "Collection of cloud architecture and DevOps projects",
+              "itemListElement": [
+                  {
+                      "@type": "CreativeWork",
+                      "name": "Personal Knowledge & Media Vault with Analytics",
+                      "description": "A comprehensive cloud-native system to store, analyze, and visualize personal files, notes, and media usage with automated tagging, search, and reporting capabilities.",
+                      "url": "https://deepakpatil.com/event-driven-serverless-pipeline/",
+                      "creator": {
+                          "@type": "Person",
+                          "name": "Deepak Patil"
+                      },
+                      "dateCreated": "2025",
+                      "keywords": ["Cloud Architecture", "AWS", "Lambda", "Rekognition", "Textract", "Transcribe", "Comprehend", "DynamoDB", "Athena", "QuickSight", "Step Functions"],
+                      "about": {
+                          "@type": "Thing",
+                          "name": "Cloud Architecture"
+                      }
+                  }
+              ]
+          },
+          "breadcrumb": {
+              "@type": "BreadcrumbList",
+              "itemListElement": [
+                  {
+                      "@type": "ListItem",
+                      "position": 1,
+                      "name": "Home",
+                      "item": "https://deepakpatil.com/"
+                  },
+                  {
+                      "@type": "ListItem",
+                      "position": 2,
+                      "name": "Work",
+                      "item": "https://deepakpatil.com/work/"
+                  }
+              ]
+              }
+          }
+---
+        <!-- Hero Section -->
+        <section class="py-32 px-6">
+            <div class="max-w-7xl mx-auto text-center">
+                <h1 class="text-6xl md:text-8xl font-apple-display font-bold tracking-tighter mb-8">Work</h1>
+                <p class="text-2xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
+                    A collection of projects that showcase thoughtful design, purposeful execution, and meaningful impact.
+                </p>
+            </div>
+        </section>
+
+        <!-- Projects Grid -->
+        <section class="pb-32 px-6">
+            <div class="max-w-6xl mx-auto">
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- Cloud Project -->
+                    <div class="project-card group cursor-pointer bg-white hover:shadow-xl transition-all duration-300 rounded-xl overflow-hidden border border-gray-100" onclick="window.location.href='/event-driven-serverless-pipeline/'">
+                        <div class="aspect-[4/3] bg-gradient-to-br from-blue-50 to-indigo-100 relative overflow-hidden">
+                            <div class="absolute inset-0 bg-gradient-to-br from-black/0 to-black/10 group-hover:from-black/5 group-hover:to-black/20 transition-all duration-300"></div>
+                            {% image "/images/Event-driven-serverless-pipeline-for-unstructured-data-on-aws.png", "Event-Driven Serverless Pipeline Architecture for Unstructured Data on AWS", "w-full h-full object-cover group-hover:scale-105 transition-transform duration-300", "(min-width: 1024px) 370px, (min-width: 768px) 350px, 100vw" %}
+                            <div class="absolute top-4 left-4">
+                                <span class="bg-white/90 backdrop-blur-sm px-2 py-1 rounded-full text-xs font-medium">
+                                    Cloud Architecture
+                                </span>
+                            </div>
+                            <div class="absolute top-4 right-4">
+                                <span class="bg-white/90 backdrop-blur-sm px-2 py-1 rounded-full text-xs font-medium">
+                                    2025
+                                </span>
+                            </div>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold mb-3 group-hover:text-gray-600 transition-colors">
+                                Event-Driven Serverless Pipeline for Unstructured Data on AWS
+                            </h3>
+                            <p class="text-gray-600 leading-relaxed text-sm mb-4">A comprehensive cloud-native system to store, analyze, and visualize personal files, notes, and media usage with automated tagging, search, and reporting capabilities.</p>
+                            <div class="flex flex-wrap gap-1 mb-4">
+                                <span class="bg-gray-100 px-2 py-1 rounded-full text-xs font-medium text-gray-700">AWS S3</span>
+                                <span class="bg-gray-100 px-2 py-1 rounded-full text-xs font-medium text-gray-700">Lambda</span>
+                                <span class="bg-gray-100 px-2 py-1 rounded-full text-xs font-medium text-gray-700">Rekognition</span>
+                                <span class="bg-gray-100 px-2 py-1 rounded-full text-xs font-medium text-gray-700">Textract</span>
+                                <span class="bg-gray-100 px-2 py-1 rounded-full text-xs font-medium text-gray-700">Transcribe</span>
+                                <span class="bg-gray-100 px-2 py-1 rounded-full text-xs font-medium text-gray-700">Comprehend</span>
+                                <span class="bg-gray-100 px-2 py-1 rounded-full text-xs font-medium text-gray-700">DynamoDB</span>
+                                <span class="bg-gray-100 px-2 py-1 rounded-full text-xs font-medium text-gray-700">Athena</span>
+                                <span class="bg-gray-100 px-2 py-1 rounded-full text-xs font-medium text-gray-700">QuickSight</span>
+                                <span class="bg-gray-100 px-2 py-1 rounded-full text-xs font-medium text-gray-700">Step Functions</span>
+                            </div>
+                            <div class="flex items-center text-black font-medium group-hover:text-gray-600 transition-colors text-sm">
+                                View Project Details
+                                <svg class="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- AI Document Chat Project -->
+                    <div class="project-card group cursor-pointer bg-white hover:shadow-xl transition-all duration-300 rounded-xl overflow-hidden border border-gray-100" onclick="window.location.href='/ai-document-summarizer-chat/'">
+                        <div class="aspect-[4/3] bg-gradient-to-br from-orange-50 to-blue-100 relative overflow-hidden">
+                            <div class="absolute inset-0 bg-gradient-to-br from-black/0 to-black/10 group-hover:from-black/5 group-hover:to-black/20 transition-all duration-300"></div>
+                            {% image "/images/document-analyzer.png", "AI-Powered Document Summarizer & Chat System Architecture", "w-full h-full object-cover group-hover:scale-105 transition-transform duration-300", "(min-width: 1024px) 370px, (min-width: 768px) 350px, 100vw" %}
+                            <div class="absolute top-4 left-4">
+                                <span class="bg-white/90 backdrop-blur-sm px-2 py-1 rounded-full text-xs font-medium">
+                                    AI & Machine Learning
+                                </span>
+                            </div>
+                            <div class="absolute top-4 right-4">
+                                <span class="bg-white/90 backdrop-blur-sm px-2 py-1 rounded-full text-xs font-medium">
+                                    2025
+                                </span>
+                            </div>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold mb-3 group-hover:text-gray-600 transition-colors">
+                                AI-Powered Document Summarizer & Chat – Serverless RAG System on AWS
+                            </h3>
+                            <p class="text-gray-600 leading-relaxed text-sm mb-4">Upload any document and instantly chat with it. Built with AWS Bedrock, Lambda, and DynamoDB — fully serverless and scalable.</p>
+                            <div class="flex flex-wrap gap-1 mb-4">
+                                <span class="bg-gray-100 px-2 py-1 rounded-full text-xs font-medium text-gray-700">AWS Bedrock</span>
+                                <span class="bg-gray-100 px-2 py-1 rounded-full text-xs font-medium text-gray-700">Lambda</span>
+                                <span class="bg-gray-100 px-2 py-1 rounded-full text-xs font-medium text-gray-700">DynamoDB</span>
+                                <span class="bg-gray-100 px-2 py-1 rounded-full text-xs font-medium text-gray-700">S3</span>
+                                <span class="bg-gray-100 px-2 py-1 rounded-full text-xs font-medium text-gray-700">Step Functions</span>
+                                <span class="bg-gray-100 px-2 py-1 rounded-full text-xs font-medium text-gray-700">API Gateway</span>
+                                <span class="bg-gray-100 px-2 py-1 rounded-full text-xs font-medium text-gray-700">CloudFront</span>
+                                <span class="bg-gray-100 px-2 py-1 rounded-full text-xs font-medium text-gray-700">Textract</span>
+                                <span class="bg-gray-100 px-2 py-1 rounded-full text-xs font-medium text-gray-700">Cognito</span>
+                            </div>
+                            <div class="flex items-center text-black font-medium group-hover:text-gray-600 transition-colors text-sm">
+                                View Project Details
+                                <svg class="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Process Section -->
+        <section class="py-32 px-6 bg-gray-50">
+            <div class="max-w-6xl mx-auto">
+                <div class="text-center mb-16 sm:mb-20">
+                    <div class="hero-pill inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full mb-6">
+                        <span class="hero-pulse-dot" aria-hidden="true"></span>
+                        <span class="text-sm font-medium">How I work</span>
+                    </div>
+                    <h2 class="text-4xl sm:text-5xl md:text-6xl font-apple-display font-bold tracking-tighter mb-6">My Process</h2>
+                    <p class="process-sub text-lg sm:text-xl max-w-2xl mx-auto">
+                        Every project follows a systematic engineering approach that ensures robust, scalable solutions.
+                    </p>
+                </div>
+
+                <div class="relative">
+                    <div class="process-line hidden lg:block" aria-hidden="true"></div>
+                    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                        <div class="process-card group">
+                            <div class="flex items-start justify-between mb-6">
+                                <span class="process-icon">
+                                    <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24" aria-hidden="true">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-4.35-4.35M17 10.5a6.5 6.5 0 11-13 0 6.5 6.5 0 0113 0z"></path>
+                                    </svg>
+                                </span>
+                                <span class="process-num" aria-hidden="true">01</span>
+                            </div>
+                            <h3 class="text-xl font-bold mb-3">Analyze</h3>
+                            <p class="text-gray-500 text-sm mb-5">Deep discovery before any code is written.</p>
+                            <ul class="process-list space-y-2.5">
+                                <li>Requirements &amp; constraint mapping</li>
+                                <li>Technical and cost feasibility</li>
+                                <li>Architecture trade-off analysis</li>
+                            </ul>
+                        </div>
+                        <div class="process-card group">
+                            <div class="flex items-start justify-between mb-6">
+                                <span class="process-icon">
+                                    <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24" aria-hidden="true">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"></path>
+                                    </svg>
+                                </span>
+                                <span class="process-num" aria-hidden="true">02</span>
+                            </div>
+                            <h3 class="text-xl font-bold mb-3">Architect</h3>
+                            <p class="text-gray-500 text-sm mb-5">A resilient blueprint that scales with you.</p>
+                            <ul class="process-list space-y-2.5">
+                                <li>Scalable system design</li>
+                                <li>Tech stack &amp; framework selection</li>
+                                <li>Security and high-availability planning</li>
+                            </ul>
+                        </div>
+                        <div class="process-card group">
+                            <div class="flex items-start justify-between mb-6">
+                                <span class="process-icon">
+                                    <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24" aria-hidden="true">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path>
+                                    </svg>
+                                </span>
+                                <span class="process-num" aria-hidden="true">03</span>
+                            </div>
+                            <h3 class="text-xl font-bold mb-3">Build</h3>
+                            <p class="text-gray-500 text-sm mb-5">Production-grade code, automated pipelines.</p>
+                            <ul class="process-list space-y-2.5">
+                                <li>Clean, tested, reviewable code</li>
+                                <li>Infrastructure as Code</li>
+                                <li>CI/CD pipeline automation</li>
+                            </ul>
+                        </div>
+                        <div class="process-card group">
+                            <div class="flex items-start justify-between mb-6">
+                                <span class="process-icon">
+                                    <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24" aria-hidden="true">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M15.59 14.37a6 6 0 01-5.84 7.38v-4.8m5.84-2.58a14.98 14.98 0 006.16-12.12A14.98 14.98 0 009.63 8.41m5.96 5.96a14.926 14.926 0 01-5.841 2.58m-.119-8.54a6 6 0 00-7.381 5.84h4.8m2.581-5.84a14.927 14.927 0 00-2.58 5.84m2.699 2.7c-.103.021-.207.041-.311.06a15.09 15.09 0 01-2.448-2.448 14.9 14.9 0 01.06-.312m-2.24 2.39a4.493 4.493 0 00-1.757 4.306 4.493 4.493 0 004.306-1.758M16.5 9a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0z"></path>
+                                    </svg>
+                                </span>
+                                <span class="process-num" aria-hidden="true">04</span>
+                            </div>
+                            <h3 class="text-xl font-bold mb-3">Deploy</h3>
+                            <p class="text-gray-500 text-sm mb-5">Ship safely, then watch and improve.</p>
+                            <ul class="process-list space-y-2.5">
+                                <li>Zero-downtime rollouts</li>
+                                <li>Monitoring &amp; observability</li>
+                                <li>Documentation and optimization</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA Section -->
+        <section class="py-32 px-6">
+            <div class="max-w-4xl mx-auto">
+                <div class="cta-card relative overflow-hidden rounded-3xl px-6 sm:px-12 py-16 sm:py-20 text-center">
+                    <div class="cta-dots absolute inset-0" aria-hidden="true"></div>
+                    <div class="cta-glow" aria-hidden="true"></div>
+
+                    <div class="relative">
+                        <div class="hero-pill inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full mb-8">
+                            <span class="hero-pulse-dot" aria-hidden="true"></span>
+                            <span class="text-sm font-medium">Currently accepting projects</span>
+                        </div>
+
+                        <h2 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-apple-display font-bold tracking-tighter mb-6">
+                            Ready to Start?
+                        </h2>
+                        <p class="cta-sub text-lg sm:text-xl mb-10 max-w-2xl mx-auto">
+                            Let's discuss your project and explore how thoughtful design can drive meaningful results.
+                        </p>
+
+                        <div class="flex flex-col sm:flex-row gap-4 justify-center items-center mb-10">
+                            <a href="/contact/" class="hero-btn-primary rounded-full px-8 sm:px-10 py-4 text-sm sm:text-base font-medium inline-flex items-center justify-center w-full sm:w-auto">
+                                Let's Work Together
+                                <svg class="ml-2 h-4 w-4 sm:h-5 sm:w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+                                </svg>
+                            </a>
+                            <a href="mailto:hi@deepakpatil.com" class="hero-btn-secondary rounded-full px-8 sm:px-10 py-4 text-sm sm:text-base font-medium inline-flex items-center justify-center w-full sm:w-auto">
+                                <svg class="mr-2 h-4 w-4 sm:h-5 sm:w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                                </svg>
+                                hi@deepakpatil.com
+                            </a>
+                        </div>
+
+                        <p class="text-sm text-gray-500 inline-flex items-center justify-center gap-1.5">
+                            <svg class="h-4 w-4 text-green-600" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
+                                <path fill-rule="evenodd" d="M16.7 5.3a1 1 0 010 1.4l-8 8a1 1 0 01-1.4 0l-4-4a1 1 0 111.4-1.4L8 12.6l7.3-7.3a1 1 0 011.4 0z" clip-rule="evenodd"></path>
+                            </svg>
+                            Usually responds within 24 hours
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    

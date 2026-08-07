@@ -1,0 +1,11 @@
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://deepakpatil.dev/sitemap.xml
+
+# Disallow private/API endpoints
+Disallow: /admin/
+Disallow: /private/
+Disallow: /*.json$
+

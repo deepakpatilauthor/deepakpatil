@@ -1,0 +1,18 @@
+---
+permalink: /api/posts.json
+eleventyExcludeFromCollections: true
+---
+[
+  {%- for post in collections.postsSorted %}
+  {
+    "title": {{ (post.data.cardTitle or post.data.title) | dump | safe }},
+    "url": {{ post.url | dump | safe }},
+    "date": {{ post.date | readableDate | dump | safe }},
+    "readTime": {{ (post.data.readTime or "") | dump | safe }},
+    "category": {{ (post.data.category or "") | dump | safe }},
+    "excerpt": {{ (post.data.excerpt or "") | dump | safe }},
+    "tags": {{ (post.data.tags or []) | dump | safe }},
+    "image": {{ (post.data.image | imageUrl) | dump | safe }}
+  }{% if not loop.last %},{% endif %}
+  {%- endfor %}
+]

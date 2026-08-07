@@ -1,0 +1,103 @@
+<!-- Complete Responsive Navigation Bar -->
+<nav class="bg-white shadow-sm border-b border-gray-200 fixed top-0 left-0 right-0 z-50" role="navigation" aria-label="Main navigation">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between items-center h-16">
+            <!-- Brand/Logo -->
+            <div class="flex-shrink-0">
+                <a href="/" class="text-xl font-bold text-black hover:text-gray-700 transition-colors duration-200" aria-label="Deepak Patil - Home">
+                    DEEPAK PATIL
+                </a>
+            </div>
+
+            <!-- Desktop Navigation -->
+            <div class="hidden md:block">
+                <div class="ml-10 flex items-baseline space-x-8" id="desktop-menu">
+                    {% for item in site.nav %}
+                    <a href="{{ item.url }}" class="{% if activeNav == item.key %}text-black font-semibold{% else %}text-gray-600 hover:text-black{% endif %} px-3 py-2 text-sm font-medium transition-colors duration-200">{{ item.label }}</a>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <!-- Right side: theme toggle + mobile menu button -->
+            <div class="flex items-center gap-2 md:gap-4">
+                <!-- Theme toggle (visible on all breakpoints) -->
+                <button
+                    id="theme-toggle"
+                    type="button"
+                    class="inline-flex items-center justify-center p-2 rounded-md text-gray-600 hover:text-black hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-black transition-colors duration-200"
+                    aria-label="Switch to dark mode"
+                    title="Toggle dark mode"
+                >
+                    <!-- Sun icon (shown in light mode → click for dark) -->
+                    <svg id="theme-icon-sun" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+                    </svg>
+                    <!-- Moon icon (shown in dark mode → click for light) -->
+                    <svg id="theme-icon-moon" class="h-5 w-5 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+                    </svg>
+                </button>
+
+                <!-- Mobile menu button -->
+                <div class="md:hidden">
+                    <button
+                        id="mobile-menu-button"
+                        type="button"
+                        class="inline-flex items-center justify-center p-2 rounded-md text-gray-600 hover:text-black hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-black transition-colors duration-200"
+                        aria-controls="mobile-menu"
+                        aria-expanded="false"
+                        aria-label="Toggle navigation menu"
+                    >
+                        <span class="sr-only">Open main menu</span>
+                        <!-- Hamburger icon -->
+                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile menu -->
+    <div id="mobile-menu" class="hidden md:hidden" role="menu" aria-labelledby="mobile-menu-button">
+        <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-white border-t border-gray-200 shadow-lg">
+            <!-- Close button -->
+            <div class="flex justify-end mb-2">
+                <button
+                    id="mobile-menu-close"
+                    type="button"
+                    class="inline-flex items-center justify-center p-2 rounded-md text-gray-600 hover:text-black hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-black transition-colors duration-200"
+                    aria-label="Close navigation menu"
+                >
+                    <span class="sr-only">Close menu</span>
+                    <!-- Close icon -->
+                    <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </button>
+            </div>
+
+            <!-- Mobile navigation links -->
+            {% for item in site.nav %}
+            <a href="{{ item.url }}" class="{% if activeNav == item.key %}bg-gray-100 text-black font-semibold{% else %}text-gray-600 hover:text-black hover:bg-gray-100{% endif %} block px-3 py-2 text-base font-medium rounded-md transition-colors duration-200" role="menuitem">{{ item.label }}</a>
+            {% endfor %}
+
+            <!-- Theme toggle row -->
+            <button
+                id="theme-toggle-mobile"
+                type="button"
+                class="w-full mt-2 flex items-center gap-3 px-3 py-2 text-base font-medium rounded-md text-gray-600 hover:text-black hover:bg-gray-100 transition-colors duration-200"
+                role="menuitem"
+            >
+                <svg id="theme-mobile-icon-sun" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+                </svg>
+                <svg id="theme-mobile-icon-moon" class="h-5 w-5 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+                </svg>
+                <span id="theme-toggle-mobile-label">Dark mode</span>
+            </button>
+        </div>
+    </div>
+</nav>

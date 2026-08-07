@@ -1,0 +1,20 @@
+{
+  "name": "Deepak Patil",
+  "url": "https://deepakpatil.com",
+  "lastmod": "2026-08-07",
+  "author": "Deepak Patil",
+  "email": "hi@deepakpatil.com",
+  "description": "Experienced Digital Engineer specializing in cloud architecture, DevOps, and full-stack development. Expert in AWS, Terraform, CI/CD pipelines, and modern web technologies.",
+  "twitter": "@deepakpatil",
+  "ogImage": "/images/og-image.jpg",
+  "ogImageWidth": 1200,
+  "ogImageHeight": 630,
+  "copyrightYear": 2026,
+  "nav": [
+    { "key": "index", "label": "Home", "url": "/" },
+    { "key": "about", "label": "About", "url": "/about/" },
+    { "key": "work", "label": "Work", "url": "/work/" },
+    { "key": "blog", "label": "Blog", "url": "/blog/" },
+    { "key": "contact", "label": "Contact", "url": "/contact/" }
+  ]
+}

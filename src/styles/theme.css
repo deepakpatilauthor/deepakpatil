@@ -1,0 +1,460 @@
+/* ============================================================
+   Theme system — semantic tokens + dark-mode overrides
+   Loaded AFTER main.css and tailwind.css so it wins the cascade.
+   All colors below come from the semantic tokens in :root /
+   [data-theme="dark"] — no hardcoded colors in this file except
+   the token definitions themselves.
+   ============================================================ */
+
+/* ---------- 1. Semantic tokens (WCAG AAA in both modes) ---------- */
+:root {
+  color-scheme: light;
+
+  /* Surfaces */
+  --bg-primary: #ffffff;   /* page background            (17.7:1 vs text) */
+  --bg-secondary: #f9fafb; /* alternating sections, footer (gray-50)      */
+  --bg-elevated: #ffffff;  /* cards, nav, "white" surfaces               */
+  --bg-elevated-2: #f3f4f6;/* chips, hover states (gray-100)             */
+
+  /* Text */
+  --text-primary: #111827;    /* headings / body       17.7:1  AAA */
+  --text-secondary: #4b5563;  /* secondary text         7.6:1  AAA */
+  --text-muted: #6b7280;      /* captions, meta        (4.8:1 AA — matches existing design) */
+
+  /* Borders & accents */
+  --border-color: #e5e7eb;
+  --link-color: #1e40af;      /* 8.5:1 AAA on --bg-primary */
+  --accent-bg: #111827;
+  --accent-text: #ffffff;
+
+  /* Homepage hero */
+  --hero-dot: #e2e8f0;
+  --hero-sub: #334155;
+  --hero-pill-bg: #f1f5f9;
+  --hero-pill-border: #e2e8f0;
+  --hero-pill-text: #475569;
+  --hero-btn-primary-bg: #0f172a;
+  --hero-btn-primary-text: #ffffff;
+  --hero-btn-primary-hover: #1e293b;
+  --hero-btn-secondary-border: #cbd5e1;
+  --hero-btn-secondary-hover-bg: #f8fafc;
+  --hero-btn-secondary-hover-border: #0f172a;
+}
+
+[data-theme="dark"] {
+  color-scheme: dark;
+
+  /* Surfaces */
+  --bg-primary: #0b1120;
+  --bg-secondary: #0f172a;
+  --bg-elevated: #111b31;
+  --bg-elevated-2: #1c2742;
+
+  /* Text */
+  --text-primary: #f1f5f9;    /* 17.2:1 AAA */
+  --text-secondary: #cbd5e1;  /* 12.7:1 AAA */
+  --text-muted: #94a3b8;      /*  7.3:1 AAA */
+
+  /* Borders & accents */
+  --border-color: #2c3a55;
+  --link-color: #93c5fd;      /* 10.4:1 AAA */
+  --accent-bg: #e5e7eb;
+  --accent-text: #0b1120;
+
+  /* Homepage hero */
+  --hero-dot: rgba(148, 163, 184, 0.2);
+  --hero-sub: #cbd5e1;
+  --hero-pill-bg: #1c2742;
+  --hero-pill-border: #334155;
+  --hero-pill-text: #cbd5e1;
+  --hero-btn-primary-bg: #e5e7eb;
+  --hero-btn-primary-text: #0b1120;
+  --hero-btn-primary-hover: #f1f5f9;
+  --hero-btn-secondary-border: #334155;
+  --hero-btn-secondary-hover-bg: #111b31;
+  --hero-btn-secondary-hover-border: #e2e8f0;
+}
+
+/* ---------- 2. Base element rules using the tokens ---------- */
+/* Page surface + text (overrides the hardcoded background in main.css) */
+body {
+  color: var(--text-primary);
+  background-color: var(--bg-primary);
+}
+[data-theme="dark"] body {
+  background: var(--bg-primary); /* kills main.css's transparent→white gradient */
+}
+
+/* Headings */
+h1, h2, h3, h4, h5, h6 {
+  color: var(--text-primary);
+}
+
+/* Links (only applies where no utility class sets the color) */
+a {
+  color: var(--link-color);
+}
+
+/* Form controls: visible text, distinct surface, themed border */
+input,
+textarea,
+select,
+button {
+  color: inherit;
+  background-color: transparent;
+}
+[data-theme="dark"] input,
+[data-theme="dark"] textarea,
+[data-theme="dark"] select {
+  background-color: var(--bg-elevated-2);
+  color: var(--text-primary);
+  border-color: var(--border-color);
+}
+[data-theme="dark"] ::placeholder {
+  color: var(--text-muted);
+}
+
+/* Text selection stays legible in both themes */
+::selection {
+  background-color: var(--link-color);
+  color: var(--bg-primary);
+}
+
+/* Native form controls & scrollbars follow the theme */
+[data-theme="dark"] * {
+  scrollbar-color: var(--border-color) var(--bg-primary);
+}
+
+/* ---------- 3. Dark-mode image & media handling ---------- */
+/* Pure-white screenshots/thumbnails would glare in dark mode, so subtly
+   dim and boost contrast. Override with a more specific rule if an image
+   must stay untouched (e.g. photos that are already dark). */
+[data-theme="dark"] img,
+[data-theme="dark"] video {
+  filter: brightness(0.85) contrast(1.1);
+}
+
+/* Optional: swap to a dark-specific image version using data-theme.
+   Pattern: ship BOTH images, hide the wrong one.
+   <picture class="theme-swap">
+     <img src="logo-light.png" alt="" data-theme-hide="dark">
+     <img src="logo-dark.png"  alt="" data-theme-hide="light">
+   </picture>
+[data-theme-hide="dark"][data-theme="dark"] ~ img,
+[data-theme="dark"] img[data-theme-hide="dark"],
+[data-theme="light"] img[data-theme-hide="light"] { display: none; } */
+
+/* ---------- 4. Dark-mode utility remapping ------------------------- */
+/* The templates use Tailwind utility colors (bg-white, text-gray-600, …).
+   Rather than editing 1,000+ class instances, remap the exact utilities the
+   site uses to semantic tokens. Only active under [data-theme="dark"], so
+   light mode is untouched. */
+
+/* Surfaces */
+[data-theme="dark"] .bg-white        { background-color: var(--bg-elevated); }
+[data-theme="dark"] .bg-white\/90    { background-color: rgba(17, 27, 49, 0.92); }
+[data-theme="dark"] .bg-white\/95    { background-color: rgba(17, 27, 49, 0.95); }
+[data-theme="dark"] .bg-gray-50      { background-color: var(--bg-secondary); }
+[data-theme="dark"] .bg-gray-100     { background-color: var(--bg-elevated-2); }
+[data-theme="dark"] .bg-gray-200     { background-color: var(--border-color); }
+[data-theme="dark"] .hover\:bg-gray-100:hover { background-color: var(--bg-elevated-2); }
+/* bg-gray-800/900 & bg-black stay dark (buttons, CTAs, pills) — text-white
+   on them keeps strong contrast in both themes. */
+
+/* Text */
+[data-theme="dark"] .text-black       { color: var(--text-primary); }
+[data-theme="dark"] .text-gray-700    { color: var(--text-primary); }
+[data-theme="dark"] .text-gray-800    { color: var(--text-primary); }
+[data-theme="dark"] .text-gray-900    { color: var(--text-primary); }
+[data-theme="dark"] .text-gray-600    { color: var(--text-secondary); }
+[data-theme="dark"] .text-gray-500    { color: var(--text-muted); }
+[data-theme="dark"] .text-gray-400    { color: var(--text-muted); }
+[data-theme="dark"] .text-gray-300    { color: var(--text-muted); }
+[data-theme="dark"] .hover\:text-black:hover  { color: var(--text-primary); }
+[data-theme="dark"] .hover\:text-gray-700:hover { color: var(--text-secondary); }
+[data-theme="dark"] .hover\:text-gray-900:hover { color: var(--text-primary); }
+[data-theme="dark"] .hover\:text-gray-600:hover { color: var(--text-secondary); }
+
+/* Brand accents (lighten so they stay legible on dark surfaces) */
+[data-theme="dark"] .text-green-500   { color: #4ade80; }
+[data-theme="dark"] .text-green-600   { color: #4ade80; }
+[data-theme="dark"] .text-green-700   { color: #86efac; }
+[data-theme="dark"] .text-green-800   { color: #86efac; }
+[data-theme="dark"] .text-blue-600    { color: #93c5fd; }
+[data-theme="dark"] .text-blue-700    { color: #93c5fd; }
+[data-theme="dark"] .text-blue-800    { color: #bfdbfe; }
+[data-theme="dark"] .text-purple-600  { color: #d8b4fe; }
+[data-theme="dark"] .text-purple-700  { color: #d8b4fe; }
+[data-theme="dark"] .text-purple-800  { color: #e9d5ff; }
+[data-theme="dark"] .text-orange-600  { color: #fdba74; }
+[data-theme="dark"] .text-orange-700  { color: #fdba74; }
+[data-theme="dark"] .text-orange-800  { color: #fed7aa; }
+[data-theme="dark"] .text-red-600     { color: #fca5a5; }
+[data-theme="dark"] .text-yellow-600  { color: #fde047; }
+[data-theme="dark"] .text-yellow-700  { color: #fde047; }
+[data-theme="dark"] .text-yellow-800  { color: #fef08a; }
+[data-theme="dark"] .text-cyan-600    { color: #67e8f9; }
+
+/* Soft chips & code tint backgrounds (dark translucent so text stays readable) */
+[data-theme="dark"] .bg-blue-50,   [data-theme="dark"] .bg-blue-100  { background-color: rgba(59, 130, 246, 0.16); }
+[data-theme="dark"] .bg-green-50,  [data-theme="dark"] .bg-green-100 { background-color: rgba(34, 197, 94, 0.16); }
+[data-theme="dark"] .bg-purple-50, [data-theme="dark"] .bg-purple-100 { background-color: rgba(168, 85, 247, 0.16); }
+[data-theme="dark"] .bg-orange-50, [data-theme="dark"] .bg-orange-100 { background-color: rgba(249, 115, 22, 0.16); }
+[data-theme="dark"] .bg-red-50,    [data-theme="dark"] .bg-red-100   { background-color: rgba(239, 68, 68, 0.16); }
+[data-theme="dark"] .bg-yellow-50, [data-theme="dark"] .bg-yellow-100 { background-color: rgba(234, 179, 8, 0.16); }
+[data-theme="dark"] .bg-cyan-50,   [data-theme="dark"] .bg-cyan-100  { background-color: rgba(6, 182, 212, 0.16); }
+
+/* Pastel gradient placeholders behind images → dark tints */
+[data-theme="dark"] .from-blue-100   { --tw-gradient-from: rgba(30, 64, 175, 0.35); }
+[data-theme="dark"] .from-blue-50    { --tw-gradient-from: rgba(30, 64, 175, 0.22); }
+[data-theme="dark"] .from-green-100  { --tw-gradient-from: rgba(22, 101, 52, 0.35); }
+[data-theme="dark"] .from-green-50   { --tw-gradient-from: rgba(22, 101, 52, 0.22); }
+[data-theme="dark"] .from-orange-50  { --tw-gradient-from: rgba(154, 52, 18, 0.22); }
+[data-theme="dark"] .from-purple-50  { --tw-gradient-from: rgba(107, 33, 168, 0.22); }
+[data-theme="dark"] .to-blue-100     { --tw-gradient-to: rgba(30, 64, 175, 0.35); }
+[data-theme="dark"] .to-indigo-100   { --tw-gradient-to: rgba(49, 46, 129, 0.35); }
+[data-theme="dark"] .to-indigo-200   { --tw-gradient-to: rgba(49, 46, 129, 0.35); }
+[data-theme="dark"] .to-emerald-100  { --tw-gradient-to: rgba(6, 95, 70, 0.35); }
+[data-theme="dark"] .to-emerald-200  { --tw-gradient-to: rgba(6, 95, 70, 0.35); }
+[data-theme="dark"] .to-pink-100     { --tw-gradient-to: rgba(159, 18, 57, 0.35); }
+
+/* Borders & focus rings (visible on dark surfaces) */
+[data-theme="dark"] .border-gray-100 { border-color: var(--border-color); }
+[data-theme="dark"] .border-gray-200 { border-color: var(--border-color); }
+[data-theme="dark"] .border-gray-300 { border-color: var(--border-color); }
+[data-theme="dark"] .border-black    { border-color: var(--border-color); }
+[data-theme="dark"] .divide-gray-200 > :not([hidden]) ~ :not([hidden]) { border-color: var(--border-color); }
+[data-theme="dark"] .ring-black      { --tw-ring-color: var(--link-color); }
+[data-theme="dark"] .focus\:ring-black:focus    { --tw-ring-color: var(--link-color); }
+[data-theme="dark"] .focus\:border-black:focus  { border-color: var(--link-color); }
+
+/* Brand logo uses the theme text color instead of the hardcoded #1C1C1C */
+[data-theme="dark"] .font-logo { color: var(--text-primary); }
+
+/* Faint editorial index numbers on cards (Core Principles) */
+.principle-index { color: #828ba0; }
+[data-theme="dark"] .principle-index { color: rgba(148, 163, 184, 0.45); }
+
+/* ---------- 5. Theme toggle button ---------- */
+#theme-toggle {
+  -webkit-tap-highlight-color: transparent;
+}
+#theme-toggle svg {
+  transition: transform 0.3s ease;
+}
+#theme-toggle.theme-toggling svg {
+  animation: theme-spin 0.4s ease;
+}
+@keyframes theme-spin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(180deg); }
+}
+
+/* ---------- 6. Homepage hero ---------- */
+.hero-dot-grid {
+  background-image: radial-gradient(var(--hero-dot) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+.hero-pill {
+  background-color: var(--hero-pill-bg);
+  border: 1px solid var(--hero-pill-border);
+  color: var(--hero-pill-text);
+}
+
+.hero-subtitle {
+  color: var(--hero-sub);
+}
+
+.hero-btn-primary {
+  background-color: var(--hero-btn-primary-bg);
+  color: var(--hero-btn-primary-text);
+  transition: transform 0.25s ease, box-shadow 0.25s ease, background-color 0.25s ease;
+}
+.hero-btn-primary:hover {
+  background-color: var(--hero-btn-primary-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 12px 24px -10px rgba(15, 23, 42, 0.45);
+}
+
+.hero-btn-secondary {
+  border: 1px solid var(--hero-btn-secondary-border);
+  color: var(--text-primary);
+  transition: transform 0.25s ease, box-shadow 0.25s ease, background-color 0.25s ease, border-color 0.25s ease;
+}
+.hero-btn-secondary:hover {
+  background-color: var(--hero-btn-secondary-hover-bg);
+  border-color: var(--hero-btn-secondary-hover-border);
+  transform: translateY(-2px);
+  box-shadow: 0 12px 24px -10px rgba(15, 23, 42, 0.35);
+}
+
+.hero-pulse-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 9999px;
+  background-color: #22c55e;
+  box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.5);
+  animation: hero-pulse 2.4s ease-out infinite;
+  flex-shrink: 0;
+}
+@keyframes hero-pulse {
+  0%   { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.5); }
+  70%  { box-shadow: 0 0 0 9px rgba(34, 197, 94, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0); }
+}
+
+/* ---------- 7. Company / tech logo chips (hero strip, experience) ---------- */
+.company-logo {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 6rem;
+  height: 3.25rem;
+  background-color: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.625rem;
+  padding: 0.5rem 0.625rem;
+  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.05);
+}
+.company-logo img {
+  max-height: 1.25rem;
+  max-width: 100%;
+  width: auto;
+  object-fit: contain;
+}
+[data-theme="dark"] .company-logo {
+  background-color: #ffffff;
+  border-color: #334155;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+}
+[data-theme="dark"] .company-logo img {
+  filter: none;
+}
+
+/* ---------- 8. Tech strip — bare monochrome logos on dot-grid ---------- */
+.tech-strip img {
+  opacity: 0.6;
+  filter: grayscale(100%);
+  transition: opacity 0.3s ease, filter 0.3s ease;
+}
+.tech-strip img:hover {
+  opacity: 1;
+}
+[data-theme="dark"] .tech-strip img {
+  opacity: 0.65;
+}
+
+/* ---------- 9. About-page CTA spotlight card ---------- */
+.cta-card {
+  background-color: var(--bg-elevated);
+  border: 1px solid var(--border-color);
+  box-shadow: 0 24px 60px -30px rgba(15, 23, 42, 0.2);
+}
+.cta-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 12%;
+  right: 12%;
+  height: 2px;
+  border-radius: 9999px;
+  background: linear-gradient(90deg, transparent, #22c55e, transparent);
+  opacity: 0.75;
+  pointer-events: none;
+}
+.cta-dots {
+  background-image: radial-gradient(var(--hero-dot) 1px, transparent 1px);
+  background-size: 24px 24px;
+  -webkit-mask-image: radial-gradient(ellipse 80% 70% at 50% 0%, black 40%, transparent 100%);
+          mask-image: radial-gradient(ellipse 80% 70% at 50% 0%, black 40%, transparent 100%);
+}
+.cta-glow {
+  position: absolute;
+  top: -140px;
+  left: 50%;
+  width: 640px;
+  height: 320px;
+  transform: translateX(-50%);
+  background: radial-gradient(ellipse at center, rgba(34, 197, 94, 0.18), transparent 70%);
+  filter: blur(10px);
+  pointer-events: none;
+}
+[data-theme="dark"] .cta-glow {
+  background: radial-gradient(ellipse at center, rgba(34, 197, 94, 0.16), transparent 70%);
+}
+.cta-sub {
+  color: var(--text-secondary);
+}
+
+/* ---------- 10. Work-page "My Process" ---------- */
+.process-card {
+  position: relative;
+  background-color: var(--bg-elevated);
+  border: 1px solid var(--border-color);
+  border-radius: 1.25rem;
+  padding: 1.75rem;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.process-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 40px -20px rgba(15, 23, 42, 0.25);
+}
+[data-theme="dark"] .process-num {
+  --process-num-color: rgba(148, 163, 184, 0.45);
+}
+.process-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 3.5rem;
+  height: 3.5rem;
+  border-radius: 1rem;
+  background-color: var(--bg-elevated-2);
+  color: var(--text-primary);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+.process-card:hover .process-icon {
+  background-color: #22c55e;
+  color: #ffffff;
+}
+.process-num {
+  font-size: 2.25rem;
+  line-height: 1;
+  font-weight: 700;
+  color: var(--process-num-color, #828ba0);
+  transition: color 0.3s ease;
+}
+.process-card:hover .process-num {
+  color: #22c55e;
+}
+.process-line {
+  position: absolute;
+  top: 3.5rem;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: repeating-linear-gradient(90deg, var(--border-color) 0 8px, transparent 8px 16px);
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+          mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+  pointer-events: none;
+}
+.process-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+}
+.process-list li::before {
+  content: "";
+  flex-shrink: 0;
+  width: 0.4rem;
+  height: 0.4rem;
+  margin-top: 0.42rem;
+  border-radius: 9999px;
+  background-color: #22c55e;
+}
+.process-sub {
+  color: var(--text-secondary);
+}

@@ -1,0 +1,19 @@
+node_modules/
+_site/
+.DS_Store
+
+# Environment / secrets
+.env
+.env.*
+*.local
+*.key
+*.pem
+
+# Logs
+*.log
+npm-debug.log*
+
+# Local dev artifacts
+screenshots/
+*.mjs.tmp
+favico.mjs
